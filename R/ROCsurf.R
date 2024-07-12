@@ -35,7 +35,7 @@
 dG<-function(x,alpha,beta){
   if(any(alpha<=0)) {stop(paste("alpha value must be greather than 0","\n",""))}
   if(any(beta<=0)) {stop(paste("beta value must be greather than 0","\n",""))}
-  pdf<-dgamma(x,shape=alpha,scale=beta)
+  pdf<-stats::dgamma(x,shape=alpha,scale=beta)
   return(pdf)
 }
 #' ROC Surface Analysis Under the Three-class Problems
@@ -48,7 +48,7 @@ dG<-function(x,alpha,beta){
 dW<- function(x,alpha,beta) {
   if(any(alpha<=0)) {stop(paste("alpha value must be greather than 0","\n",""))}
   if(any(beta<=0)) {stop(paste("beta value must be greather than 0","\n",""))}
-  pdf<-dweibull(x,shape=alpha,scale=beta)
+  pdf<-stats::dweibull(x,shape=alpha,scale=beta)
   return(pdf)
 }
 #' ROC Surface Analysis Under the Three-class Problems
@@ -61,7 +61,7 @@ dW<- function(x,alpha,beta) {
 dL<-function(z,alpha,beta){
   if(any(alpha<=0)) {stop(paste("alpha value must be greather than 0","\n",""))}
   if(any(beta<=0)) {stop(paste("beta value must be greather than 0","\n",""))}
-  pdf<-dlogis(z,location = alpha, scale = beta)
+  pdf<-stats::dlogis(z,location = alpha, scale = beta)
   return(pdf)
 }
 #' ROC Surface Analysis Under the Three-class Problems
@@ -74,7 +74,7 @@ dL<-function(z,alpha,beta){
 pG<-function(x,alpha,beta){
   if(any(alpha<=0)) {stop(paste("alpha value must be greather than 0","\n",""))}
   if(any(beta<=0)) {stop(paste("beta value must be greather than 0","\n",""))}
-  cdf<-pgamma(x,shape=alpha,scale=beta)
+  cdf<-stats::pgamma(x,shape=alpha,scale=beta)
   return(cdf)
 }
 #' ROC Surface Analysis Under the Three-class Problems
@@ -87,7 +87,7 @@ pG<-function(x,alpha,beta){
 pW<- function(y,alpha,beta) {
   if(any(alpha<=0)) {stop(paste("alpha value must be greather than 0","\n",""))}
   if(any(beta<=0)) {stop(paste("beta value must be greather than 0","\n",""))}
-  cdf<-pweibull(y,shape=alpha,scale=beta)
+  cdf<-stats::pweibull(y,shape=alpha,scale=beta)
   return(cdf)
 }
 #' ROC Surface Analysis Under the Three-class Problems
@@ -100,7 +100,7 @@ pW<- function(y,alpha,beta) {
 pL<- function(y,alpha,beta) {
   if(any(alpha<=0)) {stop(paste("alpha value must be greather than 0","\n",""))}
   if(any(beta<=0)) {stop(paste("beta value must be greather than 0","\n",""))}
-  cdf<-pweibull(y,shape=alpha,scale=beta)
+  cdf<-stats::pweibull(y,shape=alpha,scale=beta)
   return(cdf)
 }
 #' ROC Surface Analysis Under the Three-class Problems
@@ -114,7 +114,7 @@ qG<-function(p,alpha,beta){
   if(any(alpha<=0)) {stop(paste("alpha value must be greather than 0","\n",""))}
   if(any(beta<=0)) {stop(paste("beta value must be greather than 0","\n",""))}
   if(any(p<0)|any(p>1)) {stop("p must be between 0 and 1")}
-  quan<-qgamma(p,shape=alpha,scale=beta)
+  quan<-stats::qgamma(p,shape=alpha,scale=beta)
   return(quan)
 }
 #' ROC Surface Analysis Under the Three-class Problems
@@ -128,7 +128,7 @@ qW<-function(p,alpha,beta){
   if(any(alpha<=0)) {stop(paste("alpha value must be greather than 0","\n",""))}
   if(any(beta<=0)) {stop(paste("beta value must be greather than 0","\n",""))}
   if(any(p<0)|any(p>1)) {stop("p must be between 0 and 1")}
-  quan<-qweibull(p,shape=alpha,scale=beta)
+  quan<-stats::qweibull(p,shape=alpha,scale=beta)
   return(quan)
 }
 #' ROC Surface Analysis Under the Three-class Problems
@@ -142,7 +142,7 @@ qL<-function(p,alpha,beta){
   if(any(alpha<=0)) {stop(paste("alpha value must be greather than 0","\n",""))}
   if(any(beta<=0)) {stop(paste("beta value must be greather than 0","\n",""))}
   if(any(p<0)|any(p>1)) {stop("p must be between 0 and 1")}
-  quan<-qlogis(p,location = alpha, scale = beta)
+  quan<-stats::qlogis(p,location = alpha, scale = beta)
   return(quan)
 }
 #' ROC Surface Analysis Under the Three-class Problems
@@ -156,7 +156,7 @@ rG<-function(n,alpha,beta){
   if(any(n<1)) {stop(paste("n value must be >=1","\n",""))}
   if(any(alpha<=0)) {stop(paste("alpha value must be greather than 0","\n",""))}
   if(any(beta<=0)) {stop(paste("beta value must be greather than 0","\n",""))}
-  rnd<-rgamma(n,shape=alpha,scale=beta)
+  rnd<-stats::rgamma(n,shape=alpha,scale=beta)
   return(rnd)
 }
 #' ROC Surface Analysis Under the Three-class Problems
@@ -170,7 +170,7 @@ rW<-function(n,alpha,beta){
   if(any(n<1)) {stop(paste("n value must be >=1","\n",""))}
   if(any(alpha<=0)) {stop(paste("alpha value must be greather than 0","\n",""))}
   if(any(beta<=0)) {stop(paste("beta value must be greather than 0","\n",""))}
-  rnd<-rweibull(n,shape=alpha,scale=beta)
+  rnd<-stats::rweibull(n,shape=alpha,scale=beta)
   return(rnd)
 }
 #' ROC Surface Analysis Under the Three-class Problems
@@ -184,7 +184,7 @@ rL<-function(n,alpha,beta){
   if(any(n<1)) {stop(paste("n value must be >=1","\n",""))}
   if(any(alpha<=0)) {stop(paste("alpha value must be greather than 0","\n",""))}
   if(any(beta<=0)) {stop(paste("beta value must be greather than 0","\n",""))}
-  rnd<-rlogis(n,location = alpha, scale = beta)
+  rnd<-stats::rlogis(n,location = alpha, scale = beta)
   return(rnd)
 }
 ######## VUS########
