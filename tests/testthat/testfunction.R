@@ -19,6 +19,8 @@ test_that("Type, length and error checking of dG, dW and dL functions", {
   expect_error(dW(1:10, -1, 2), "alpha value must be greater than 0")
   expect_error(dW(1:10, 2, -1), "beta value must be greater than 0")
 
+
+
   # dL
   resultL <- dL(1:10, 2, 2)
   expect_type(resultL, "double")
