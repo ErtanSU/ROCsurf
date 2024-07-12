@@ -2,8 +2,7 @@ Package: ROCsurf
 Type: Package
 Title: ROC Surface Analysis Under the Three-class Problems
 Version: 0.1.0
-Authors@R: c(person("Ertan", "Akgenç",,"statistician.ertan@gmail.com",
-role=c("cre","aut","cph"),
+Authors@R: c(person("Ertan", "Akgenç",,"statistician.ertan@gmail.com",role=c("cre","aut","cph"),
         comment = "https://www.researchgate.net/profile/Ertan-Akgenc"),
         person("Coşkun", "Kuş",,"coskunkus@gmail.com",role=c("aut","ctb"),
         comment = "https://www.selcuk.edu.tr/Person/Detail/coskun"))   
@@ -13,7 +12,7 @@ Description: Receiver Operating Characteristic (ROC) analysis is performed
 assuming samples are from the proposed distributions. In addition, the volume 
 under the ROC surface and true positive fractions values are evaulated by 
 ROC surface analysis.  
-License: What license is it under?
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.2
