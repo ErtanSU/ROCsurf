@@ -21,6 +21,7 @@ test_that("Type, length and error checking of dG, dW and dL functions", {
 
 
 
+
   # dL
   resultL <- dL(1:10, 2, 2)
   expect_type(resultL, "double")
