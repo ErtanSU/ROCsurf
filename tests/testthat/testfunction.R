@@ -8,7 +8,7 @@ test_that("Type, length and error checking of dG, dW and dL functions", {
   expect_type(resultG, "double")
   expect_length(resultG, 10)
   expect_vector(resultG, ptype = double(), size = 10)
-  expect_error(dG(1:10, -1, 2), "alpha value must be greater than 0")
+  expect_error(dG(1:10, alpha=-1, beta=2), "alpha value must be greater than 0")
   expect_error(dG(1:10, 2, -1), "beta value must be greater than 0")
 
   # dW
@@ -138,7 +138,7 @@ test_that("function return a double or list",
             expect_type(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                                    y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
                                    z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),
-                                   true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(x),median(y)),
+                                   true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),
                                    model=c("GWL"),
                                    method=c("TRUE")), "double")
             expect_type(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),

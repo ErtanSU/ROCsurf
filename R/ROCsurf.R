@@ -33,8 +33,8 @@
 #' @examples
 #' dG(c(1,2,3,4,5,200,1000),alpha=6,beta=.8)
 dG<-function(x,alpha,beta){
-  if(any(alpha<=0)) {stop(paste("alpha value must be greather than 0","\n",""))}
-  if(any(beta<=0)) {stop(paste("beta value must be greather than 0","\n",""))}
+  if(any(alpha<=0)) {stop(paste("alpha value must be greater than 0","\n",""))}
+  if(any(beta<=0)) {stop(paste("beta value must be greater than 0","\n",""))}
   pdf<-stats::dgamma(x,shape=alpha,scale=beta)
   return(pdf)
 }
@@ -46,8 +46,8 @@ dG<-function(x,alpha,beta){
 #' @examples
 #' dW(c(1,2,3,4,5,200,10000),alpha=1,beta=2)
 dW<- function(x,alpha,beta) {
-  if(any(alpha<=0)) {stop(paste("alpha value must be greather than 0","\n",""))}
-  if(any(beta<=0)) {stop(paste("beta value must be greather than 0","\n",""))}
+  if(any(alpha<=0)) {stop(paste("alpha value must be greater than 0","\n",""))}
+  if(any(beta<=0)) {stop(paste("beta value must be greater than 0","\n",""))}
   pdf<-stats::dweibull(x,shape=alpha,scale=beta)
   return(pdf)
 }
@@ -59,8 +59,8 @@ dW<- function(x,alpha,beta) {
 #' @examples
 #' dL(c(1,2,3,4,5,200),alpha=1,beta=.1)
 dL<-function(z,alpha,beta){
-  if(any(alpha<=0)) {stop(paste("alpha value must be greather than 0","\n",""))}
-  if(any(beta<=0)) {stop(paste("beta value must be greather than 0","\n",""))}
+  if(any(alpha<=0)) {stop(paste("alpha value must be greater than 0","\n",""))}
+  if(any(beta<=0)) {stop(paste("beta value must be greater than 0","\n",""))}
   pdf<-stats::dlogis(z,location = alpha, scale = beta)
   return(pdf)
 }
@@ -72,8 +72,8 @@ dL<-function(z,alpha,beta){
 #' @examples
 #' pG(c(.5,1,2,3,4,25),alpha=6,beta=.8)
 pG<-function(x,alpha,beta){
-  if(any(alpha<=0)) {stop(paste("alpha value must be greather than 0","\n",""))}
-  if(any(beta<=0)) {stop(paste("beta value must be greather than 0","\n",""))}
+  if(any(alpha<=0)) {stop(paste("alpha value must be greater than 0","\n",""))}
+  if(any(beta<=0)) {stop(paste("beta value must be greater than 0","\n",""))}
   cdf<-stats::pgamma(x,shape=alpha,scale=beta)
   return(cdf)
 }
@@ -85,8 +85,8 @@ pG<-function(x,alpha,beta){
 #' @examples
 #' pW(c(.5,1,2,3,4,100),alpha=1,beta=2)
 pW<- function(y,alpha,beta) {
-  if(any(alpha<=0)) {stop(paste("alpha value must be greather than 0","\n",""))}
-  if(any(beta<=0)) {stop(paste("beta value must be greather than 0","\n",""))}
+  if(any(alpha<=0)) {stop(paste("alpha value must be greater than 0","\n",""))}
+  if(any(beta<=0)) {stop(paste("beta value must be greater than 0","\n",""))}
   cdf<-stats::pweibull(y,shape=alpha,scale=beta)
   return(cdf)
 }
@@ -98,8 +98,8 @@ pW<- function(y,alpha,beta) {
 #' @examples
 #' pL(c(.5,1,2),alpha=1,beta=.1)
 pL<- function(y,alpha,beta) {
-  if(any(alpha<=0)) {stop(paste("alpha value must be greather than 0","\n",""))}
-  if(any(beta<=0)) {stop(paste("beta value must be greather than 0","\n",""))}
+  if(any(alpha<=0)) {stop(paste("alpha value must be greater than 0","\n",""))}
+  if(any(beta<=0)) {stop(paste("beta value must be greater than 0","\n",""))}
   cdf<-stats::pweibull(y,shape=alpha,scale=beta)
   return(cdf)
 }
@@ -111,8 +111,8 @@ pL<- function(y,alpha,beta) {
 #' @examples
 #' qG(c(.9971,0.5,0.3),alpha=6,beta=.8)
 qG<-function(p,alpha,beta){
-  if(any(alpha<=0)) {stop(paste("alpha value must be greather than 0","\n",""))}
-  if(any(beta<=0)) {stop(paste("beta value must be greather than 0","\n",""))}
+  if(any(alpha<=0)) {stop(paste("alpha value must be greater than 0","\n",""))}
+  if(any(beta<=0)) {stop(paste("beta value must be greater than 0","\n",""))}
   if(any(p<0)|any(p>1)) {stop("p must be between 0 and 1")}
   quan<-stats::qgamma(p,shape=alpha,scale=beta)
   return(quan)
@@ -125,8 +125,8 @@ qG<-function(p,alpha,beta){
 #' @examples
 #' qW(c(.9971,0.5,0.3),alpha=1,beta=2)
 qW<-function(p,alpha,beta){
-  if(any(alpha<=0)) {stop(paste("alpha value must be greather than 0","\n",""))}
-  if(any(beta<=0)) {stop(paste("beta value must be greather than 0","\n",""))}
+  if(any(alpha<=0)) {stop(paste("alpha value must be greater than 0","\n",""))}
+  if(any(beta<=0)) {stop(paste("beta value must be greater than 0","\n",""))}
   if(any(p<0)|any(p>1)) {stop("p must be between 0 and 1")}
   quan<-stats::qweibull(p,shape=alpha,scale=beta)
   return(quan)
@@ -139,8 +139,8 @@ qW<-function(p,alpha,beta){
 #' @examples
 #' qL(c(.9971,0.5,0.3),alpha=1,beta=.1)
 qL<-function(p,alpha,beta){
-  if(any(alpha<=0)) {stop(paste("alpha value must be greather than 0","\n",""))}
-  if(any(beta<=0)) {stop(paste("beta value must be greather than 0","\n",""))}
+  if(any(alpha<=0)) {stop(paste("alpha value must be greater than 0","\n",""))}
+  if(any(beta<=0)) {stop(paste("beta value must be greater than 0","\n",""))}
   if(any(p<0)|any(p>1)) {stop("p must be between 0 and 1")}
   quan<-stats::qlogis(p,location = alpha, scale = beta)
   return(quan)
@@ -154,8 +154,8 @@ qL<-function(p,alpha,beta){
 rG<-function(n,alpha,beta){
   n<-base::floor(n)
   if(any(n<1)) {stop(paste("n value must be >=1","\n",""))}
-  if(any(alpha<=0)) {stop(paste("alpha value must be greather than 0","\n",""))}
-  if(any(beta<=0)) {stop(paste("beta value must be greather than 0","\n",""))}
+  if(any(alpha<=0)) {stop(paste("alpha value must be greater than 0","\n",""))}
+  if(any(beta<=0)) {stop(paste("beta value must be greater than 0","\n",""))}
   rnd<-stats::rgamma(n,shape=alpha,scale=beta)
   return(rnd)
 }
@@ -168,8 +168,8 @@ rG<-function(n,alpha,beta){
 rW<-function(n,alpha,beta){
   n<-base::floor(n)
   if(any(n<1)) {stop(paste("n value must be >=1","\n",""))}
-  if(any(alpha<=0)) {stop(paste("alpha value must be greather than 0","\n",""))}
-  if(any(beta<=0)) {stop(paste("beta value must be greather than 0","\n",""))}
+  if(any(alpha<=0)) {stop(paste("alpha value must be greater than 0","\n",""))}
+  if(any(beta<=0)) {stop(paste("beta value must be greater than 0","\n",""))}
   rnd<-stats::rweibull(n,shape=alpha,scale=beta)
   return(rnd)
 }
@@ -182,8 +182,8 @@ rW<-function(n,alpha,beta){
 rL<-function(n,alpha,beta){
   n<-base::floor(n)
   if(any(n<1)) {stop(paste("n value must be >=1","\n",""))}
-  if(any(alpha<=0)) {stop(paste("alpha value must be greather than 0","\n",""))}
-  if(any(beta<=0)) {stop(paste("beta value must be greather than 0","\n",""))}
+  if(any(alpha<=0)) {stop(paste("alpha value must be greater than 0","\n",""))}
+  if(any(beta<=0)) {stop(paste("beta value must be greater than 0","\n",""))}
   rnd<-stats::rlogis(n,location = alpha, scale = beta)
   return(rnd)
 }
@@ -212,12 +212,12 @@ r.tc_vus<- function(x,y,z,
   beta2<-init_param[[4]]
   alpha3<-init_param[[5]]
   beta3<-init_param[[6]]
-  if(any(alpha1<=0)) {stop(paste("alpha1 value must be greather than 0","\n",""))}
-  if(any(beta1<=0)) {stop(paste("beta1 value must be greather than 0","\n",""))}
-  if(any(alpha2<=0)) {stop(paste("alpha2 value must be greather than 0","\n",""))}
-  if(any(beta2<=0)) {stop(paste("beta2 value must be greather than 0","\n",""))}
-  if(any(alpha3<=0)) {stop(paste("alpha3 value must be greather than 0","\n",""))}
-  if(any(beta3<=0)) {stop(paste("beta3 value must be greather than 0","\n",""))}
+  if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+  if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+  if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+  if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+  if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+  if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
   model<- base::match.arg(model)
   method<- base::match.arg(method)
   if (model=="GWL") {
@@ -461,12 +461,12 @@ r.tc_vus<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greather than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greather than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greather than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greather than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greather than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greather than 0","\n",""))}
+      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       pracma::integral2(function(c1,c2) {
         vus<-(pW(qL(1-c2,alpha3,beta3),alpha2,beta2)-pW(qG(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
@@ -715,12 +715,12 @@ r.tc_vus<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greather than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greather than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greather than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greather than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greather than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greather than 0","\n",""))}
+      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       pracma::integral2(function(c1,c2) {
         vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qG(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
@@ -971,12 +971,12 @@ r.tc_vus<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greather than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greather than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greather than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greather than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greather than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greather than 0","\n",""))}
+      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       pracma::integral2(function(c1,c2) {
         vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-pL(qG(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
@@ -1227,12 +1227,12 @@ r.tc_vus<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greather than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greather than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greather than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greather than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greather than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greather than 0","\n",""))}
+      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       pracma::integral2(function(c1,c2) {
         vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qW(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
@@ -1481,12 +1481,12 @@ r.tc_vus<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greather than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greather than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greather than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greather than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greather than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greather than 0","\n",""))}
+      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       pracma::integral2(function(c1,c2) {
         vus<-(pW(qW(1-c2,alpha3,beta3),alpha2,beta2)-pW(qW(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
@@ -1735,12 +1735,12 @@ r.tc_vus<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greather than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greather than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greather than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greather than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greather than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greather than 0","\n",""))}
+      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       pracma::integral2(function(c1,c2) {
         vus<-(pG(qG(1-c2,alpha3,beta3),alpha2,beta2)-pG(qG(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
@@ -1989,12 +1989,12 @@ r.tc_vus<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greather than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greather than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greather than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greather than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greather than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greather than 0","\n",""))}
+      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       pracma::integral2(function(c1,c2) {
         vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-pL(qL(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
@@ -2032,12 +2032,12 @@ r.tc_index<- function(x,y,z,
   beta2<-init_param[[4]]
   alpha3<-init_param[[5]]
   beta3<-init_param[[6]]
-  if(any(alpha1<=0)) {stop(paste("alpha1 value must be greather than 0","\n",""))}
-  if(any(beta1<=0)) {stop(paste("beta1 value must be greather than 0","\n",""))}
-  if(any(alpha2<=0)) {stop(paste("alpha2 value must be greather than 0","\n",""))}
-  if(any(beta2<=0)) {stop(paste("beta2 value must be greather than 0","\n",""))}
-  if(any(alpha3<=0)) {stop(paste("alpha3 value must be greather than 0","\n",""))}
-  if(any(beta3<=0)) {stop(paste("beta3 value must be greather than 0","\n",""))}
+  if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+  if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+  if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+  if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+  if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+  if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
   model<- base::match.arg(model)
   method<- base::match.arg(method)
 
@@ -2636,12 +2636,12 @@ r.tc_index<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greather than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greather than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greather than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greather than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greather than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greather than 0","\n",""))}
+      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -3313,12 +3313,12 @@ r.tc_index<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greather than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greather than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greather than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greather than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greather than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greather than 0","\n",""))}
+      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -3991,12 +3991,12 @@ r.tc_index<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greather than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greather than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greather than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greather than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greather than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greather than 0","\n",""))}
+      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -4669,12 +4669,12 @@ r.tc_index<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greather than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greather than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greather than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greather than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greather than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greather than 0","\n",""))}
+      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -5347,12 +5347,12 @@ r.tc_index<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greather than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greather than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greather than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greather than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greather than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greather than 0","\n",""))}
+      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -6025,12 +6025,12 @@ r.tc_index<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greather than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greather than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greather than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greather than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greather than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greather than 0","\n",""))}
+      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -6703,12 +6703,12 @@ r.tc_index<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greather than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greather than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greather than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greather than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greather than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greather than 0","\n",""))}
+      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -6813,12 +6813,12 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
   beta2<-init_param[[4]]
   alpha3<-init_param[[5]]
   beta3<-init_param[[6]]
-  if(any(alpha1<=0)) {stop(paste("alpha1 value must be greather than 0","\n",""))}
-  if(any(beta1<=0)) {stop(paste("beta1 value must be greather than 0","\n",""))}
-  if(any(alpha2<=0)) {stop(paste("alpha2 value must be greather than 0","\n",""))}
-  if(any(beta2<=0)) {stop(paste("beta2 value must be greather than 0","\n",""))}
-  if(any(alpha3<=0)) {stop(paste("alpha3 value must be greather than 0","\n",""))}
-  if(any(beta3<=0)) {stop(paste("beta3 value must be greather than 0","\n",""))}
+  if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+  if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+  if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+  if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+  if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+  if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
   model<- base::match.arg(model)
   method<- base::match.arg(method)
 
@@ -7412,12 +7412,12 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greather than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greather than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greather than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greather than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greather than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greather than 0","\n",""))}
+      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
 
       c1 <- seq(0.00001, 1, length.out = 100)
       c2 <- seq(0.00001, 1, length.out = 100)
@@ -8040,12 +8040,12 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greather than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greather than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greather than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greather than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greather than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greather than 0","\n",""))}
+      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
 
 
       c1 <- seq(0.00001, 1, length.out = 100)
@@ -8669,12 +8669,12 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greather than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greather than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greather than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greather than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greather than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greather than 0","\n",""))}
+      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       if (empirical==TRUE) {
 
 
@@ -9299,12 +9299,12 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         beta2<-true_param[[4]]
         alpha3<-true_param[[5]]
         beta3<-true_param[[6]]
-        if(any(alpha1<=0)) {stop(paste("alpha1 value must be greather than 0","\n",""))}
-        if(any(beta1<=0)) {stop(paste("beta1 value must be greather than 0","\n",""))}
-        if(any(alpha2<=0)) {stop(paste("alpha2 value must be greather than 0","\n",""))}
-        if(any(beta2<=0)) {stop(paste("beta2 value must be greather than 0","\n",""))}
-        if(any(alpha3<=0)) {stop(paste("alpha3 value must be greather than 0","\n",""))}
-        if(any(beta3<=0)) {stop(paste("beta3 value must be greather than 0","\n",""))}
+        if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+        if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+        if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+        if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+        if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+        if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
 
 
         c1 <- seq(0.00001, 1, length.out = 100)
@@ -9928,12 +9928,12 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         beta2<-true_param[[4]]
         alpha3<-true_param[[5]]
         beta3<-true_param[[6]]
-        if(any(alpha1<=0)) {stop(paste("alpha1 value must be greather than 0","\n",""))}
-        if(any(beta1<=0)) {stop(paste("beta1 value must be greather than 0","\n",""))}
-        if(any(alpha2<=0)) {stop(paste("alpha2 value must be greather than 0","\n",""))}
-        if(any(beta2<=0)) {stop(paste("beta2 value must be greather than 0","\n",""))}
-        if(any(alpha3<=0)) {stop(paste("alpha3 value must be greather than 0","\n",""))}
-        if(any(beta3<=0)) {stop(paste("beta3 value must be greather than 0","\n",""))}
+        if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+        if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+        if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+        if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+        if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+        if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
 
 
         c1 <- seq(0.00001, 1, length.out = 100)
@@ -10557,12 +10557,12 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         beta2<-true_param[[4]]
         alpha3<-true_param[[5]]
         beta3<-true_param[[6]]
-        if(any(alpha1<=0)) {stop(paste("alpha1 value must be greather than 0","\n",""))}
-        if(any(beta1<=0)) {stop(paste("beta1 value must be greather than 0","\n",""))}
-        if(any(alpha2<=0)) {stop(paste("alpha2 value must be greather than 0","\n",""))}
-        if(any(beta2<=0)) {stop(paste("beta2 value must be greather than 0","\n",""))}
-        if(any(alpha3<=0)) {stop(paste("alpha3 value must be greather than 0","\n",""))}
-        if(any(beta3<=0)) {stop(paste("beta3 value must be greather than 0","\n",""))}
+        if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+        if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+        if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+        if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+        if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+        if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
 
 
         c1 <- seq(0.00001, 1, length.out = 100)
@@ -11186,12 +11186,12 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         beta2<-true_param[[4]]
         alpha3<-true_param[[5]]
         beta3<-true_param[[6]]
-        if(any(alpha1<=0)) {stop(paste("alpha1 value must be greather than 0","\n",""))}
-        if(any(beta1<=0)) {stop(paste("beta1 value must be greather than 0","\n",""))}
-        if(any(alpha2<=0)) {stop(paste("alpha2 value must be greather than 0","\n",""))}
-        if(any(beta2<=0)) {stop(paste("beta2 value must be greather than 0","\n",""))}
-        if(any(alpha3<=0)) {stop(paste("alpha3 value must be greather than 0","\n",""))}
-        if(any(beta3<=0)) {stop(paste("beta3 value must be greather than 0","\n",""))}
+        if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+        if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+        if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+        if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+        if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+        if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
 
 
         c1 <- seq(0.00001, 1, length.out = 100)
