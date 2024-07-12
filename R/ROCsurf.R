@@ -5,7 +5,7 @@
 #' @name ROCsurf
 #' @param x,y,z vector of quantiles.
 #' @param p vector of probabilities.
-#' @param n number of observations. If \code{length(n) > 1}, the length is taken
+#' @param n number of observations. If `length(n) > 1`, the length is taken
 #'  to be the number required.
 #' @param alpha shape parameter.
 #' @param beta scale parameter.
@@ -28,7 +28,7 @@
 #' dsadasd
 #' @references
 #' asdasda
-#' @return  \code{dG} gives the probability density function of Gamma
+#' @return  `dG` gives the probability density function of Gamma
 #' Distribution.
 #' @examples
 #' dG(c(1,2,3,4,5,200,1000),alpha=6,beta=.8)
@@ -41,7 +41,7 @@ dG<-function(x,alpha,beta){
 #' ROC Surface Analysis Under the Three-class Problems
 #' @export
 #' @rdname ROCsurf
-#' @return \code{dW} gives the probability density function of Weibull
+#' @return `dW` gives the probability density function of Weibull
 #' Distribution.
 #' @examples
 #' dW(c(1,2,3,4,5,200,10000),alpha=1,beta=2)
@@ -54,7 +54,7 @@ dW<- function(x,alpha,beta) {
 #' ROC Surface Analysis Under the Three-class Problems
 #' @export
 #' @rdname ROCsurf
-#' @return \code{dL} gives the probability density function of Logistic
+#' @return `dL` gives the probability density function of Logistic
 #' Distribution.
 #' @examples
 #' dL(c(1,2,3,4,5,200),alpha=1,beta=.1)
@@ -67,7 +67,7 @@ dL<-function(z,alpha,beta){
 #' ROC Surface Analysis Under the Three-class Problems
 #' @export
 #' @rdname ROCsurf
-#' @return \code{pG} gives the cumulative density function of
+#' @return `pG` gives the cumulative density function of
 #' Gamma Distribution.
 #' @examples
 #' pG(c(.5,1,2,3,4,25),alpha=6,beta=.8)
@@ -80,7 +80,7 @@ pG<-function(x,alpha,beta){
 #' ROC Surface Analysis Under the Three-class Problems
 #' @export
 #' @rdname ROCsurf
-#' @return \code{pW} gives the cumulative density function of
+#' @return `pW` gives the cumulative density function of
 #' Weibull Distribution.
 #' @examples
 #' pW(c(.5,1,2,3,4,100),alpha=1,beta=2)
@@ -93,7 +93,7 @@ pW<- function(y,alpha,beta) {
 #' ROC Surface Analysis Under the Three-class Problems
 #' @export
 #' @rdname ROCsurf
-#' @return \code{pL} gives the cumulative density function of
+#' @return `pL` gives the cumulative density function of
 #' Logistic Distribution.
 #' @examples
 #' pL(c(.5,1,2),alpha=1,beta=.1)
@@ -106,7 +106,7 @@ pL<- function(y,alpha,beta) {
 #' ROC Surface Analysis Under the Three-class Problems
 #' @export
 #' @rdname ROCsurf
-#' @return \code{qG} gives the quantile function of
+#' @return `qG` gives the quantile function of
 #' Gamma Distribution.
 #' @examples
 #' qG(c(.9971,0.5,0.3),alpha=6,beta=.8)
@@ -120,7 +120,7 @@ qG<-function(p,alpha,beta){
 #' ROC Surface Analysis Under the Three-class Problems
 #' @export
 #' @rdname ROCsurf
-#' @return \code{qW} gives the quantile function of
+#' @return `qW` gives the quantile function of
 #' Weibull Distribution.
 #' @examples
 #' qW(c(.9971,0.5,0.3),alpha=1,beta=2)
@@ -134,7 +134,7 @@ qW<-function(p,alpha,beta){
 #' ROC Surface Analysis Under the Three-class Problems
 #' @export
 #' @rdname ROCsurf
-#' @return \code{qL} gives the quantile function of
+#' @return `qL` gives the quantile function of
 #' Logistic Distribution.
 #' @examples
 #' qL(c(.9971,0.5,0.3),alpha=1,beta=.1)
@@ -148,7 +148,7 @@ qL<-function(p,alpha,beta){
 #' ROC Surface Analysis Under the Three-class Problems
 #' @export
 #' @rdname ROCsurf
-#' @return \code{rG} gives random numbers from Gamma Distribution.
+#' @return `rG` gives random numbers from Gamma Distribution.
 #' @examples
 #' rG(10,alpha=6,beta=.8)
 rG<-function(n,alpha,beta){
@@ -162,7 +162,7 @@ rG<-function(n,alpha,beta){
 #' ROC Surface Analysis Under the Three-class Problems
 #' @export
 #' @rdname ROCsurf
-#' @return \code{rW} gives random numbers from Weibull Distribution.
+#' @return `rW` gives random numbers from Weibull Distribution.
 #' @examples
 #' rW(10,alpha=1,beta=2)
 rW<-function(n,alpha,beta){
@@ -176,7 +176,7 @@ rW<-function(n,alpha,beta){
 #' ROC Surface Analysis Under the Three-class Problems
 #' @export
 #' @rdname ROCsurf
-#' @return \code{rL} gives random numbers from Logistic Distribution.
+#' @return `rL` gives random numbers from Logistic Distribution.
 #' @examples
 #' rL(10,alpha=1,beta=.1)
 rL<-function(n,alpha,beta){
@@ -191,7 +191,7 @@ rL<-function(n,alpha,beta){
 #' ROC Surface Analysis Under the Three-class Problems
 #' @export
 #' @rdname ROCsurf
-#' @return \code{r.tc_vus} gives the Volume Under the Surface (VUS) when the
+#' @return `r.tc_vus` gives the Volume Under the Surface (VUS) when the
 #' data conforms to the proposed three distributions.
 #' @examples
 #' r.tc_vus(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
@@ -2009,7 +2009,7 @@ r.tc_vus<- function(x,y,z,
 #' ROC Surface Analysis Under the Three-class Problems
 #' @export
 #' @rdname ROCsurf
-#' @return \code{r.tc_index} gives index values when the
+#' @return `r.tc_index` gives index values when the
 #' data conforms to the proposed three distributions.
 #' @examples
 #' r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
@@ -6793,7 +6793,7 @@ r.tc_index<- function(x,y,z,
 #' ROC Surface Analysis Under the Three-class Problems
 #' @export
 #' @rdname ROCsurf
-#' @return \code{r.tc_graph} gives the ROC curve when the data conforms to the
+#' @return `r.tc_graph` gives the ROC curve when the data conforms to the
 #' proposed three distributions.
 #' @examples
 #' \donttest{x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)}
