@@ -359,7 +359,14 @@ test_that("functions returns a list with the specified length", {
                                0.7594201, 0.3714640),
                            z=c(3.485613, 4.939489, 6.072339,
                                3.995163, 2.893617),
-                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),
+                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,
+                                        alpha3=1,beta3=1),
+                           init_index=c(median(c(0.7736414, 1.0131692,
+                                                 0.8667612, 1.0066519,
+                                                 1.0372385)),
+                                        median(c(1.5200108, 0.0617668,
+                                                 6.0647578, 0.7594201,
+                                                 0.3714640))),
                            model=c("WWW"),
                            method=c("TRUE")), 25)
   expect_length(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612,
@@ -917,7 +924,11 @@ test_that("functions returns error", {
                               2.893617), true_param  = c(1, -1, 1, 1, 1, 1),
                           init_index = c(median(c(0.7736414, 1.0131692,
                                                   0.8667612, 1.0066519,
-                                                  1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GWL",method="TRUE"), "beta1 value must be greater than 0")
+                                                  1.0372385)),
+                                         median(c(1.5200108, 0.0617668,
+                                                  6.0647578, 0.7594201,
+                                                  0.3714640))),model="GWL",
+                          method="TRUE"), "beta1 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519,
                                1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201,
@@ -930,7 +941,7 @@ test_that("functions returns error", {
                                           median(c(1.5200108, 0.0617668,
                                                    6.0647578, 0.7594201,
                                                    0.3714640))),model="GWL",
-                           method="TRUE"), "alpha2 value must be greater than 0")
+                          method="TRUE"), "alpha2 value must be greater than 0")
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519,
                               1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201,
@@ -1589,7 +1600,7 @@ test_that("functions returns error", {
                                           median(c(1.5200108, 0.0617668,
                                                    6.0647578, 0.7594201,
                                                    0.3714640))),model="WWW",
-                           method="TRUE"), "alpha2 value must be greater than 0")
+                         method="TRUE"), "alpha2 value must be greater than 0")
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519,
                               1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201,
@@ -1751,7 +1762,7 @@ test_that("functions returns error", {
                                           median(c(1.5200108, 0.0617668,
                                                    6.0647578, 0.7594201,
                                                    0.3714640))),model="GGG",
-                           method="TRUE"), "alpha2 value must be greater than 0")
+                          method="TRUE"), "alpha2 value must be greater than 0")
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519,
                               1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201,

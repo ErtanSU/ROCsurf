@@ -226,7 +226,7 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
 
 
     if (method=="MLE") {
-      lfxyz=function(par) {
+      lfxyz<-function(par) {
         alpha1<-par[1]
         beta1<-par[2]
         alpha2<-par[3]
@@ -296,7 +296,7 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
       adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
-      adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
+      adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
@@ -492,7 +492,7 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
 
 
     if (method=="MLE") {
-      lfxyz=function(par) {
+      lfxyz<-function(par) {
         alpha1<-par[1]
         beta1<-par[2]
         alpha2<-par[3]
@@ -561,7 +561,7 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
       adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
-      adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
+      adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
@@ -759,7 +759,7 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
   else if (model=="GLL") {
 
     if (method=="MLE") {
-      lfxyz=function(par) {
+      lfxyz<-function(par) {
         alpha1<-par[1]
         beta1<-par[2]
         alpha2<-par[3]
@@ -828,7 +828,7 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
       adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
-      adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
+      adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
      stop("Optimization did not converge.Please check your initial parameters.")
@@ -1026,7 +1026,7 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
   else if (model=="WGW") {
 
     if (method=="MLE") {
-      lfxyz=function(par) {
+      lfxyz<-function(par) {
         alpha1<-par[1]
         beta1<-par[2]
         alpha2<-par[3]
@@ -1095,7 +1095,7 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
       adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
-      adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
+      adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
      stop("Optimization did not converge.Please check your initial parameters.")
@@ -1291,7 +1291,7 @@ if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
   else if (model=="WWW") {
 
     if (method=="MLE") {
-      lfxyz=function(par) {
+      lfxyz<-function(par) {
         alpha1<-par[1]
         beta1<-par[2]
         alpha2<-par[3]
@@ -1360,7 +1360,7 @@ if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
       adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
-      adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
+      adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
    stop("Optimization did not converge.Please check your initial parameters.")
@@ -1556,7 +1556,7 @@ if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
   else if (model=="GGG") {
 
     if (method=="MLE") {
-      lfxyz=function(par) {
+      lfxyz<-function(par) {
         alpha1<-par[1]
         beta1<-par[2]
         alpha2<-par[3]
@@ -1625,7 +1625,7 @@ if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
       adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
-      adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
+      adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
    stop("Optimization did not converge.Please check your initial parameters.")
@@ -1821,7 +1821,7 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
   else if (model=="LLL") {
 
     if (method=="MLE") {
-      lfxyz=function(par) {
+      lfxyz<-function(par) {
         alpha1<-par[1]
         beta1<-par[2]
         alpha2<-par[3]
@@ -1890,7 +1890,7 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
       adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
-      adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
+      adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
@@ -2129,7 +2129,7 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
 
   if (model=="GWL") {
     if (method=="MLE") {
-      lfxyz=function(par) {
+      lfxyz<-function(par) {
         alpha1<-par[1]
         beta1<-par[2]
         alpha2<-par[3]
@@ -2281,7 +2281,7 @@ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
       adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
-      adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
+      adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
  stop("Optimization did not converge.Please check your initial parameters.")
@@ -2893,7 +2893,7 @@ EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
   }
   else if (model=="GGW") {
     if (method=="MLE") {
-      lfxyz=function(par) {
+      lfxyz<-function(par) {
         alpha1<-par[1]
         beta1<-par[2]
         alpha2<-par[3]
@@ -3047,7 +3047,7 @@ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
       adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
-      adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
+      adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
    stop("Optimization did not converge.Please check your initial parameters.")
@@ -3660,7 +3660,7 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
   }
   else if (model=="GLL") {
     if (method=="MLE") {
-      lfxyz=function(par) {
+      lfxyz<-function(par) {
         alpha1<-par[1]
         beta1<-par[2]
         alpha2<-par[3]
@@ -3813,7 +3813,7 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
       adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
-      adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
+      adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
@@ -4427,7 +4427,7 @@ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
   }
   else if (model=="WGW") {
     if (method=="MLE") {
-      lfxyz=function(par) {
+      lfxyz<-function(par) {
         alpha1<-par[1]
         beta1<-par[2]
         alpha2<-par[3]
@@ -4580,7 +4580,7 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
       adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
-      adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
+      adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
   stop("Optimization did not converge.Please check your initial parameters.")
@@ -5194,7 +5194,7 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
   }
   else if(model=="WWW") {
     if (method=="MLE") {
-      lfxyz=function(par) {
+      lfxyz<-function(par) {
         alpha1<-par[1]
         beta1<-par[2]
         alpha2<-par[3]
@@ -5226,7 +5226,7 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
           pW(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
@@ -5347,7 +5347,7 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
       adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
-      adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
+      adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
@@ -5961,7 +5961,7 @@ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
   }
   else if (model=="GGG") {
     if (method=="MLE") {
-      lfxyz=function(par) {
+      lfxyz<-function(par) {
         alpha1<-par[1]
         beta1<-par[2]
         alpha2<-par[3]
@@ -6114,7 +6114,7 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
       adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
-      adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
+      adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
@@ -6728,7 +6728,7 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
   }
   else if (model=="LLL") {
     if (method=="MLE") {
-      lfxyz=function(par) {
+      lfxyz<-function(par) {
         alpha1<-par[1]
         beta1<-par[2]
         alpha2<-par[3]
@@ -6881,7 +6881,7 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
       adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
-      adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
+      adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
   stop("Optimization did not converge.Please check your initial parameters.")
@@ -7532,7 +7532,7 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
 
   if (model=="GWL") {
     if (method=="MLE") {
-      lfxyz=function(par) {
+      lfxyz<-function(par) {
         alpha1<-par[1]
         beta1<-par[2]
         alpha2<-par[3]
@@ -7674,7 +7674,7 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
       adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
-      adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
+      adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
      stop("Optimization did not converge.Please check your initial parameters.")
@@ -8187,7 +8187,7 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
   }
   else if (model=="GGW") {
     if (method=="MLE") {
-      lfxyz=function(par) {
+      lfxyz<-function(par) {
         alpha1<-par[1]
         beta1<-par[2]
         alpha2<-par[3]
@@ -8329,7 +8329,7 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
       adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
-      adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
+      adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
      stop("Optimization did not converge.Please check your initial parameters.")
@@ -8843,7 +8843,7 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
   }
   else if (model=="GLL") {
     if (method=="MLE") {
-      lfxyz=function(par) {
+      lfxyz<-function(par) {
         alpha1<-par[1]
         beta1<-par[2]
         alpha2<-par[3]
@@ -8985,7 +8985,7 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
       adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
-      adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
+      adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
@@ -9500,7 +9500,7 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
     }
     else if (model=="WGW") {
       if (method=="MLE") {
-        lfxyz=function(par) {
+        lfxyz<-function(par) {
           alpha1<-par[1]
           beta1<-par[2]
           alpha2<-par[3]
@@ -9642,7 +9642,7 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
         }
         adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
         adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
-        adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
+        adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
         if (is.character(adex)|is.character(adey)|is.character(adez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
@@ -10156,7 +10156,7 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
     }
     else if(model=="WWW") {
       if (method=="MLE") {
-        lfxyz=function(par) {
+        lfxyz<-function(par) {
           alpha1<-par[1]
           beta1<-par[2]
           alpha2<-par[3]
@@ -10298,7 +10298,7 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
         }
         adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
         adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
-        adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
+        adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
         if (is.character(adex)|is.character(adey)|is.character(adez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
@@ -10812,7 +10812,7 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
     }
     else if (model=="GGG") {
       if (method=="MLE") {
-        lfxyz=function(par) {
+        lfxyz<-function(par) {
           alpha1<-par[1]
           beta1<-par[2]
           alpha2<-par[3]
@@ -10954,7 +10954,7 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
         }
         adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
         adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
-        adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
+        adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
         if (is.character(adex)|is.character(adey)|is.character(adez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
@@ -11468,7 +11468,7 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
     }
     else if (model=="LLL") {
       if (method=="MLE") {
-        lfxyz=function(par) {
+        lfxyz<-function(par) {
           alpha1<-par[1]
           beta1<-par[2]
           alpha2<-par[3]
@@ -11610,7 +11610,7 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
         }
         adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
         adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
-        adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
+        adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
         if (is.character(adex)|is.character(adey)|is.character(adez)) {
      stop("Optimization did not converge.Please check your initial parameters.")
