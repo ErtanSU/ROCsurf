@@ -144,54 +144,46 @@ test_that("function return a double or list",
             expect_type(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                                    y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
                                    z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),
-                                   true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(x),median(y)),
+                                   true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),
                                    model=c("GGW"),
                                    method=c("TRUE")), "double")
             expect_type(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                                    y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
                                    z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),
-                                   true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(x),median(y)),
+                                   true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),
                                    model=c("GLL"),
                                    method=c("TRUE")), "double")
             expect_type(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                                    y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
                                    z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),
-                                   true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(x),median(y)),
+                                   true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),
                                    model=c("WGW"),
                                    method=c("TRUE")), "double")
             expect_type(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                                    y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
                                    z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),
-                                   true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(x),median(y)),
+                                   true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),
                                    model=c("WWW"),
                                    method=c("TRUE")), "double")
             expect_type(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                                    y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
                                    z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),
-                                   true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(x),median(y)),
+                                   true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),
                                    model=c("GGG"),
                                    method=c("TRUE")), "double")
             expect_type(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                                    y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
                                    z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),
-                                   true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(x),median(y)),
+                                   true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),
                                    model=c("LLL"),
                                    method=c("TRUE")), "double")
 
-            expect_type(r.tc_graph(true_param = list(alpha1 = 1, beta1 = 1, alpha2 = 1, beta2 = 1, alpha3 = 1, beta3 = 1),
+            expect_type(r.tc_graph(true_param = c(alpha1 = 1, beta1 = 1, alpha2 = 1, beta2 = 1, alpha3 = 1, beta3 = 1),
                                    model = "GWL",  method = "TRUE"),"list")
-            expect_type(r.tc_graph(true_param = list(alpha1 = 1, beta1 = 1, alpha2 = 1, beta2 = 1, alpha3 = 1, beta3 = 1),
+            expect_type(r.tc_graph(true_param = c(alpha1 = 1, beta1 = 1, alpha2 = 1, beta2 = 1, alpha3 = 1, beta3 = 1),
                                    model = "GGW",  method = "TRUE"),"list")
-            expect_type(r.tc_graph(true_param = list(alpha1 = 1, beta1 = 1, alpha2 = 1, beta2 = 1, alpha3 = 1, beta3 = 1),
+            expect_type(r.tc_graph(true_param = c(alpha1 = 1, beta1 = 1, alpha2 = 1, beta2 = 1, alpha3 = 1, beta3 = 1),
                                    model = "GLL",  method = "TRUE"),"list")
-            expect_type(r.tc_graph(true_param = list(alpha1 = 1, beta1 = 1, alpha2 = 1, beta2 = 1, alpha3 = 1, beta3 = 1),
-                                   model = "WGW",  method = "TRUE"),"list")
-            expect_type(r.tc_graph(true_param = list(alpha1 = 1, beta1 = 1, alpha2 = 1, beta2 = 1, alpha3 = 1, beta3 = 1),
-                                   model = "WWW",  method = "TRUE"),"list")
-            expect_type(r.tc_graph(true_param = list(alpha1 = 1, beta1 = 1, alpha2 = 1, beta2 = 1, alpha3 = 1, beta3 = 1),
-                                   model = "GGG",  method = "TRUE"),"list")
-            expect_type(r.tc_graph(true_param = list(alpha1 = 1, beta1 = 1, alpha2 = 1, beta2 = 1, alpha3 = 1, beta3 = 1),
-                                   model = "LLL",  method = "TRUE"),"list")
 
           })
 
@@ -216,41 +208,41 @@ test_that("functions returns a list with the specified length", {
   expect_length(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
                            z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),
-                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(x),median(y)),
+                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),
                            model=c("GWL"),method=c("TRUE")), 25)
   expect_length(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
                            z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),
-                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(x),median(y)),
+                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),
                            model=c("GGW"),method=c("TRUE")), 25)
   expect_length(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
                            z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),
-                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(x),median(y)),
+                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),
                            model=c("GLL"),
                            method=c("TRUE")), 25)
   expect_length(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
                            z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),
-                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(x),median(y)),
+                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),
                            model=c("WGW"),
                            method=c("TRUE")), 25)
   expect_length(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
                            z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),
-                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(x),median(y)),
+                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),
                            model=c("WWW"),
                            method=c("TRUE")), 25)
   expect_length(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
                            z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),
-                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(x),median(y)),
+                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),
                            model=c("GGG"),
                            method=c("TRUE")), 25)
   expect_length(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
                            z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),
-                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(x),median(y)),
+                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),
                            model=c("LLL"),
                            method=c("TRUE")), 25)
 })
@@ -276,41 +268,41 @@ test_that("functions returns a  vector with the expected size", {
   expect_vector(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
                            z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),
-                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(x),median(y)),
+                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),
                            model=c("GWL"),method=c("TRUE")), ptype=rbind(),size=5)
   expect_vector(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
                            z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),
-                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(x),median(y)),
+                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),
                            model=c("GGW"),method=c("TRUE")), ptype=rbind(),size=5)
   expect_vector(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
                            z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),
-                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(x),median(y)),
+                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),
                            model=c("GLL"),
                            method=c("TRUE")), ptype=rbind(),size=5)
   expect_vector(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
                            z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),
-                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(x),median(y)),
+                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),
                            model=c("WGW"),
                            method=c("TRUE")), ptype=rbind(),size=5)
   expect_vector(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
                            z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),
-                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(x),median(y)),
+                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),
                            model=c("WWW"),
                            method=c("TRUE")), ptype=rbind(),size=5)
   expect_vector(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
                            z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),
-                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(x),median(y)),
+                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),
                            model=c("GGG"),
                            method=c("TRUE")), ptype=rbind(),size=5)
   expect_vector(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
                            z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),
-                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(x),median(y)),
+                           true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),init_index=c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),
                            model=c("LLL"),
                            method=c("TRUE")), ptype=rbind(),size=5)
 })
@@ -426,124 +418,82 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(-1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GWL",method="MLE"), "alpha1 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(-1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GWL",method="MLE"), "alpha1 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, -1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GWL",method="MLE"), "beta1 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, -1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GWL",method="MLE"), "beta1 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, -1, 1, 1, 1),init_index = c(median(x),median(y)),model="GWL",method="MLE"), "alpha2 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, -1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GWL",method="MLE"), "alpha2 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, -1, 1, 1),init_index = c(median(x),median(y)),model="GWL",method="MLE"), "beta2 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, -1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GWL",method="MLE"), "beta2 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, -1, 1),init_index = c(median(x),median(y)),model="GWL",method="MLE"), "alpha3 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, -1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GWL",method="MLE"), "alpha3 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, 1, -1),init_index = c(median(x),median(y)),model="GWL",method="MLE"), "beta3 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, 1, -1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GWL",method="MLE"), "beta3 value must be greater than 0")
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(-1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GWL",method="TRUE"), "alpha1 value must be greater than 0")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(-1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GWL",method="TRUE"), "alpha1 value must be greater than 0")
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, -1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GWL",method="TRUE"), "beta1 value must be greater than 0")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, -1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GWL",method="TRUE"), "beta1 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, -1, 1, 1, 1),init_index = c(median(x),median(y)),model="GWL",method="TRUE"), "alpha2 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, -1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GWL",method="TRUE"), "alpha2 value must be greater than 0")
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, 1, 1, -1, 1, 1),init_index = c(median(x),median(y)),model="GWL",method="TRUE"), "beta2 value must be greater than 0")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, 1, 1, -1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GWL",method="TRUE"), "beta2 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, -1, 1),init_index = c(median(x),median(y)),model="GWL",method="TRUE"), "alpha3 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, -1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GWL",method="TRUE"), "alpha3 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, 1, -1),init_index = c(median(x),median(y)),model="GWL",method="TRUE"), "beta3 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, 1, -1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GWL",method="TRUE"), "beta3 value must be greater than 0")
 
 
 
 
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(-1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GGW",method="MLE"), "alpha1 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(-1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGW",method="MLE"), "alpha1 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, -1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GGW",method="MLE"), "beta1 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, -1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGW",method="MLE"), "beta1 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, -1, 1, 1, 1),init_index = c(median(x),median(y)),model="GGW",method="MLE"), "alpha2 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, -1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGW",method="MLE"), "alpha2 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, -1, 1, 1),init_index = c(median(x),median(y)),model="GGW",method="MLE"), "beta2 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, -1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGW",method="MLE"), "beta2 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, -1, 1),init_index = c(median(x),median(y)),model="GGW",method="MLE"), "alpha3 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, -1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGW",method="MLE"), "alpha3 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, 1, -1),init_index = c(median(x),median(y)),model="GGW",method="MLE"), "beta3 value must be greater than 0")
-
-  expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                          y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(-1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GGW",method="TRUE"), "alpha1 value must be greater than 0")
-  expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                          y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, -1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GGW",method="TRUE"), "beta1 value must be greater than 0")
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, -1, 1, 1, 1),init_index = c(median(x),median(y)),model="GGW",method="TRUE"), "alpha2 value must be greater than 0")
-  expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                          y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, 1, 1, -1, 1, 1),init_index = c(median(x),median(y)),model="GGW",method="TRUE"), "beta2 value must be greater than 0")
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, -1, 1),init_index = c(median(x),median(y)),model="GGW",method="TRUE"), "alpha3 value must be greater than 0")
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, 1, -1),init_index = c(median(x),median(y)),model="GGW",method="TRUE"), "beta3 value must be greater than 0")
-
-
-
-
-
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(-1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GLL",method="MLE"), "alpha1 value must be greater than 0")
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, -1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GLL",method="MLE"), "beta1 value must be greater than 0")
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, -1, 1, 1, 1),init_index = c(median(x),median(y)),model="GLL",method="MLE"), "alpha2 value must be greater than 0")
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, -1, 1, 1),init_index = c(median(x),median(y)),model="GLL",method="MLE"), "beta2 value must be greater than 0")
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, -1, 1),init_index = c(median(x),median(y)),model="GLL",method="MLE"), "alpha3 value must be greater than 0")
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, 1, -1),init_index = c(median(x),median(y)),model="GLL",method="MLE"), "beta3 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, 1, -1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGW",method="MLE"), "beta3 value must be greater than 0")
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(-1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GLL",method="TRUE"), "alpha1 value must be greater than 0")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(-1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGW",method="TRUE"), "alpha1 value must be greater than 0")
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, -1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GLL",method="TRUE"), "beta1 value must be greater than 0")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, -1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGW",method="TRUE"), "beta1 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, -1, 1, 1, 1),init_index = c(median(x),median(y)),model="GLL",method="TRUE"), "alpha2 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, -1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGW",method="TRUE"), "alpha2 value must be greater than 0")
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, 1, 1, -1, 1, 1),init_index = c(median(x),median(y)),model="GLL",method="TRUE"), "beta2 value must be greater than 0")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, 1, 1, -1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGW",method="TRUE"), "beta2 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, -1, 1),init_index = c(median(x),median(y)),model="GLL",method="TRUE"), "alpha3 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, -1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGW",method="TRUE"), "alpha3 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, 1, -1),init_index = c(median(x),median(y)),model="GLL",method="TRUE"), "beta3 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, 1, -1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGW",method="TRUE"), "beta3 value must be greater than 0")
 
 
 
@@ -551,84 +501,41 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(-1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="WGW",method="MLE"), "alpha1 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(-1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GLL",method="MLE"), "alpha1 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, -1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="WGW",method="MLE"), "beta1 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, -1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GLL",method="MLE"), "beta1 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, -1, 1, 1, 1),init_index = c(median(x),median(y)),model="WGW",method="MLE"), "alpha2 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, -1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GLL",method="MLE"), "alpha2 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, -1, 1, 1),init_index = c(median(x),median(y)),model="WGW",method="MLE"), "beta2 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, -1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GLL",method="MLE"), "beta2 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, -1, 1),init_index = c(median(x),median(y)),model="WGW",method="MLE"), "alpha3 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, -1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GLL",method="MLE"), "alpha3 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, 1, -1),init_index = c(median(x),median(y)),model="WGW",method="MLE"), "beta3 value must be greater than 0")
-
-  expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                          y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(-1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="WGW",method="TRUE"), "alpha1 value must be greater than 0")
-  expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                          y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, -1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="WGW",method="TRUE"), "beta1 value must be greater than 0")
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, -1, 1, 1, 1),init_index = c(median(x),median(y)),model="WGW",method="TRUE"), "alpha2 value must be greater than 0")
-  expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                          y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, 1, 1, -1, 1, 1),init_index = c(median(x),median(y)),model="WGW",method="TRUE"), "beta2 value must be greater than 0")
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, -1, 1),init_index = c(median(x),median(y)),model="WGW",method="TRUE"), "alpha3 value must be greater than 0")
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, 1, -1),init_index = c(median(x),median(y)),model="WGW",method="TRUE"), "beta3 value must be greater than 0")
-
-
-
-
-
-
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(-1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="WWW",method="MLE"), "alpha1 value must be greater than 0")
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, -1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="WWW",method="MLE"), "beta1 value must be greater than 0")
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, -1, 1, 1, 1),init_index = c(median(x),median(y)),model="WWW",method="MLE"), "alpha2 value must be greater than 0")
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, -1, 1, 1),init_index = c(median(x),median(y)),model="WWW",method="MLE"), "beta2 value must be greater than 0")
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, -1, 1),init_index = c(median(x),median(y)),model="WWW",method="MLE"), "alpha3 value must be greater than 0")
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, 1, -1),init_index = c(median(x),median(y)),model="WWW",method="MLE"), "beta3 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, 1, -1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GLL",method="MLE"), "beta3 value must be greater than 0")
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(-1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="WWW",method="TRUE"), "alpha1 value must be greater than 0")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(-1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GLL",method="TRUE"), "alpha1 value must be greater than 0")
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, -1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="WWW",method="TRUE"), "beta1 value must be greater than 0")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, -1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GLL",method="TRUE"), "beta1 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, -1, 1, 1, 1),init_index = c(median(x),median(y)),model="WWW",method="TRUE"), "alpha2 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, -1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GLL",method="TRUE"), "alpha2 value must be greater than 0")
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, 1, 1, -1, 1, 1),init_index = c(median(x),median(y)),model="WWW",method="TRUE"), "beta2 value must be greater than 0")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, 1, 1, -1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GLL",method="TRUE"), "beta2 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, -1, 1),init_index = c(median(x),median(y)),model="WWW",method="TRUE"), "alpha3 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, -1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GLL",method="TRUE"), "alpha3 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, 1, -1),init_index = c(median(x),median(y)),model="WWW",method="TRUE"), "beta3 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, 1, -1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GLL",method="TRUE"), "beta3 value must be greater than 0")
 
 
 
@@ -636,83 +543,168 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(-1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GGG",method="MLE"), "alpha1 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(-1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WGW",method="MLE"), "alpha1 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, -1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GGG",method="MLE"), "beta1 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, -1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WGW",method="MLE"), "beta1 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, -1, 1, 1, 1),init_index = c(median(x),median(y)),model="GGG",method="MLE"), "alpha2 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, -1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WGW",method="MLE"), "alpha2 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, -1, 1, 1),init_index = c(median(x),median(y)),model="GGG",method="MLE"), "beta2 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, -1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WGW",method="MLE"), "beta2 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, -1, 1),init_index = c(median(x),median(y)),model="GGG",method="MLE"), "alpha3 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, -1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WGW",method="MLE"), "alpha3 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, 1, -1),init_index = c(median(x),median(y)),model="GGG",method="MLE"), "beta3 value must be greater than 0")
-
-  expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                          y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(-1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GGG",method="TRUE"), "alpha1 value must be greater than 0")
-  expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                          y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, -1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GGG",method="TRUE"), "beta1 value must be greater than 0")
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, -1, 1, 1, 1),init_index = c(median(x),median(y)),model="GGG",method="TRUE"), "alpha2 value must be greater than 0")
-  expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                          y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, 1, 1, -1, 1, 1),init_index = c(median(x),median(y)),model="GGG",method="TRUE"), "beta2 value must be greater than 0")
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, -1, 1),init_index = c(median(x),median(y)),model="GGG",method="TRUE"), "alpha3 value must be greater than 0")
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, 1, -1),init_index = c(median(x),median(y)),model="GGG",method="TRUE"), "beta3 value must be greater than 0")
-
-
-
-
-
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(-1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="LLL",method="MLE"), "alpha1 value must be greater than 0")
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, -1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="LLL",method="MLE"), "beta1 value must be greater than 0")
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, -1, 1, 1, 1),init_index = c(median(x),median(y)),model="LLL",method="MLE"), "alpha2 value must be greater than 0")
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, -1, 1, 1),init_index = c(median(x),median(y)),model="LLL",method="MLE"), "beta2 value must be greater than 0")
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, -1, 1),init_index = c(median(x),median(y)),model="LLL",method="MLE"), "alpha3 value must be greater than 0")
-  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, 1, -1),init_index = c(median(x),median(y)),model="LLL",method="MLE"), "beta3 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, 1, -1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WGW",method="MLE"), "beta3 value must be greater than 0")
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(-1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="LLL",method="TRUE"), "alpha1 value must be greater than 0")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(-1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WGW",method="TRUE"), "alpha1 value must be greater than 0")
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, -1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="LLL",method="TRUE"), "beta1 value must be greater than 0")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, -1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WGW",method="TRUE"), "beta1 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, -1, 1, 1, 1),init_index = c(median(x),median(y)),model="LLL",method="TRUE"), "alpha2 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, -1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WGW",method="TRUE"), "alpha2 value must be greater than 0")
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, 1, 1, -1, 1, 1),init_index = c(median(x),median(y)),model="LLL",method="TRUE"), "beta2 value must be greater than 0")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, 1, 1, -1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WGW",method="TRUE"), "beta2 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, -1, 1),init_index = c(median(x),median(y)),model="LLL",method="TRUE"), "alpha3 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, -1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WGW",method="TRUE"), "alpha3 value must be greater than 0")
   expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                            y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, 1, -1),init_index = c(median(x),median(y)),model="LLL",method="TRUE"), "beta3 value must be greater than 0")
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, 1, -1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WGW",method="TRUE"), "beta3 value must be greater than 0")
+
+
+
+
+
+
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(-1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WWW",method="MLE"), "alpha1 value must be greater than 0")
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, -1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WWW",method="MLE"), "beta1 value must be greater than 0")
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, -1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WWW",method="MLE"), "alpha2 value must be greater than 0")
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, -1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WWW",method="MLE"), "beta2 value must be greater than 0")
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, -1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WWW",method="MLE"), "alpha3 value must be greater than 0")
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, 1, -1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WWW",method="MLE"), "beta3 value must be greater than 0")
+
+  expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                          y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(-1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WWW",method="TRUE"), "alpha1 value must be greater than 0")
+  expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                          y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, -1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WWW",method="TRUE"), "beta1 value must be greater than 0")
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, -1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WWW",method="TRUE"), "alpha2 value must be greater than 0")
+  expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                          y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, 1, 1, -1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WWW",method="TRUE"), "beta2 value must be greater than 0")
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, -1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WWW",method="TRUE"), "alpha3 value must be greater than 0")
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, 1, -1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WWW",method="TRUE"), "beta3 value must be greater than 0")
+
+
+
+
+
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(-1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGG",method="MLE"), "alpha1 value must be greater than 0")
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, -1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGG",method="MLE"), "beta1 value must be greater than 0")
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, -1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGG",method="MLE"), "alpha2 value must be greater than 0")
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, -1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGG",method="MLE"), "beta2 value must be greater than 0")
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, -1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGG",method="MLE"), "alpha3 value must be greater than 0")
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, 1, -1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGG",method="MLE"), "beta3 value must be greater than 0")
+
+  expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                          y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(-1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGG",method="TRUE"), "alpha1 value must be greater than 0")
+  expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                          y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, -1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGG",method="TRUE"), "beta1 value must be greater than 0")
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, -1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGG",method="TRUE"), "alpha2 value must be greater than 0")
+  expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                          y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, 1, 1, -1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGG",method="TRUE"), "beta2 value must be greater than 0")
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, -1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGG",method="TRUE"), "alpha3 value must be greater than 0")
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, 1, -1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGG",method="TRUE"), "beta3 value must be greater than 0")
+
+
+
+
+
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(-1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="LLL",method="MLE"), "alpha1 value must be greater than 0")
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, -1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="LLL",method="MLE"), "beta1 value must be greater than 0")
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, -1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="LLL",method="MLE"), "alpha2 value must be greater than 0")
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, -1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="LLL",method="MLE"), "beta2 value must be greater than 0")
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, -1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="LLL",method="MLE"), "alpha3 value must be greater than 0")
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),init_param = c(1, 1, 1, 1, 1, -1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="LLL",method="MLE"), "beta3 value must be greater than 0")
+
+  expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                          y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(-1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="LLL",method="TRUE"), "alpha1 value must be greater than 0")
+  expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                          y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, -1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="LLL",method="TRUE"), "beta1 value must be greater than 0")
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, -1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="LLL",method="TRUE"), "alpha2 value must be greater than 0")
+  expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                          y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), true_param  = c(1, 1, 1, -1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="LLL",method="TRUE"), "beta2 value must be greater than 0")
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, -1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="LLL",method="TRUE"), "alpha3 value must be greater than 0")
+  expect_error(r.tc_index( x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
+                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
+                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),true_param  = c(1, 1, 1, 1, 1, -1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="LLL",method="TRUE"), "beta3 value must be greater than 0")
 
 
 
@@ -823,12 +815,6 @@ test_that("functions returns error", {
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),empirical = FALSE, init_param = c(1, 1, 1, 1, 1, -1),model="WGW",method="MLE"), "beta3 value must be greater than 0")
 
-  expect_error(r.tc_graph( true_param  = c(-1, 1, 1, 1, 1, 1),model="WGW",method="TRUE"), "alpha1 value must be greater than 0")
-  expect_error(r.tc_graph( true_param  = c(1, -1, 1, 1, 1, 1),model="WGW",method="TRUE"), "beta1 value must be greater than 0")
-  expect_error(r.tc_graph( true_param  = c(1, 1, -1, 1, 1, 1),model="WGW",method="TRUE"), "alpha2 value must be greater than 0")
-  expect_error(r.tc_graph( true_param  = c(1, 1, 1, -1, 1, 1),model="WGW",method="TRUE"), "beta2 value must be greater than 0")
-  expect_error(r.tc_graph( true_param  = c(1, 1, 1, 1, -1, 1),model="WGW",method="TRUE"), "alpha3 value must be greater than 0")
-  expect_error(r.tc_graph( true_param  = c(1, 1, 1, 1, 1, -1),model="WGW",method="TRUE"), "beta3 value must be greater than 0")
 
   expect_error(r.tc_graph(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
@@ -848,13 +834,6 @@ test_that("functions returns error", {
   expect_error(r.tc_graph(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),empirical = FALSE, init_param = c(1, 1, 1, 1, 1, -1),model="WWW",method="MLE"), "beta3 value must be greater than 0")
-
-  expect_error(r.tc_graph( true_param  = c(-1, 1, 1, 1, 1, 1),model="WWW",method="TRUE"), "alpha1 value must be greater than 0")
-  expect_error(r.tc_graph( true_param  = c(1, -1, 1, 1, 1, 1),model="WWW",method="TRUE"), "beta1 value must be greater than 0")
-  expect_error(r.tc_graph( true_param  = c(1, 1, -1, 1, 1, 1),model="WWW",method="TRUE"), "alpha2 value must be greater than 0")
-  expect_error(r.tc_graph( true_param  = c(1, 1, 1, -1, 1, 1),model="WWW",method="TRUE"), "beta2 value must be greater than 0")
-  expect_error(r.tc_graph( true_param  = c(1, 1, 1, 1, -1, 1),model="WWW",method="TRUE"), "alpha3 value must be greater than 0")
-  expect_error(r.tc_graph( true_param  = c(1, 1, 1, 1, 1, -1),model="WWW",method="TRUE"), "beta3 value must be greater than 0")
 
 
 
@@ -877,12 +856,6 @@ test_that("functions returns error", {
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),empirical = FALSE, init_param = c(1, 1, 1, 1, 1, -1),model="GGG",method="MLE"), "beta3 value must be greater than 0")
 
-  expect_error(r.tc_graph( true_param  = c(-1, 1, 1, 1, 1, 1),model="GGG",method="TRUE"), "alpha1 value must be greater than 0")
-  expect_error(r.tc_graph( true_param  = c(1, -1, 1, 1, 1, 1),model="GGG",method="TRUE"), "beta1 value must be greater than 0")
-  expect_error(r.tc_graph( true_param  = c(1, 1, -1, 1, 1, 1),model="GGG",method="TRUE"), "alpha2 value must be greater than 0")
-  expect_error(r.tc_graph( true_param  = c(1, 1, 1, -1, 1, 1),model="GGG",method="TRUE"), "beta2 value must be greater than 0")
-  expect_error(r.tc_graph( true_param  = c(1, 1, 1, 1, -1, 1),model="GGG",method="TRUE"), "alpha3 value must be greater than 0")
-  expect_error(r.tc_graph( true_param  = c(1, 1, 1, 1, 1, -1),model="GGG",method="TRUE"), "beta3 value must be greater than 0")
 
 
   expect_error(r.tc_graph(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
@@ -904,13 +877,6 @@ test_that("functions returns error", {
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
                           z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),empirical = FALSE, init_param = c(1, 1, 1, 1, 1, -1),model="LLL",method="MLE"), "beta3 value must be greater than 0")
 
-  expect_error(r.tc_graph( true_param  = c(-1, 1, 1, 1, 1, 1),model="LLL",method="TRUE"), "alpha1 value must be greater than 0")
-  expect_error(r.tc_graph( true_param  = c(1, -1, 1, 1, 1, 1),model="LLL",method="TRUE"), "beta1 value must be greater than 0")
-  expect_error(r.tc_graph( true_param  = c(1, 1, -1, 1, 1, 1),model="LLL",method="TRUE"), "alpha2 value must be greater than 0")
-  expect_error(r.tc_graph( true_param  = c(1, 1, 1, -1, 1, 1),model="LLL",method="TRUE"), "beta2 value must be greater than 0")
-  expect_error(r.tc_graph( true_param  = c(1, 1, 1, 1, -1, 1),model="LLL",method="TRUE"), "alpha3 value must be greater than 0")
-  expect_error(r.tc_graph( true_param  = c(1, 1, 1, 1, 1, -1),model="LLL",method="TRUE"), "beta3 value must be greater than 0")
-
 
 
   expect_error(r.tc_vus(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
@@ -919,7 +885,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GWL",method="MLE"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GWL",method="MLE"), "Optimization did not converge.Please check your initial parameters.")
 
   expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="GWL",method="MLE"), "Optimization did not converge.Please check your initial parameters.")
 
@@ -931,7 +897,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GWL",method="AD"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GWL",method="AD"), "Optimization did not converge.Please check your initial parameters.")
 
   expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="GWL",method="AD"), "Optimization did not converge.Please check your initial parameters.")
 
@@ -946,7 +912,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GWL",method="CvM"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GWL",method="CvM"), "Optimization did not converge.Please check your initial parameters.")
 
   expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="GWL",method="CvM"), "Optimization did not converge.Please check your initial parameters.")
 
@@ -961,7 +927,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GWL",method="LSE"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GWL",method="LSE"), "Optimization did not converge.Please check your initial parameters.")
 
   expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="GWL",method="LSE"), "Optimization did not converge.Please check your initial parameters.")
 
@@ -972,7 +938,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GWL",method="WLSE"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GWL",method="WLSE"), "Optimization did not converge.Please check your initial parameters.")
 
   expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="GWL",method="WLSE"), "Optimization did not converge.Please check your initial parameters.")
 
@@ -993,7 +959,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 0, 0, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GGW",method="MLE"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 0, 0, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGW",method="MLE"), "Optimization did not converge.Please check your initial parameters.")
 
   expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="GGW",method="MLE"), "Optimization did not converge.Please check your initial parameters.")
 
@@ -1005,7 +971,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GGW",method="AD"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGW",method="AD"), "Optimization did not converge.Please check your initial parameters.")
 
   expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="GGW",method="AD"), "Optimization did not converge.Please check your initial parameters.")
 
@@ -1019,7 +985,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GGW",method="CvM"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGW",method="CvM"), "Optimization did not converge.Please check your initial parameters.")
 
   expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="GGW",method="CvM"), "Optimization did not converge.Please check your initial parameters.")
 
@@ -1035,7 +1001,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GGW",method="LSE"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGW",method="LSE"), "Optimization did not converge.Please check your initial parameters.")
 
   expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="GGW",method="LSE"), "Optimization did not converge.Please check your initial parameters.")
 
@@ -1046,7 +1012,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GGW",method="WLSE"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGW",method="WLSE"), "Optimization did not converge.Please check your initial parameters.")
 
   expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="GGW",method="WLSE"), "Optimization did not converge.Please check your initial parameters.")
 
@@ -1059,7 +1025,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GLL",method="MLE"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GLL",method="MLE"), "Optimization did not converge.Please check your initial parameters.")
 
   expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="GLL",method="MLE"), "Optimization did not converge.Please check your initial parameters.")
 
@@ -1071,7 +1037,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GLL",method="AD"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GLL",method="AD"), "Optimization did not converge.Please check your initial parameters.")
 
   expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="GLL",method="AD"), "Optimization did not converge.Please check your initial parameters.")
 
@@ -1086,7 +1052,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GLL",method="CvM"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GLL",method="CvM"), "Optimization did not converge.Please check your initial parameters.")
 
   expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="GLL",method="CvM"), "Optimization did not converge.Please check your initial parameters.")
 
@@ -1102,7 +1068,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GLL",method="LSE"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GLL",method="LSE"), "Optimization did not converge.Please check your initial parameters.")
 
   expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="GLL",method="LSE"), "Optimization did not converge.Please check your initial parameters.")
 
@@ -1113,7 +1079,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GLL",method="WLSE"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GLL",method="WLSE"), "Optimization did not converge.Please check your initial parameters.")
 
   expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="GLL",method="WLSE"), "Optimization did not converge.Please check your initial parameters.")
 
@@ -1126,7 +1092,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 0, 0, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="WGW",method="MLE"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 0, 0, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WGW",method="MLE"), "Optimization did not converge.Please check your initial parameters.")
 
 
 
@@ -1137,7 +1103,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="WGW",method="AD"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WGW",method="AD"), "Optimization did not converge.Please check your initial parameters.")
 
 
 
@@ -1149,7 +1115,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="WGW",method="CvM"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WGW",method="CvM"), "Optimization did not converge.Please check your initial parameters.")
 
 
 
@@ -1164,7 +1130,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="WGW",method="LSE"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WGW",method="LSE"), "Optimization did not converge.Please check your initial parameters.")
 
 
   expect_error(r.tc_vus(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
@@ -1173,7 +1139,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="WGW",method="WLSE"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WGW",method="WLSE"), "Optimization did not converge.Please check your initial parameters.")
 
 
   expect_error(r.tc_vus(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
@@ -1182,7 +1148,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 0, 0, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="WWW",method="MLE"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 0, 0, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WWW",method="MLE"), "Optimization did not converge.Please check your initial parameters.")
 
 
 
@@ -1193,7 +1159,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="WWW",method="AD"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WWW",method="AD"), "Optimization did not converge.Please check your initial parameters.")
 
 
 
@@ -1205,7 +1171,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="WWW",method="CvM"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WWW",method="CvM"), "Optimization did not converge.Please check your initial parameters.")
 
 
 
@@ -1220,7 +1186,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="WWW",method="LSE"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WWW",method="LSE"), "Optimization did not converge.Please check your initial parameters.")
 
 
   expect_error(r.tc_vus(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
@@ -1229,7 +1195,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="WWW",method="WLSE"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="WWW",method="WLSE"), "Optimization did not converge.Please check your initial parameters.")
 
   expect_error(r.tc_vus(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                         y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
@@ -1237,7 +1203,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 0, 0, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GGG",method="MLE"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 0, 0, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGG",method="MLE"), "Optimization did not converge.Please check your initial parameters.")
 
 
 
@@ -1247,7 +1213,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
                           y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-                          z=c(3.485613, 0, 0, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GGG",method="AD"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(3.485613, 0, 0, 3.995163, 2.893617), init_param = c(1, 1, 1, 1, 1, 1),init_index = c(median(c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)),median(c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640))),model="GGG",method="AD"), "Optimization did not converge.Please check your initial parameters.")
 
 
 
@@ -1259,7 +1225,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(10, 110,1110, 11110, 111110),
                           y=c(10000000, 0, 4, 4, 4),
-                          z=c(1,2), init_param = c(1000, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GGG",method="CvM"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(1,2), init_param = c(1000, 1, 1, 1, 1, 1),init_index = c(median(c(10, 110,1110, 11110, 111110)),median(c(10000000, 0, 4, 4, 4))),model="GGG",method="CvM"), "Optimization did not converge.Please check your initial parameters.")
 
 
 
@@ -1273,7 +1239,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(10, 110,1110, 11110, 111110),
                           y=c(10000000, 0, 4, 4, 4),
-                          z=c(1,2), init_param = c(1000, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GGG",method="LSE"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(1,2), init_param = c(1000, 1, 1, 1, 1, 1),init_index = c(median(c(10, 110,1110, 11110, 111110)),median(c(10000000, 0, 4, 4, 4))),model="GGG",method="LSE"), "Optimization did not converge.Please check your initial parameters.")
 
 
 
@@ -1283,7 +1249,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(10, 110,1110, 11110, 111110),
                           y=c(10000000, 0, 4, 4, 4),
-                          z=c(1,2), init_param = c(1000, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="GGG",method="WLSE"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(1,2), init_param = c(1000, 1, 1, 1, 1, 1),init_index = c(median(c(10, 110,1110, 11110, 111110)),median(c(10000000, 0, 4, 4, 4))),model="GGG",method="WLSE"), "Optimization did not converge.Please check your initial parameters.")
 
 
   expect_error(r.tc_vus(x=c(0, 0, 0, 1.0066519, 1.0372385),
@@ -1292,7 +1258,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(10, 110,1110, 11110, 111110),
                           y=c(10000000, 0, 4, 4, 4),
-                          z=c(1,2), init_param = c(1000, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="LLL",method="MLE"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(1,2), init_param = c(1000, 1, 1, 1, 1, 1),init_index = c(median(c(10, 110,1110, 11110, 111110)),median(c(10000000, 0, 4, 4, 4))),model="LLL",method="MLE"), "Optimization did not converge.Please check your initial parameters.")
 
 
   expect_error(r.tc_vus(x=c(0, 0, 0, 1.0066519, 1.0372385),
@@ -1301,7 +1267,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(10, 110,1110, 11110, 111110),
                           y=c(10000000, 0, 4, 4, 4),
-                          z=c(1,2), init_param = c(1000, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="LLL",method="AD"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(1,2), init_param = c(1000, 1, 1, 1, 1, 1),init_index = c(median(c(10, 110,1110, 11110, 111110)),median(c(10000000, 0, 4, 4, 4))),model="LLL",method="AD"), "Optimization did not converge.Please check your initial parameters.")
 
 
 
@@ -1312,7 +1278,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(10, 110,1110, 11110, 111110),
                           y=c(10000000, 0, 4, 4, 4),
-                          z=c(1,2), init_param = c(1000, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="LLL",method="CvM"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(1,2), init_param = c(1000, 1, 1, 1, 1, 1),init_index = c(median(c(10, 110,1110, 11110, 111110)),median(c(10000000, 0, 4, 4, 4))),model="LLL",method="CvM"), "Optimization did not converge.Please check your initial parameters.")
 
 
 
@@ -1324,7 +1290,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(10, 110,1110, 11110, 111110),
                           y=c(10000000, 0, 4, 4, 4),
-                          z=c(1,2), init_param = c(1000, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="LLL",method="LSE"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(1,2), init_param = c(1000, 1, 1, 1, 1, 1),init_index = c(median(c(10, 110,1110, 11110, 111110)),median(c(10000000, 0, 4, 4, 4))),model="LLL",method="LSE"), "Optimization did not converge.Please check your initial parameters.")
 
   expect_error(r.tc_vus(x=c(0, 0, 0, 1.0066519, 1.0372385),
                         y=c(0, 0, 0, 0, 0.3714640),
@@ -1332,7 +1298,7 @@ test_that("functions returns error", {
 
   expect_error(r.tc_index(x=c(10, 110,1110, 11110, 111110),
                           y=c(10000000, 0, 4, 4, 4),
-                          z=c(1,2), init_param = c(1000, 1, 1, 1, 1, 1),init_index = c(median(x),median(y)),model="LLL",method="WLSE"), "Optimization did not converge.Please check your initial parameters.")
+                          z=c(1,2), init_param = c(1000, 1, 1, 1, 1, 1),init_index = c(median(c(10, 110,1110, 11110, 111110)),median(c(10000000, 0, 4, 4, 4))),model="LLL",method="WLSE"), "Optimization did not converge.Please check your initial parameters.")
 
 
 })

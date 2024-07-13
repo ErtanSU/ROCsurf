@@ -2012,16 +2012,22 @@ r.tc_vus<- function(x,y,z,
 #' @return `r.tc_index` gives index values when the
 #' data conforms to the proposed three distributions.
 #' @examples
-#' r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385),
-#' y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640),
-#' z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617),
-#' true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),
-#' init_index=c(median(x),median(y)),
-#' model=c("GWL"),method=c("TRUE"))
+#' x <- c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)
+#' y <- c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640)
+#' z <- c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617)
+#' r.tc_index(
+#'   x = x,
+#'   y = y,
+#'   z = z,
+#'   true_param = c(alpha1=1, beta1=1, alpha2=1, beta2=1, alpha3=1, beta3=1),
+#'   init_index = c(median(x), median(y)),
+#'   model = "GWL",
+#'   method = "TRUE"
+#' )
 r.tc_index<- function(x,y,z,
                       init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),
                       true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),
-                      init_index=c(median(x),median(y)),
+                      init_index=c(x,y),
                       model=c("GWL","GGW","GLL","WGW","WWW","GGG","LLL"),
                       method=c("MLE","AD","CvM","LSE","WLSE","TRUE")
 )
@@ -6796,11 +6802,11 @@ r.tc_index<- function(x,y,z,
 #' @return `r.tc_graph` gives the ROC curve when the data conforms to the
 #' proposed three distributions.
 #' @examples
-#' \donttest{x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519, 1.0372385)}
-#' \donttest{y=c(1.5200108, 0.0617668, 6.0647578, 0.7594201, 0.3714640)}
-#' \donttest{z=c(3.485613, 4.939489, 6.072339, 3.995163, 2.893617)}
-#' \donttest{r.tc_graph(x,y,z,init_param=c(1,1,1,1,1,1),
-#' empirical=TRUE,model=c("GWL"),method=c("MLE"))}
+#' r.tc_graph(x=c(1,2,3,4,5),
+#'           y=c(4, 5, 6, 7, 8),
+#'          z=c(6, 7, 8, 9, 10),
+#'           init_param=c(1,1,1,1,1,1),
+#'           empirical=FALSE,model="GGW",method="MLE")
 r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),
                       true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),
                       empirical=TRUE,model=c("GWL","GGW","GLL","WGW","WWW","GGG","LLL"),
@@ -6869,9 +6875,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
         fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-        fig2$x$layout$scene$xaxis$title <- "TPF₁"
-        fig2$x$layout$scene$yaxis$title <- "TPF₃"
-        fig2$x$layout$scene$zaxis$title <- "TPF₂"
+        fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -6901,9 +6907,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         }))
         fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-        fig1$x$layout$scene$xaxis$title <- "TPF₁"
-        fig1$x$layout$scene$yaxis$title <- "TPF₃"
-        fig1$x$layout$scene$zaxis$title <- "TPF₂"
+        fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -6993,9 +6999,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
         fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-        fig2$x$layout$scene$xaxis$title <- "TPF₁"
-        fig2$x$layout$scene$yaxis$title <- "TPF₃"
-        fig2$x$layout$scene$zaxis$title <- "TPF₂"
+        fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -7025,9 +7031,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         }))
         fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-        fig1$x$layout$scene$xaxis$title <- "TPF₁"
-        fig1$x$layout$scene$yaxis$title <- "TPF₃"
-        fig1$x$layout$scene$zaxis$title <- "TPF₂"
+        fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -7112,9 +7118,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
         fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-        fig2$x$layout$scene$xaxis$title <- "TPF₁"
-        fig2$x$layout$scene$yaxis$title <- "TPF₃"
-        fig2$x$layout$scene$zaxis$title <- "TPF₂"
+        fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -7144,9 +7150,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         }))
         fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-        fig1$x$layout$scene$xaxis$title <- "TPF₁"
-        fig1$x$layout$scene$yaxis$title <- "TPF₃"
-        fig1$x$layout$scene$zaxis$title <- "TPF₂"
+        fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -7230,9 +7236,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
         fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-        fig2$x$layout$scene$xaxis$title <- "TPF₁"
-        fig2$x$layout$scene$yaxis$title <- "TPF₃"
-        fig2$x$layout$scene$zaxis$title <- "TPF₂"
+        fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -7262,9 +7268,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         }))
         fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-        fig1$x$layout$scene$xaxis$title <- "TPF₁"
-        fig1$x$layout$scene$yaxis$title <- "TPF₃"
-        fig1$x$layout$scene$zaxis$title <- "TPF₂"
+        fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -7348,9 +7354,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
         fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-        fig2$x$layout$scene$xaxis$title <- "TPF₁"
-        fig2$x$layout$scene$yaxis$title <- "TPF₃"
-        fig2$x$layout$scene$zaxis$title <- "TPF₂"
+        fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -7380,9 +7386,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         }))
         fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-        fig1$x$layout$scene$xaxis$title <- "TPF₁"
-        fig1$x$layout$scene$yaxis$title <- "TPF₃"
-        fig1$x$layout$scene$zaxis$title <- "TPF₂"
+        fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -7428,9 +7434,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
       }))
       fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-      fig1$x$layout$scene$xaxis$title <- "TPF₁"
-      fig1$x$layout$scene$yaxis$title <- "TPF₃"
-      fig1$x$layout$scene$zaxis$title <- "TPF₂"
+      fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+      fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+      fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
       fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
       fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -7498,9 +7504,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
         fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-        fig2$x$layout$scene$xaxis$title <- "TPF₁"
-        fig2$x$layout$scene$yaxis$title <- "TPF₃"
-        fig2$x$layout$scene$zaxis$title <- "TPF₂"
+        fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -7530,9 +7536,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         }))
         fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-        fig1$x$layout$scene$xaxis$title <- "TPF₁"
-        fig1$x$layout$scene$yaxis$title <- "TPF₃"
-        fig1$x$layout$scene$zaxis$title <- "TPF₂"
+        fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -7621,9 +7627,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
         fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-        fig2$x$layout$scene$xaxis$title <- "TPF₁"
-        fig2$x$layout$scene$yaxis$title <- "TPF₃"
-        fig2$x$layout$scene$zaxis$title <- "TPF₂"
+        fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -7653,9 +7659,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         }))
         fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-        fig1$x$layout$scene$xaxis$title <- "TPF₁"
-        fig1$x$layout$scene$yaxis$title <- "TPF₃"
-        fig1$x$layout$scene$zaxis$title <- "TPF₂"
+        fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -7740,9 +7746,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
         fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-        fig2$x$layout$scene$xaxis$title <- "TPF₁"
-        fig2$x$layout$scene$yaxis$title <- "TPF₃"
-        fig2$x$layout$scene$zaxis$title <- "TPF₂"
+        fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -7772,9 +7778,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         }))
         fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-        fig1$x$layout$scene$xaxis$title <- "TPF₁"
-        fig1$x$layout$scene$yaxis$title <- "TPF₃"
-        fig1$x$layout$scene$zaxis$title <- "TPF₂"
+        fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -7858,9 +7864,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
         fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-        fig2$x$layout$scene$xaxis$title <- "TPF₁"
-        fig2$x$layout$scene$yaxis$title <- "TPF₃"
-        fig2$x$layout$scene$zaxis$title <- "TPF₂"
+        fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -7890,9 +7896,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         }))
         fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-        fig1$x$layout$scene$xaxis$title <- "TPF₁"
-        fig1$x$layout$scene$yaxis$title <- "TPF₃"
-        fig1$x$layout$scene$zaxis$title <- "TPF₂"
+        fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -7976,9 +7982,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
         fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-        fig2$x$layout$scene$xaxis$title <- "TPF₁"
-        fig2$x$layout$scene$yaxis$title <- "TPF₃"
-        fig2$x$layout$scene$zaxis$title <- "TPF₂"
+        fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -8008,9 +8014,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         }))
         fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-        fig1$x$layout$scene$xaxis$title <- "TPF₁"
-        fig1$x$layout$scene$yaxis$title <- "TPF₃"
-        fig1$x$layout$scene$zaxis$title <- "TPF₂"
+        fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -8058,9 +8064,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
       }))
       fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-      fig1$x$layout$scene$xaxis$title <- "TPF₁"
-      fig1$x$layout$scene$yaxis$title <- "TPF₃"
-      fig1$x$layout$scene$zaxis$title <- "TPF₂"
+      fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+      fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+      fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
       fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
       fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -8127,9 +8133,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
         fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-        fig2$x$layout$scene$xaxis$title <- "TPF₁"
-        fig2$x$layout$scene$yaxis$title <- "TPF₃"
-        fig2$x$layout$scene$zaxis$title <- "TPF₂"
+        fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -8159,9 +8165,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         }))
         fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-        fig1$x$layout$scene$xaxis$title <- "TPF₁"
-        fig1$x$layout$scene$yaxis$title <- "TPF₃"
-        fig1$x$layout$scene$zaxis$title <- "TPF₂"
+        fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -8250,9 +8256,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
         fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-        fig2$x$layout$scene$xaxis$title <- "TPF₁"
-        fig2$x$layout$scene$yaxis$title <- "TPF₃"
-        fig2$x$layout$scene$zaxis$title <- "TPF₂"
+        fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -8282,9 +8288,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         }))
         fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-        fig1$x$layout$scene$xaxis$title <- "TPF₁"
-        fig1$x$layout$scene$yaxis$title <- "TPF₃"
-        fig1$x$layout$scene$zaxis$title <- "TPF₂"
+        fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -8369,9 +8375,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
         fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-        fig2$x$layout$scene$xaxis$title <- "TPF₁"
-        fig2$x$layout$scene$yaxis$title <- "TPF₃"
-        fig2$x$layout$scene$zaxis$title <- "TPF₂"
+        fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -8401,9 +8407,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         }))
         fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-        fig1$x$layout$scene$xaxis$title <- "TPF₁"
-        fig1$x$layout$scene$yaxis$title <- "TPF₃"
-        fig1$x$layout$scene$zaxis$title <- "TPF₂"
+        fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -8487,9 +8493,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
         fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-        fig2$x$layout$scene$xaxis$title <- "TPF₁"
-        fig2$x$layout$scene$yaxis$title <- "TPF₃"
-        fig2$x$layout$scene$zaxis$title <- "TPF₂"
+        fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -8519,9 +8525,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         }))
         fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-        fig1$x$layout$scene$xaxis$title <- "TPF₁"
-        fig1$x$layout$scene$yaxis$title <- "TPF₃"
-        fig1$x$layout$scene$zaxis$title <- "TPF₂"
+        fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -8605,9 +8611,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
         fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-        fig2$x$layout$scene$xaxis$title <- "TPF₁"
-        fig2$x$layout$scene$yaxis$title <- "TPF₃"
-        fig2$x$layout$scene$zaxis$title <- "TPF₂"
+        fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -8637,9 +8643,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         }))
         fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-        fig1$x$layout$scene$xaxis$title <- "TPF₁"
-        fig1$x$layout$scene$yaxis$title <- "TPF₃"
-        fig1$x$layout$scene$zaxis$title <- "TPF₂"
+        fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -8675,7 +8681,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
       if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
       if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
       if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
-      if (empirical==TRUE) {
+
 
 
         c1 <- seq(0.00001, 1, length.out = 100)
@@ -8688,9 +8694,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         }))
         fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-        fig1$x$layout$scene$xaxis$title <- "TPF₁"
-        fig1$x$layout$scene$yaxis$title <- "TPF₃"
-        fig1$x$layout$scene$zaxis$title <- "TPF₂"
+        fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -8707,7 +8713,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
         fig1
 
-      }
+
     }
     else if (model=="WGW") {
       if (method=="MLE") {
@@ -8757,9 +8763,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
           fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-          fig2$x$layout$scene$xaxis$title <- "TPF₁"
-          fig2$x$layout$scene$yaxis$title <- "TPF₃"
-          fig2$x$layout$scene$zaxis$title <- "TPF₂"
+          fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -8789,9 +8795,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           }))
           fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-          fig1$x$layout$scene$xaxis$title <- "TPF₁"
-          fig1$x$layout$scene$yaxis$title <- "TPF₃"
-          fig1$x$layout$scene$zaxis$title <- "TPF₂"
+          fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -8880,9 +8886,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
           fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-          fig2$x$layout$scene$xaxis$title <- "TPF₁"
-          fig2$x$layout$scene$yaxis$title <- "TPF₃"
-          fig2$x$layout$scene$zaxis$title <- "TPF₂"
+          fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -8912,9 +8918,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           }))
           fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-          fig1$x$layout$scene$xaxis$title <- "TPF₁"
-          fig1$x$layout$scene$yaxis$title <- "TPF₃"
-          fig1$x$layout$scene$zaxis$title <- "TPF₂"
+          fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -8999,9 +9005,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
           fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-          fig2$x$layout$scene$xaxis$title <- "TPF₁"
-          fig2$x$layout$scene$yaxis$title <- "TPF₃"
-          fig2$x$layout$scene$zaxis$title <- "TPF₂"
+          fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -9031,9 +9037,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           }))
           fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-          fig1$x$layout$scene$xaxis$title <- "TPF₁"
-          fig1$x$layout$scene$yaxis$title <- "TPF₃"
-          fig1$x$layout$scene$zaxis$title <- "TPF₂"
+          fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -9117,9 +9123,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
           fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-          fig2$x$layout$scene$xaxis$title <- "TPF₁"
-          fig2$x$layout$scene$yaxis$title <- "TPF₃"
-          fig2$x$layout$scene$zaxis$title <- "TPF₂"
+          fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -9149,9 +9155,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           }))
           fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-          fig1$x$layout$scene$xaxis$title <- "TPF₁"
-          fig1$x$layout$scene$yaxis$title <- "TPF₃"
-          fig1$x$layout$scene$zaxis$title <- "TPF₂"
+          fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -9235,9 +9241,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
           fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-          fig2$x$layout$scene$xaxis$title <- "TPF₁"
-          fig2$x$layout$scene$yaxis$title <- "TPF₃"
-          fig2$x$layout$scene$zaxis$title <- "TPF₂"
+          fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -9267,9 +9273,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           }))
           fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-          fig1$x$layout$scene$xaxis$title <- "TPF₁"
-          fig1$x$layout$scene$yaxis$title <- "TPF₃"
-          fig1$x$layout$scene$zaxis$title <- "TPF₂"
+          fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -9317,9 +9323,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         }))
         fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-        fig1$x$layout$scene$xaxis$title <- "TPF₁"
-        fig1$x$layout$scene$yaxis$title <- "TPF₃"
-        fig1$x$layout$scene$zaxis$title <- "TPF₂"
+        fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -9386,9 +9392,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
           fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-          fig2$x$layout$scene$xaxis$title <- "TPF₁"
-          fig2$x$layout$scene$yaxis$title <- "TPF₃"
-          fig2$x$layout$scene$zaxis$title <- "TPF₂"
+          fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -9418,9 +9424,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           }))
           fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-          fig1$x$layout$scene$xaxis$title <- "TPF₁"
-          fig1$x$layout$scene$yaxis$title <- "TPF₃"
-          fig1$x$layout$scene$zaxis$title <- "TPF₂"
+          fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -9509,9 +9515,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
           fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-          fig2$x$layout$scene$xaxis$title <- "TPF₁"
-          fig2$x$layout$scene$yaxis$title <- "TPF₃"
-          fig2$x$layout$scene$zaxis$title <- "TPF₂"
+          fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -9541,9 +9547,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           }))
           fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-          fig1$x$layout$scene$xaxis$title <- "TPF₁"
-          fig1$x$layout$scene$yaxis$title <- "TPF₃"
-          fig1$x$layout$scene$zaxis$title <- "TPF₂"
+          fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -9628,9 +9634,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
           fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-          fig2$x$layout$scene$xaxis$title <- "TPF₁"
-          fig2$x$layout$scene$yaxis$title <- "TPF₃"
-          fig2$x$layout$scene$zaxis$title <- "TPF₂"
+          fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -9660,9 +9666,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           }))
           fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-          fig1$x$layout$scene$xaxis$title <- "TPF₁"
-          fig1$x$layout$scene$yaxis$title <- "TPF₃"
-          fig1$x$layout$scene$zaxis$title <- "TPF₂"
+          fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -9746,9 +9752,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
           fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-          fig2$x$layout$scene$xaxis$title <- "TPF₁"
-          fig2$x$layout$scene$yaxis$title <- "TPF₃"
-          fig2$x$layout$scene$zaxis$title <- "TPF₂"
+          fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -9778,9 +9784,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           }))
           fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-          fig1$x$layout$scene$xaxis$title <- "TPF₁"
-          fig1$x$layout$scene$yaxis$title <- "TPF₃"
-          fig1$x$layout$scene$zaxis$title <- "TPF₂"
+          fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -9864,9 +9870,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
           fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-          fig2$x$layout$scene$xaxis$title <- "TPF₁"
-          fig2$x$layout$scene$yaxis$title <- "TPF₃"
-          fig2$x$layout$scene$zaxis$title <- "TPF₂"
+          fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -9896,9 +9902,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           }))
           fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-          fig1$x$layout$scene$xaxis$title <- "TPF₁"
-          fig1$x$layout$scene$yaxis$title <- "TPF₃"
-          fig1$x$layout$scene$zaxis$title <- "TPF₂"
+          fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -9946,9 +9952,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         }))
         fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-        fig1$x$layout$scene$xaxis$title <- "TPF₁"
-        fig1$x$layout$scene$yaxis$title <- "TPF₃"
-        fig1$x$layout$scene$zaxis$title <- "TPF₂"
+        fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -10015,9 +10021,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
           fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-          fig2$x$layout$scene$xaxis$title <- "TPF₁"
-          fig2$x$layout$scene$yaxis$title <- "TPF₃"
-          fig2$x$layout$scene$zaxis$title <- "TPF₂"
+          fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -10047,9 +10053,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           }))
           fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-          fig1$x$layout$scene$xaxis$title <- "TPF₁"
-          fig1$x$layout$scene$yaxis$title <- "TPF₃"
-          fig1$x$layout$scene$zaxis$title <- "TPF₂"
+          fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -10138,9 +10144,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
           fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-          fig2$x$layout$scene$xaxis$title <- "TPF₁"
-          fig2$x$layout$scene$yaxis$title <- "TPF₃"
-          fig2$x$layout$scene$zaxis$title <- "TPF₂"
+          fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -10170,9 +10176,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           }))
           fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-          fig1$x$layout$scene$xaxis$title <- "TPF₁"
-          fig1$x$layout$scene$yaxis$title <- "TPF₃"
-          fig1$x$layout$scene$zaxis$title <- "TPF₂"
+          fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -10257,9 +10263,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
           fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-          fig2$x$layout$scene$xaxis$title <- "TPF₁"
-          fig2$x$layout$scene$yaxis$title <- "TPF₃"
-          fig2$x$layout$scene$zaxis$title <- "TPF₂"
+          fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -10289,9 +10295,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           }))
           fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-          fig1$x$layout$scene$xaxis$title <- "TPF₁"
-          fig1$x$layout$scene$yaxis$title <- "TPF₃"
-          fig1$x$layout$scene$zaxis$title <- "TPF₂"
+          fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -10375,9 +10381,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
           fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-          fig2$x$layout$scene$xaxis$title <- "TPF₁"
-          fig2$x$layout$scene$yaxis$title <- "TPF₃"
-          fig2$x$layout$scene$zaxis$title <- "TPF₂"
+          fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -10407,9 +10413,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           }))
           fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-          fig1$x$layout$scene$xaxis$title <- "TPF₁"
-          fig1$x$layout$scene$yaxis$title <- "TPF₃"
-          fig1$x$layout$scene$zaxis$title <- "TPF₂"
+          fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -10493,9 +10499,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
           fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-          fig2$x$layout$scene$xaxis$title <- "TPF₁"
-          fig2$x$layout$scene$yaxis$title <- "TPF₃"
-          fig2$x$layout$scene$zaxis$title <- "TPF₂"
+          fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -10525,9 +10531,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           }))
           fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-          fig1$x$layout$scene$xaxis$title <- "TPF₁"
-          fig1$x$layout$scene$yaxis$title <- "TPF₃"
-          fig1$x$layout$scene$zaxis$title <- "TPF₂"
+          fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -10575,9 +10581,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         }))
         fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-        fig1$x$layout$scene$xaxis$title <- "TPF₁"
-        fig1$x$layout$scene$yaxis$title <- "TPF₃"
-        fig1$x$layout$scene$zaxis$title <- "TPF₂"
+        fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -10644,9 +10650,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
           fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-          fig2$x$layout$scene$xaxis$title <- "TPF₁"
-          fig2$x$layout$scene$yaxis$title <- "TPF₃"
-          fig2$x$layout$scene$zaxis$title <- "TPF₂"
+          fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -10676,9 +10682,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           }))
           fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-          fig1$x$layout$scene$xaxis$title <- "TPF₁"
-          fig1$x$layout$scene$yaxis$title <- "TPF₃"
-          fig1$x$layout$scene$zaxis$title <- "TPF₂"
+          fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -10767,9 +10773,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
           fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-          fig2$x$layout$scene$xaxis$title <- "TPF₁"
-          fig2$x$layout$scene$yaxis$title <- "TPF₃"
-          fig2$x$layout$scene$zaxis$title <- "TPF₂"
+          fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -10799,9 +10805,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           }))
           fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-          fig1$x$layout$scene$xaxis$title <- "TPF₁"
-          fig1$x$layout$scene$yaxis$title <- "TPF₃"
-          fig1$x$layout$scene$zaxis$title <- "TPF₂"
+          fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -10886,9 +10892,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
           fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-          fig2$x$layout$scene$xaxis$title <- "TPF₁"
-          fig2$x$layout$scene$yaxis$title <- "TPF₃"
-          fig2$x$layout$scene$zaxis$title <- "TPF₂"
+          fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -10918,9 +10924,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           }))
           fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-          fig1$x$layout$scene$xaxis$title <- "TPF₁"
-          fig1$x$layout$scene$yaxis$title <- "TPF₃"
-          fig1$x$layout$scene$zaxis$title <- "TPF₂"
+          fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -11004,9 +11010,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
           fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-          fig2$x$layout$scene$xaxis$title <- "TPF₁"
-          fig2$x$layout$scene$yaxis$title <- "TPF₃"
-          fig2$x$layout$scene$zaxis$title <- "TPF₂"
+          fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -11036,9 +11042,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           }))
           fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-          fig1$x$layout$scene$xaxis$title <- "TPF₁"
-          fig1$x$layout$scene$yaxis$title <- "TPF₃"
-          fig1$x$layout$scene$zaxis$title <- "TPF₂"
+          fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -11122,9 +11128,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
 
           fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
 
-          fig2$x$layout$scene$xaxis$title <- "TPF₁"
-          fig2$x$layout$scene$yaxis$title <- "TPF₃"
-          fig2$x$layout$scene$zaxis$title <- "TPF₂"
+          fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig2$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig2$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig2$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -11154,9 +11160,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           }))
           fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-          fig1$x$layout$scene$xaxis$title <- "TPF₁"
-          fig1$x$layout$scene$yaxis$title <- "TPF₃"
-          fig1$x$layout$scene$zaxis$title <- "TPF₂"
+          fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+          fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+          fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
           fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
           fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
@@ -11204,9 +11210,9 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         }))
         fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
 
-        fig1$x$layout$scene$xaxis$title <- "TPF₁"
-        fig1$x$layout$scene$yaxis$title <- "TPF₃"
-        fig1$x$layout$scene$zaxis$title <- "TPF₂"
+        fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
+        fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
+        fig1$x$layout$scene$zaxis$title <- "TPF\u2082"
 
         fig1$x$layout$scene$xaxis$tickvals <- c(0, 0.5, 1)
         fig1$x$layout$scene$yaxis$tickvals <- c(0, 0.5, 1)
