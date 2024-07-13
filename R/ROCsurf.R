@@ -444,9 +444,9 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
         QW<-sum(((n+1)^2*(n+2)/(i*(n-i+1)))*(pL(z,alpha3,beta3)-i/(n+1))^2)
         return(QW)
       }
-      wlsex=try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
-      wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
-      wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
+      wlsex<-try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
+      wlsey<-try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
+      wlsez<-try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -709,9 +709,9 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
         QW<-sum(((n+1)^2*(n+2)/(i*(n-i+1)))*(pW(z,alpha3,beta3)-i/(n+1))^2)
         return(QW)
       }
-      wlsex=try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
-      wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
-      wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
+      wlsex<-try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
+      wlsey<-try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
+      wlsez<-try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
      stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -976,9 +976,9 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
         QW<-sum(((n+1)^2*(n+2)/(i*(n-i+1)))*(pL(z,alpha3,beta3)-i/(n+1))^2)
         return(QW)
       }
-      wlsex=try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
-      wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
-      wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
+      wlsex<-try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
+      wlsey<-try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
+      wlsez<-try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
  stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -1243,9 +1243,9 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
         QW<-sum(((n+1)^2*(n+2)/(i*(n-i+1)))*(pW(z,alpha3,beta3)-i/(n+1))^2)
         return(QW)
       }
-      wlsex=try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
-      wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
-      wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
+      wlsex<-try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
+      wlsey<-try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
+      wlsez<-try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -1508,9 +1508,9 @@ if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
         QW<-sum(((n+1)^2*(n+2)/(i*(n-i+1)))*(pW(z,alpha3,beta3)-i/(n+1))^2)
         return(QW)
       }
-      wlsex=try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
-      wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
-      wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
+      wlsex<-try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
+      wlsey<-try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
+      wlsez<-try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
      stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -1773,9 +1773,9 @@ if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
         QW<-sum(((n+1)^2*(n+2)/(i*(n-i+1)))*(pG(z,alpha3,beta3)-i/(n+1))^2)
         return(QW)
       }
-      wlsex=try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
-      wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
-      wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
+      wlsex<-try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
+      wlsey<-try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
+      wlsez<-try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -2038,9 +2038,9 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
         QW<-sum(((n+1)^2*(n+2)/(i*(n-i+1)))*(pL(z,alpha3,beta3)-i/(n+1))^2)
         return(QW)
       }
-      wlsex=try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
-      wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
-      wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
+      wlsex<-try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
+      wlsey<-try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
+      wlsez<-try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
   stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -2680,9 +2680,9 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
         QW<-sum(((n+1)^2*(n+2)/(i*(n-i+1)))*(pL(z,alpha3,beta3)-i/(n+1))^2)
         return(QW)
       }
-      wlsex=try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
-      wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
-      wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
+      wlsex<-try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
+      wlsey<-try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
+      wlsez<-try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -3447,9 +3447,9 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
         QW<-sum(((n+1)^2*(n+2)/(i*(n-i+1)))*(pW(z,alpha3,beta3)-i/(n+1))^2)
         return(QW)
       }
-      wlsex=try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
-      wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
-      wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
+      wlsex<-try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
+      wlsey<-try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
+      wlsez<-try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -4213,9 +4213,9 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
         QW<-sum(((n+1)^2*(n+2)/(i*(n-i+1)))*(pL(z,alpha3,beta3)-i/(n+1))^2)
         return(QW)
       }
-      wlsex=try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
-      wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
-      wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
+      wlsex<-try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
+      wlsey<-try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
+      wlsez<-try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -4980,9 +4980,9 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
         QW<-sum(((n+1)^2*(n+2)/(i*(n-i+1)))*(pW(z,alpha3,beta3)-i/(n+1))^2)
         return(QW)
       }
-      wlsex=try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
-      wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
-      wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
+      wlsex<-try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
+      wlsey<-try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
+      wlsez<-try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
   stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -5747,9 +5747,9 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
         QW<-sum(((n+1)^2*(n+2)/(i*(n-i+1)))*(pW(z,alpha3,beta3)-i/(n+1))^2)
         return(QW)
       }
-      wlsex=try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
-      wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
-      wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
+      wlsex<-try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
+      wlsey<-try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
+      wlsez<-try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -6514,9 +6514,9 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
         QW<-sum(((n+1)^2*(n+2)/(i*(n-i+1)))*(pG(z,alpha3,beta3)-i/(n+1))^2)
         return(QW)
       }
-      wlsex=try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
-      wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
-      wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
+      wlsex<-try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
+      wlsey<-try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
+      wlsez<-try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -7281,9 +7281,9 @@ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
         QW<-sum(((n+1)^2*(n+2)/(i*(n-i+1)))*(pL(z,alpha3,beta3)-i/(n+1))^2)
         return(QW)
       }
-      wlsex=try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
-      wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
-      wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
+      wlsex<-try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
+      wlsey<-try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
+      wlsez<-try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -8041,9 +8041,9 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
         QW<-sum(((n+1)^2*(n+2)/(i*(n-i+1)))*(pL(z,alpha3,beta3)-i/(n+1))^2)
         return(QW)
       }
-      wlsex=try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
-      wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
-      wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
+      wlsex<-try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
+      wlsey<-try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
+      wlsez<-try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -8696,9 +8696,9 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
         QW<-sum(((n+1)^2*(n+2)/(i*(n-i+1)))*(pW(z,alpha3,beta3)-i/(n+1))^2)
         return(QW)
       }
-      wlsex=try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
-      wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
-      wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
+      wlsex<-try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
+      wlsey<-try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
+      wlsez<-try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -9352,9 +9352,9 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
         QW<-sum(((n+1)^2*(n+2)/(i*(n-i+1)))*(pL(z,alpha3,beta3)-i/(n+1))^2)
         return(QW)
       }
-      wlsex=try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
-      wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
-      wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
+      wlsex<-try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
+      wlsey<-try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
+      wlsez<-try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -10009,9 +10009,9 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
           QW<-sum(((n+1)^2*(n+2)/(i*(n-i+1)))*(pW(z,alpha3,beta3)-i/(n+1))^2)
           return(QW)
         }
-        wlsex=try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
-        wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
-        wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
+        wlsex<-try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
+        wlsey<-try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
+        wlsez<-try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
         if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
         } else {
@@ -10665,9 +10665,9 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
           QW<-sum(((n+1)^2*(n+2)/(i*(n-i+1)))*(pW(z,alpha3,beta3)-i/(n+1))^2)
           return(QW)
         }
-        wlsex=try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
-        wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
-        wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
+        wlsex<-try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
+        wlsey<-try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
+        wlsez<-try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
         if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
         } else {
@@ -11321,9 +11321,9 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
           QW<-sum(((n+1)^2*(n+2)/(i*(n-i+1)))*(pG(z,alpha3,beta3)-i/(n+1))^2)
           return(QW)
         }
-        wlsex=try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
-        wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
-        wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
+        wlsex<-try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
+        wlsey<-try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
+        wlsez<-try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
         if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
         } else {
@@ -11977,9 +11977,9 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
           QW<-sum(((n+1)^2*(n+2)/(i*(n-i+1)))*(pL(z,alpha3,beta3)-i/(n+1))^2)
           return(QW)
         }
-        wlsex=try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
-        wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
-        wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
+        wlsex<-try(stats::optim(c(alpha1,beta1),QWLSEx,x=x),silent=TRUE)
+        wlsey<-try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
+        wlsez<-try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
         if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
         } else {

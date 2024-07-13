@@ -2790,8 +2790,8 @@ test_that("functions returns error", {
                                          median(c(1.5200108, 0.0617668,
                                                   6.0647578, 0.7594201,
                                                   0.3714640))),model="GLL",
-                          method="CvM"), "Optimization did not converge.
-               Please check your initial parameters.")
+                          method="CvM"),
+          "Optimization did not converge.Please check your initial parameters.")
 
   expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="GLL",
                            method="CvM"),
