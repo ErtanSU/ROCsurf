@@ -200,8 +200,10 @@ rL<-function(n,alpha,beta){
 #' true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),
 #' model=c("GWL"),method=c("TRUE"))
 r.tc_vus<- function(x,y,z,
-                    init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),
-                    true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),
+                    init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,
+                                 beta3=1),
+                    true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,
+                                 beta3=1),
                     model=c("GWL","GGW","GLL","WGW","WWW","GGG","LLL"),
                     method=c("MLE","AD","CvM","LSE","WLSE","TRUE")
 )
@@ -212,12 +214,12 @@ r.tc_vus<- function(x,y,z,
   beta2<-init_param[[4]]
   alpha3<-init_param[[5]]
   beta3<-init_param[[6]]
-  if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
-  if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
-  if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
-  if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
-  if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
-  if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
+if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
   model<- base::match.arg(model)
   method<- base::match.arg(method)
   if (model=="GWL") {
@@ -231,13 +233,16 @@ r.tc_vus<- function(x,y,z,
         beta2<-par[4]
         alpha3<-par[5]
         beta3<-par[6]
-        t<-(-sum(log(dG(x,alpha1,beta1)))-sum(log(dW(y,alpha2,beta2)))-sum(log(dL(z,alpha3,beta3))))
+        t<-(-sum(log(dG(x,alpha1,beta1)))-sum(log(dW(y,alpha2,beta2)))-
+              sum(log(dL(z,alpha3,beta3))))
         return(t)
       }
-      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),lfxyz,method = "L-BFGS-B",hessian = TRUE)),silent=TRUE)
+      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
+                                lfxyz,method = "L-BFGS-B",hessian = TRUE)),
+                  silent=TRUE)
 
       if (is.character(mlexyz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- mlexyz$par[1]
         beta1 <- mlexyz$par[2]
@@ -248,7 +253,8 @@ r.tc_vus<- function(x,y,z,
       }
 
       pracma::integral2(function(c1,c2) {
-        vus<-(pW(qL(1-c2,alpha3,beta3),alpha2,beta2)-pW(qG(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pW(qL(1-c2,alpha3,beta3),alpha2,beta2)-pW(qG(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -262,7 +268,8 @@ r.tc_vus<- function(x,y,z,
         adx<-sort(x,decreasing=TRUE)
         n<-NROW(x)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pG(x,alpha1,beta1))+log(1-pG(adx,alpha1,beta1))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pG(x,alpha1,beta1))+log(1-pG(adx,alpha1,
+                                                                   beta1))))
         return(AD)
       }
       QADy<-function(par,y){
@@ -272,7 +279,8 @@ r.tc_vus<- function(x,y,z,
         ady<-sort(y,decreasing=TRUE)
         n<-NROW(y)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pW(y,alpha2,beta2))+log(1-pW(ady,alpha2,beta2))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pW(y,alpha2,beta2))+log(1-pW(ady,alpha2,
+                                                                   beta2))))
         return(AD)
       }
       QADz<-function(par,z){
@@ -282,7 +290,8 @@ r.tc_vus<- function(x,y,z,
         adz<-sort(z,decreasing=TRUE)
         n<-NROW(z)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pL(z,alpha3,beta3))+log(1-pL(adz,alpha3,beta3))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pL(z,alpha3,beta3))+log(1-pL(adz,alpha3,
+                                                                   beta3))))
         return(AD)
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
@@ -290,7 +299,7 @@ r.tc_vus<- function(x,y,z,
       adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       }
       else {
         alpha1 <- adex$par[1]
@@ -301,7 +310,8 @@ r.tc_vus<- function(x,y,z,
         beta3<- adez$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pW(qL(1-c2,alpha3,beta3),alpha2,beta2)-pW(qG(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pW(qL(1-c2,alpha3,beta3),alpha2,beta2)-pW(qG(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
 
@@ -340,7 +350,7 @@ r.tc_vus<- function(x,y,z,
       cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
 
       if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- cvx$par[1]
         beta1 <- cvx$par[2]
@@ -350,7 +360,8 @@ r.tc_vus<- function(x,y,z,
         beta3 <- cvz$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pW(qL(1-c2,alpha3,beta3),alpha2,beta2)-pW(qG(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pW(qL(1-c2,alpha3,beta3),alpha2,beta2)-pW(qG(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -388,7 +399,7 @@ r.tc_vus<- function(x,y,z,
       lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
 
       if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- lsex$par[1]
         beta1 <- lsex$par[2]
@@ -398,7 +409,8 @@ r.tc_vus<- function(x,y,z,
         beta3 <- lsez$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pW(qL(1-c2,alpha3,beta3),alpha2,beta2)-pW(qG(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pW(qL(1-c2,alpha3,beta3),alpha2,beta2)-pW(qG(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -436,7 +448,7 @@ r.tc_vus<- function(x,y,z,
       wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
       wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- wlsex$par[1]
         beta1 <- wlsex$par[2]
@@ -446,7 +458,8 @@ r.tc_vus<- function(x,y,z,
         beta3 <- wlsez$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pW(qL(1-c2,alpha3,beta3),alpha2,beta2)-pW(qG(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pW(qL(1-c2,alpha3,beta3),alpha2,beta2)-pW(qG(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -461,14 +474,15 @@ r.tc_vus<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
+ if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+   if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+ if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+   if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+   if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       pracma::integral2(function(c1,c2) {
-        vus<-(pW(qL(1-c2,alpha3,beta3),alpha2,beta2)-pW(qG(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pW(qL(1-c2,alpha3,beta3),alpha2,beta2)-pW(qG(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -485,13 +499,15 @@ r.tc_vus<- function(x,y,z,
         beta2<-par[4]
         alpha3<-par[5]
         beta3<-par[6]
-        t<-(-sum(log(dG(x,alpha1,beta1)))-sum(log(dG(y,alpha2,beta2)))-sum(log(dW(z,alpha3,beta3))))
+        t<-(-sum(log(dG(x,alpha1,beta1)))-sum(log(dG(y,alpha2,beta2)))-
+              sum(log(dW(z,alpha3,beta3))))
         return(t)
       }
-      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),lfxyz,hessian = TRUE)),silent=TRUE)
+      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
+                                lfxyz,hessian = TRUE)),silent=TRUE)
 
       if (is.character(mlexyz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- mlexyz$par[1]
         beta1 <- mlexyz$par[2]
@@ -502,7 +518,8 @@ r.tc_vus<- function(x,y,z,
       }
 
       pracma::integral2(function(c1,c2) {
-        vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qG(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qG(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -516,7 +533,8 @@ r.tc_vus<- function(x,y,z,
         adx<-sort(x,decreasing=TRUE)
         n<-NROW(x)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pG(x,alpha1,beta1))+log(1-pG(adx,alpha1,beta1))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pG(x,alpha1,beta1))+log(1-pG(adx,alpha1,
+                                                                   beta1))))
         return(AD)
       }
       QADy<-function(par,y){
@@ -526,7 +544,8 @@ r.tc_vus<- function(x,y,z,
         ady<-sort(y,decreasing=TRUE)
         n<-NROW(y)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pG(y,alpha2,beta2))+log(1-pG(ady,alpha2,beta2))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pG(y,alpha2,beta2))+log(1-pG(ady,alpha2,
+                                                                   beta2))))
         return(AD)
       }
       QADz<-function(par,z){
@@ -536,7 +555,8 @@ r.tc_vus<- function(x,y,z,
         adz<-sort(z,decreasing=TRUE)
         n<-NROW(z)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pW(z,alpha3,beta3))+log(1-pW(adz,alpha3,beta3))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pW(z,alpha3,beta3))+log(1-pW(adz,alpha3,
+                                                                   beta3))))
         return(AD)
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
@@ -544,7 +564,7 @@ r.tc_vus<- function(x,y,z,
       adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       }
       else {
         alpha1 <- adex$par[1]
@@ -555,7 +575,8 @@ r.tc_vus<- function(x,y,z,
         beta3<- adez$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qG(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qG(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
 
@@ -594,7 +615,7 @@ r.tc_vus<- function(x,y,z,
       cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
 
       if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- cvx$par[1]
         beta1 <- cvx$par[2]
@@ -604,7 +625,8 @@ r.tc_vus<- function(x,y,z,
         beta3 <- cvz$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qG(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qG(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -642,7 +664,7 @@ r.tc_vus<- function(x,y,z,
       lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
 
       if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- lsex$par[1]
         beta1 <- lsex$par[2]
@@ -652,7 +674,8 @@ r.tc_vus<- function(x,y,z,
         beta3 <- lsez$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qG(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qG(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -690,7 +713,7 @@ r.tc_vus<- function(x,y,z,
       wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
       wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- wlsex$par[1]
         beta1 <- wlsex$par[2]
@@ -700,7 +723,8 @@ r.tc_vus<- function(x,y,z,
         beta3 <- wlsez$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qG(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qG(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -715,14 +739,15 @@ r.tc_vus<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
+if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+  if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+  if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+  if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       pracma::integral2(function(c1,c2) {
-        vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qG(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qG(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -741,13 +766,15 @@ r.tc_vus<- function(x,y,z,
         beta2<-par[4]
         alpha3<-par[5]
         beta3<-par[6]
-        t<-(-sum(log(dG(x,alpha1,beta1)))-sum(log(dL(y,alpha2,beta2)))-sum(log(dL(z,alpha3,beta3))))
+        t<-(-sum(log(dG(x,alpha1,beta1)))-sum(log(dL(y,alpha2,beta2)))-
+              sum(log(dL(z,alpha3,beta3))))
         return(t)
       }
-      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),lfxyz,hessian = TRUE)),silent=TRUE)
+      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
+                                lfxyz,hessian = TRUE)),silent=TRUE)
 
       if (is.character(mlexyz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+  stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- mlexyz$par[1]
         beta1 <- mlexyz$par[2]
@@ -758,7 +785,8 @@ r.tc_vus<- function(x,y,z,
       }
 
       pracma::integral2(function(c1,c2) {
-        vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-pL(qG(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-pL(qG(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -772,7 +800,8 @@ r.tc_vus<- function(x,y,z,
         adx<-sort(x,decreasing=TRUE)
         n<-NROW(x)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pG(x,alpha1,beta1))+log(1-pG(adx,alpha1,beta1))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pG(x,alpha1,beta1))+
+                                    log(1-pG(adx,alpha1,beta1))))
         return(AD)
       }
       QADy<-function(par,y){
@@ -782,7 +811,8 @@ r.tc_vus<- function(x,y,z,
         ady<-sort(y,decreasing=TRUE)
         n<-NROW(y)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pL(y,alpha2,beta2))+log(1-pL(ady,alpha2,beta2))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pL(y,alpha2,beta2))+
+                                    log(1-pL(ady,alpha2,beta2))))
         return(AD)
       }
       QADz<-function(par,z){
@@ -792,7 +822,8 @@ r.tc_vus<- function(x,y,z,
         adz<-sort(z,decreasing=TRUE)
         n<-NROW(z)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pL(z,alpha3,beta3))+log(1-pL(adz,alpha3,beta3))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pL(z,alpha3,beta3))+
+                                    log(1-pL(adz,alpha3,beta3))))
         return(AD)
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
@@ -800,7 +831,7 @@ r.tc_vus<- function(x,y,z,
       adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+     stop("Optimization did not converge.Please check your initial parameters.")
       }
       else {
         alpha1 <- adex$par[1]
@@ -811,7 +842,8 @@ r.tc_vus<- function(x,y,z,
         beta3<- adez$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-pL(qG(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-pL(qG(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
 
@@ -850,7 +882,7 @@ r.tc_vus<- function(x,y,z,
       cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
 
       if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- cvx$par[1]
         beta1 <- cvx$par[2]
@@ -860,7 +892,8 @@ r.tc_vus<- function(x,y,z,
         beta3 <- cvz$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-pL(qG(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-pL(qG(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -898,7 +931,7 @@ r.tc_vus<- function(x,y,z,
       lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
 
       if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- lsex$par[1]
         beta1 <- lsex$par[2]
@@ -908,7 +941,8 @@ r.tc_vus<- function(x,y,z,
         beta3 <- lsez$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-pL(qG(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-pL(qG(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -946,7 +980,7 @@ r.tc_vus<- function(x,y,z,
       wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
       wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+ stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- wlsex$par[1]
         beta1 <- wlsex$par[2]
@@ -956,7 +990,8 @@ r.tc_vus<- function(x,y,z,
         beta3 <- wlsez$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-pL(qG(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-pL(qG(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -971,14 +1006,15 @@ r.tc_vus<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
+ if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+  if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+   if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+  if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       pracma::integral2(function(c1,c2) {
-        vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-pL(qG(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-pL(qG(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -997,13 +1033,15 @@ r.tc_vus<- function(x,y,z,
         beta2<-par[4]
         alpha3<-par[5]
         beta3<-par[6]
-        t<-(-sum(log(dW(x,alpha1,beta1)))-sum(log(dG(y,alpha2,beta2)))-sum(log(dW(z,alpha3,beta3))))
+        t<-(-sum(log(dW(x,alpha1,beta1)))-sum(log(dG(y,alpha2,beta2)))-
+              sum(log(dW(z,alpha3,beta3))))
         return(t)
       }
-      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),lfxyz,hessian = TRUE)),silent=TRUE)
+      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
+                                lfxyz,hessian = TRUE)),silent=TRUE)
 
       if (is.character(mlexyz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+   stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- mlexyz$par[1]
         beta1 <- mlexyz$par[2]
@@ -1014,7 +1052,8 @@ r.tc_vus<- function(x,y,z,
       }
 
       pracma::integral2(function(c1,c2) {
-        vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qW(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qW(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -1028,7 +1067,8 @@ r.tc_vus<- function(x,y,z,
         adx<-sort(x,decreasing=TRUE)
         n<-NROW(x)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pW(x,alpha1,beta1))+log(1-pW(adx,alpha1,beta1))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pW(x,alpha1,beta1))+
+                                    log(1-pW(adx,alpha1,beta1))))
         return(AD)
       }
       QADy<-function(par,y){
@@ -1038,7 +1078,8 @@ r.tc_vus<- function(x,y,z,
         ady<-sort(y,decreasing=TRUE)
         n<-NROW(y)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pG(y,alpha2,beta2))+log(1-pG(ady,alpha2,beta2))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pG(y,alpha2,beta2))+
+                                    log(1-pG(ady,alpha2,beta2))))
         return(AD)
       }
       QADz<-function(par,z){
@@ -1048,7 +1089,8 @@ r.tc_vus<- function(x,y,z,
         adz<-sort(z,decreasing=TRUE)
         n<-NROW(z)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pW(z,alpha3,beta3))+log(1-pW(adz,alpha3,beta3))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pW(z,alpha3,beta3))+
+                                    log(1-pW(adz,alpha3,beta3))))
         return(AD)
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
@@ -1056,7 +1098,7 @@ r.tc_vus<- function(x,y,z,
       adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+     stop("Optimization did not converge.Please check your initial parameters.")
       }
       else {
         alpha1 <- adex$par[1]
@@ -1067,7 +1109,8 @@ r.tc_vus<- function(x,y,z,
         beta3<- adez$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qW(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qW(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
 
@@ -1106,7 +1149,7 @@ r.tc_vus<- function(x,y,z,
       cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
 
       if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- cvx$par[1]
         beta1 <- cvx$par[2]
@@ -1116,7 +1159,8 @@ r.tc_vus<- function(x,y,z,
         beta3 <- cvz$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qW(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qW(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -1154,7 +1198,7 @@ r.tc_vus<- function(x,y,z,
       lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
 
       if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- lsex$par[1]
         beta1 <- lsex$par[2]
@@ -1164,7 +1208,8 @@ r.tc_vus<- function(x,y,z,
         beta3 <- lsez$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qW(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qW(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -1202,7 +1247,7 @@ r.tc_vus<- function(x,y,z,
       wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
       wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- wlsex$par[1]
         beta1 <- wlsex$par[2]
@@ -1212,7 +1257,8 @@ r.tc_vus<- function(x,y,z,
         beta3 <- wlsez$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qW(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qW(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -1227,14 +1273,15 @@ r.tc_vus<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
+if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+  if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+ if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+   if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+   if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       pracma::integral2(function(c1,c2) {
-        vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qW(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qW(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -1251,13 +1298,15 @@ r.tc_vus<- function(x,y,z,
         beta2<-par[4]
         alpha3<-par[5]
         beta3<-par[6]
-        t<-(-sum(log(dW(x,alpha1,beta1)))-sum(log(dW(y,alpha2,beta2)))-sum(log(dW(z,alpha3,beta3))))
+        t<-(-sum(log(dW(x,alpha1,beta1)))-sum(log(dW(y,alpha2,beta2)))-
+              sum(log(dW(z,alpha3,beta3))))
         return(t)
       }
-      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),lfxyz,hessian = TRUE)),silent=TRUE)
+      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
+                                lfxyz,hessian = TRUE)),silent=TRUE)
 
       if (is.character(mlexyz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- mlexyz$par[1]
         beta1 <- mlexyz$par[2]
@@ -1268,7 +1317,8 @@ r.tc_vus<- function(x,y,z,
       }
 
       pracma::integral2(function(c1,c2) {
-        vus<-(pW(qW(1-c2,alpha3,beta3),alpha2,beta2)-pW(qW(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pW(qW(1-c2,alpha3,beta3),alpha2,beta2)-pW(qW(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -1282,7 +1332,8 @@ r.tc_vus<- function(x,y,z,
         adx<-sort(x,decreasing=TRUE)
         n<-NROW(x)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pW(x,alpha1,beta1))+log(1-pW(adx,alpha1,beta1))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pW(x,alpha1,beta1))+
+                                    log(1-pW(adx,alpha1,beta1))))
         return(AD)
       }
       QADy<-function(par,y){
@@ -1292,7 +1343,8 @@ r.tc_vus<- function(x,y,z,
         ady<-sort(y,decreasing=TRUE)
         n<-NROW(y)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pW(y,alpha2,beta2))+log(1-pW(ady,alpha2,beta2))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pW(y,alpha2,beta2))+
+                                    log(1-pW(ady,alpha2,beta2))))
         return(AD)
       }
       QADz<-function(par,z){
@@ -1302,7 +1354,8 @@ r.tc_vus<- function(x,y,z,
         adz<-sort(z,decreasing=TRUE)
         n<-NROW(z)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pW(z,alpha3,beta3))+log(1-pW(adz,alpha3,beta3))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pW(z,alpha3,beta3))+
+                                    log(1-pW(adz,alpha3,beta3))))
         return(AD)
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
@@ -1310,7 +1363,7 @@ r.tc_vus<- function(x,y,z,
       adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+   stop("Optimization did not converge.Please check your initial parameters.")
       }
       else {
         alpha1 <- adex$par[1]
@@ -1321,7 +1374,8 @@ r.tc_vus<- function(x,y,z,
         beta3<- adez$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pW(qW(1-c2,alpha3,beta3),alpha2,beta2)-pW(qW(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pW(qW(1-c2,alpha3,beta3),alpha2,beta2)-
+                pW(qW(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
 
@@ -1360,7 +1414,7 @@ r.tc_vus<- function(x,y,z,
       cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
 
       if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- cvx$par[1]
         beta1 <- cvx$par[2]
@@ -1370,7 +1424,8 @@ r.tc_vus<- function(x,y,z,
         beta3 <- cvz$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pW(qW(1-c2,alpha3,beta3),alpha2,beta2)-pW(qW(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pW(qW(1-c2,alpha3,beta3),alpha2,beta2)-
+                pW(qW(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -1408,7 +1463,7 @@ r.tc_vus<- function(x,y,z,
       lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
 
       if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- lsex$par[1]
         beta1 <- lsex$par[2]
@@ -1418,7 +1473,8 @@ r.tc_vus<- function(x,y,z,
         beta3 <- lsez$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pW(qW(1-c2,alpha3,beta3),alpha2,beta2)-pW(qW(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pW(qW(1-c2,alpha3,beta3),alpha2,beta2)-
+                pW(qW(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -1456,7 +1512,7 @@ r.tc_vus<- function(x,y,z,
       wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
       wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- wlsex$par[1]
         beta1 <- wlsex$par[2]
@@ -1466,7 +1522,8 @@ r.tc_vus<- function(x,y,z,
         beta3 <- wlsez$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pW(qW(1-c2,alpha3,beta3),alpha2,beta2)-pW(qW(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pW(qW(1-c2,alpha3,beta3),alpha2,beta2)-
+                pW(qW(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -1481,14 +1538,15 @@ r.tc_vus<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
+if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+ if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+   if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+   if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       pracma::integral2(function(c1,c2) {
-        vus<-(pW(qW(1-c2,alpha3,beta3),alpha2,beta2)-pW(qW(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pW(qW(1-c2,alpha3,beta3),alpha2,beta2)-
+                pW(qW(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -1505,13 +1563,15 @@ r.tc_vus<- function(x,y,z,
         beta2<-par[4]
         alpha3<-par[5]
         beta3<-par[6]
-        t<-(-sum(log(dG(x,alpha1,beta1)))-sum(log(dG(y,alpha2,beta2)))-sum(log(dG(z,alpha3,beta3))))
+        t<-(-sum(log(dG(x,alpha1,beta1)))-sum(log(dG(y,alpha2,beta2)))-
+              sum(log(dG(z,alpha3,beta3))))
         return(t)
       }
-      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),lfxyz,hessian = TRUE)),silent=TRUE)
+      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
+                                lfxyz,hessian = TRUE)),silent=TRUE)
 
       if (is.character(mlexyz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- mlexyz$par[1]
         beta1 <- mlexyz$par[2]
@@ -1522,7 +1582,8 @@ r.tc_vus<- function(x,y,z,
       }
 
       pracma::integral2(function(c1,c2) {
-        vus<-(pG(qG(1-c2,alpha3,beta3),alpha2,beta2)-pG(qG(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pG(qG(1-c2,alpha3,beta3),alpha2,beta2)-pG(qG(c1,alpha1,beta1),
+                                                        alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -1536,7 +1597,8 @@ r.tc_vus<- function(x,y,z,
         adx<-sort(x,decreasing=TRUE)
         n<-NROW(x)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pG(x,alpha1,beta1))+log(1-pG(adx,alpha1,beta1))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pG(x,alpha1,beta1))+
+                                    log(1-pG(adx,alpha1,beta1))))
         return(AD)
       }
       QADy<-function(par,y){
@@ -1546,7 +1608,8 @@ r.tc_vus<- function(x,y,z,
         ady<-sort(y,decreasing=TRUE)
         n<-NROW(y)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pG(y,alpha2,beta2))+log(1-pG(ady,alpha2,beta2))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pG(y,alpha2,beta2))+
+                                    log(1-pG(ady,alpha2,beta2))))
         return(AD)
       }
       QADz<-function(par,z){
@@ -1556,7 +1619,8 @@ r.tc_vus<- function(x,y,z,
         adz<-sort(z,decreasing=TRUE)
         n<-NROW(z)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pG(z,alpha3,beta3))+log(1-pG(adz,alpha3,beta3))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pG(z,alpha3,beta3))+
+                                    log(1-pG(adz,alpha3,beta3))))
         return(AD)
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
@@ -1564,7 +1628,7 @@ r.tc_vus<- function(x,y,z,
       adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+   stop("Optimization did not converge.Please check your initial parameters.")
       }
       else {
         alpha1 <- adex$par[1]
@@ -1575,7 +1639,8 @@ r.tc_vus<- function(x,y,z,
         beta3<- adez$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pG(qG(1-c2,alpha3,beta3),alpha2,beta2)-pG(qG(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pG(qG(1-c2,alpha3,beta3),alpha2,beta2)-
+                pG(qG(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
 
@@ -1614,7 +1679,7 @@ r.tc_vus<- function(x,y,z,
       cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
 
       if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- cvx$par[1]
         beta1 <- cvx$par[2]
@@ -1624,7 +1689,8 @@ r.tc_vus<- function(x,y,z,
         beta3 <- cvz$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pG(qG(1-c2,alpha3,beta3),alpha2,beta2)-pG(qG(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pG(qG(1-c2,alpha3,beta3),alpha2,beta2)-
+                pG(qG(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -1662,7 +1728,7 @@ r.tc_vus<- function(x,y,z,
       lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
 
       if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+  stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- lsex$par[1]
         beta1 <- lsex$par[2]
@@ -1672,7 +1738,8 @@ r.tc_vus<- function(x,y,z,
         beta3 <- lsez$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pG(qG(1-c2,alpha3,beta3),alpha2,beta2)-pG(qG(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pG(qG(1-c2,alpha3,beta3),alpha2,beta2)-
+                pG(qG(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -1710,7 +1777,7 @@ r.tc_vus<- function(x,y,z,
       wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
       wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- wlsex$par[1]
         beta1 <- wlsex$par[2]
@@ -1720,7 +1787,8 @@ r.tc_vus<- function(x,y,z,
         beta3 <- wlsez$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pG(qG(1-c2,alpha3,beta3),alpha2,beta2)-pG(qG(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pG(qG(1-c2,alpha3,beta3),alpha2,beta2)-
+                pG(qG(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -1735,14 +1803,15 @@ r.tc_vus<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
+ if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+   if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+ if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+   if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+   if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       pracma::integral2(function(c1,c2) {
-        vus<-(pG(qG(1-c2,alpha3,beta3),alpha2,beta2)-pG(qG(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pG(qG(1-c2,alpha3,beta3),alpha2,beta2)-
+                pG(qG(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -1759,13 +1828,15 @@ r.tc_vus<- function(x,y,z,
         beta2<-par[4]
         alpha3<-par[5]
         beta3<-par[6]
-        t<-(-sum(log(dL(x,alpha1,beta1)))-sum(log(dL(y,alpha2,beta2)))-sum(log(dL(z,alpha3,beta3))))
+        t<-(-sum(log(dL(x,alpha1,beta1)))-sum(log(dL(y,alpha2,beta2)))-
+              sum(log(dL(z,alpha3,beta3))))
         return(t)
       }
-      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),lfxyz,hessian = TRUE)),silent=TRUE)
+      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
+                                lfxyz,hessian = TRUE)),silent=TRUE)
 
       if (is.character(mlexyz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- mlexyz$par[1]
         beta1 <- mlexyz$par[2]
@@ -1776,7 +1847,8 @@ r.tc_vus<- function(x,y,z,
       }
 
       pracma::integral2(function(c1,c2) {
-        vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-pL(qL(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-
+                pL(qL(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -1790,7 +1862,8 @@ r.tc_vus<- function(x,y,z,
         adx<-sort(x,decreasing=TRUE)
         n<-NROW(x)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pL(x,alpha1,beta1))+log(1-pL(adx,alpha1,beta1))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pL(x,alpha1,beta1))+
+                                    log(1-pL(adx,alpha1,beta1))))
         return(AD)
       }
       QADy<-function(par,y){
@@ -1800,7 +1873,8 @@ r.tc_vus<- function(x,y,z,
         ady<-sort(y,decreasing=TRUE)
         n<-NROW(y)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pL(y,alpha2,beta2))+log(1-pL(ady,alpha2,beta2))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pL(y,alpha2,beta2))+
+                                    log(1-pL(ady,alpha2,beta2))))
         return(AD)
       }
       QADz<-function(par,z){
@@ -1810,7 +1884,8 @@ r.tc_vus<- function(x,y,z,
         adz<-sort(z,decreasing=TRUE)
         n<-NROW(z)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pL(z,alpha3,beta3))+log(1-pL(adz,alpha3,beta3))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pL(z,alpha3,beta3))+
+                                    log(1-pL(adz,alpha3,beta3))))
         return(AD)
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
@@ -1818,7 +1893,7 @@ r.tc_vus<- function(x,y,z,
       adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       }
       else {
         alpha1 <- adex$par[1]
@@ -1829,7 +1904,8 @@ r.tc_vus<- function(x,y,z,
         beta3<- adez$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-pL(qL(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-
+                pL(qL(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
 
@@ -1868,7 +1944,7 @@ r.tc_vus<- function(x,y,z,
       cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
 
       if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- cvx$par[1]
         beta1 <- cvx$par[2]
@@ -1878,7 +1954,8 @@ r.tc_vus<- function(x,y,z,
         beta3 <- cvz$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-pL(qL(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-
+                pL(qL(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -1916,7 +1993,7 @@ r.tc_vus<- function(x,y,z,
       lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
 
       if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+   stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- lsex$par[1]
         beta1 <- lsex$par[2]
@@ -1926,7 +2003,8 @@ r.tc_vus<- function(x,y,z,
         beta3 <- lsez$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-pL(qL(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-
+                pL(qL(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -1964,7 +2042,7 @@ r.tc_vus<- function(x,y,z,
       wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
       wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+  stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- wlsex$par[1]
         beta1 <- wlsex$par[2]
@@ -1974,7 +2052,8 @@ r.tc_vus<- function(x,y,z,
         beta3 <- wlsez$par[2]
       }
       pracma::integral2(function(c1,c2) {
-        vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-pL(qL(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-
+                pL(qL(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -1989,14 +2068,15 @@ r.tc_vus<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
+ if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+  if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+ if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+   if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+   if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       pracma::integral2(function(c1,c2) {
-        vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-pL(qL(c1,alpha1,beta1),alpha2,beta2))
+        vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-
+                pL(qL(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
@@ -2025,8 +2105,8 @@ r.tc_vus<- function(x,y,z,
 #'   method = "TRUE"
 #' )
 r.tc_index<- function(x,y,z,
-                      init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),
-                      true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),
+              init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),
+              true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),
                       init_index=c(x,y),
                       model=c("GWL","GGW","GLL","WGW","WWW","GGG","LLL"),
                       method=c("MLE","AD","CvM","LSE","WLSE","TRUE")
@@ -2038,12 +2118,12 @@ r.tc_index<- function(x,y,z,
   beta2<-init_param[[4]]
   alpha3<-init_param[[5]]
   beta3<-init_param[[6]]
-  if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
-  if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
-  if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
-  if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
-  if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
-  if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
+if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
   model<- base::match.arg(model)
   method<- base::match.arg(method)
 
@@ -2056,13 +2136,15 @@ r.tc_index<- function(x,y,z,
         beta2<-par[4]
         alpha3<-par[5]
         beta3<-par[6]
-        t<-(-sum(log(dG(x,alpha1,beta1)))-sum(log(dW(y,alpha2,beta2)))-sum(log(dL(z,alpha3,beta3))))
+        t<-(-sum(log(dG(x,alpha1,beta1)))-sum(log(dW(y,alpha2,beta2)))-
+              sum(log(dL(z,alpha3,beta3))))
         return(t)
       }
-      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),lfxyz,method = "L-BFGS-B",hessian = TRUE)),silent=TRUE)
+      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
+                        lfxyz,method = "L-BFGS-B",hessian = TRUE)),silent=TRUE)
 
       if (is.character(mlexyz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- mlexyz$par[1]
         beta1 <- mlexyz$par[2]
@@ -2074,49 +2156,61 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pG(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
+        a<-pG(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-
+          pW(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-
+                                                  pW(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))
+        a<-(pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                         pW(cut[1],alpha2,beta2)))*
+          (((1-pL(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*((1-pL(cut[2],alpha3,beta3)))-
-          (1-pG(cut[1],alpha1,beta1))*(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(1-(1-pL(cut[2],alpha3,beta3)))
+        a<-(pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                         pW(cut[1],alpha2,beta2)))*
+          ((1-pL(cut[2],alpha3,beta3)))-
+          (1-pG(cut[1],alpha1,beta1))*
+          (1-(pW(cut[2],alpha2,beta2)-
+                pW(cut[1],alpha2,beta2)))*(1-(1-pL(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pG(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
-              ((pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2))
+        a<-((pG(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-
+               pW(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
+              ((pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                  pW(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-
+              pW(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -2159,7 +2253,8 @@ r.tc_index<- function(x,y,z,
         adx<-sort(x,decreasing=TRUE)
         n<-NROW(x)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pG(x,alpha1,beta1))+log(1-pG(adx,alpha1,beta1))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pG(x,alpha1,beta1))+
+                                    log(1-pG(adx,alpha1,beta1))))
         return(AD)
       }
       QADy<-function(par,y){
@@ -2169,7 +2264,8 @@ r.tc_index<- function(x,y,z,
         ady<-sort(y,decreasing=TRUE)
         n<-NROW(y)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pW(y,alpha2,beta2))+log(1-pW(ady,alpha2,beta2))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pW(y,alpha2,beta2))+
+                                    log(1-pW(ady,alpha2,beta2))))
         return(AD)
       }
       QADz<-function(par,z){
@@ -2179,7 +2275,8 @@ r.tc_index<- function(x,y,z,
         adz<-sort(z,decreasing=TRUE)
         n<-NROW(z)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pL(z,alpha3,beta3))+log(1-pL(adz,alpha3,beta3))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pL(z,alpha3,beta3))+
+                                    log(1-pL(adz,alpha3,beta3))))
         return(AD)
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
@@ -2187,7 +2284,7 @@ r.tc_index<- function(x,y,z,
       adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+ stop("Optimization did not converge.Please check your initial parameters.")
       }
       else {
         alpha1 <- adex$par[1]
@@ -2200,49 +2297,62 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pG(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
+        a<-pG(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-
+          pW(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-
+                                              pW(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))
+        a<-(pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                      pW(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*((1-pL(cut[2],alpha3,beta3)))-
-          (1-pG(cut[1],alpha1,beta1))*(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(1-(1-pL(cut[2],alpha3,beta3)))
+        a<-(pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                         pW(cut[1],alpha2,beta2)))*
+          ((1-pL(cut[2],alpha3,beta3)))-
+          (1-pG(cut[1],alpha1,beta1))*(1-(pW(cut[2],alpha2,beta2)-
+                                            pW(cut[1],alpha2,beta2)))*
+          (1-(1-pL(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pG(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
-              ((pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2))
+        a<-((pG(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-
+               pW(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
+              ((pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                             pW(cut[1],alpha2,beta2)))*
+                 (((1-pL(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-
+                                                pW(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -2308,7 +2418,7 @@ r.tc_index<- function(x,y,z,
       cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
 
       if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- cvx$par[1]
         beta1 <- cvx$par[2]
@@ -2320,49 +2430,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pG(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
+        a<-pG(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-
+          pW(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-
+                                                  pW(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))
+        a<-(pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                         pW(cut[1],alpha2,beta2)))*
+          (((1-pL(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*((1-pL(cut[2],alpha3,beta3)))-
-          (1-pG(cut[1],alpha1,beta1))*(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(1-(1-pL(cut[2],alpha3,beta3)))
+        a<-(pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                         pW(cut[1],alpha2,beta2)))*
+          ((1-pL(cut[2],alpha3,beta3)))-
+          (1-pG(cut[1],alpha1,beta1))*(1-(pW(cut[2],alpha2,beta2)-
+                                            pW(cut[1],alpha2,beta2)))*
+          (1-(1-pL(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pG(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
-              ((pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2))
+        a<-((pG(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-
+               pW(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
+              ((pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                             pW(cut[1],alpha2,beta2)))*
+                 (((1-pL(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-
+                                                  pW(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -2427,7 +2551,7 @@ r.tc_index<- function(x,y,z,
       lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
 
       if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- lsex$par[1]
         beta1 <- lsex$par[2]
@@ -2439,49 +2563,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pG(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
+        a<-pG(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-
+          pW(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-
+                                                  pW(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))
+        a<-(pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                         pW(cut[1],alpha2,beta2)))*
+          (((1-pL(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*((1-pL(cut[2],alpha3,beta3)))-
-          (1-pG(cut[1],alpha1,beta1))*(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(1-(1-pL(cut[2],alpha3,beta3)))
+        a<-(pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                         pW(cut[1],alpha2,beta2)))*
+          ((1-pL(cut[2],alpha3,beta3)))-
+          (1-pG(cut[1],alpha1,beta1))*(1-(pW(cut[2],alpha2,beta2)-
+                                            pW(cut[1],alpha2,beta2)))*
+          (1-(1-pL(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pG(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
-              ((pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2))
+        a<-((pG(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-
+               pW(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
+              ((pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                             pW(cut[1],alpha2,beta2)))*
+                 (((1-pL(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-
+                                                pW(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -2546,7 +2684,7 @@ r.tc_index<- function(x,y,z,
       wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
       wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+   stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- wlsex$par[1]
         beta1 <- wlsex$par[2]
@@ -2558,49 +2696,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pG(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
+        a<-pG(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-
+          pW(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-
+                                                  pW(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))
+        a<-(pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                         pW(cut[1],alpha2,beta2)))*
+          (((1-pL(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*((1-pL(cut[2],alpha3,beta3)))-
-          (1-pG(cut[1],alpha1,beta1))*(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(1-(1-pL(cut[2],alpha3,beta3)))
+        a<-(pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                         pW(cut[1],alpha2,beta2)))*
+          ((1-pL(cut[2],alpha3,beta3)))-
+          (1-pG(cut[1],alpha1,beta1))*(1-(pW(cut[2],alpha2,beta2)-
+                                            pW(cut[1],alpha2,beta2)))*
+          (1-(1-pL(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pG(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
-              ((pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2))
+        a<-((pG(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-
+               pW(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
+              ((pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                             pW(cut[1],alpha2,beta2)))*
+                 (((1-pL(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-
+                                                  pW(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+   Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -2642,58 +2794,72 @@ r.tc_index<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
+ if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+ if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+ if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+  if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+  if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pG(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
+        a<-pG(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-
+          pW(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-
+                                                  pW(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))
+        a<-(pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                         pW(cut[1],alpha2,beta2)))*
+          (((1-pL(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*((1-pL(cut[2],alpha3,beta3)))-
-          (1-pG(cut[1],alpha1,beta1))*(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(1-(1-pL(cut[2],alpha3,beta3)))
+        a<-(pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                         pW(cut[1],alpha2,beta2)))*
+          ((1-pL(cut[2],alpha3,beta3)))-
+          (1-pG(cut[1],alpha1,beta1))*(1-(pW(cut[2],alpha2,beta2)-
+                                            pW(cut[1],alpha2,beta2)))*
+          (1-(1-pL(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pG(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
-              ((pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2))
+        a<-((pG(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-
+               pW(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
+              ((pG(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                             pW(cut[1],alpha2,beta2)))*
+                 (((1-pL(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-
+                                                  pW(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -2734,13 +2900,15 @@ r.tc_index<- function(x,y,z,
         beta2<-par[4]
         alpha3<-par[5]
         beta3<-par[6]
-        t<-(-sum(log(dG(x,alpha1,beta1)))-sum(log(dG(y,alpha2,beta2)))-sum(log(dW(z,alpha3,beta3))))
+        t<-(-sum(log(dG(x,alpha1,beta1)))-sum(log(dG(y,alpha2,beta2)))-
+              sum(log(dW(z,alpha3,beta3))))
         return(t)
       }
-      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),lfxyz,hessian = TRUE)),silent=TRUE)
+      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
+                                lfxyz,hessian = TRUE)),silent=TRUE)
 
       if (is.character(mlexyz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- mlexyz$par[1]
         beta1 <- mlexyz$par[2]
@@ -2753,49 +2921,64 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
+        a<-pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],
+                                                              alpha2,beta2)+
+          (1-pW(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))
+        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,
+                                                                  beta2)))*
+          (((1-pW(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*((1-pW(cut[2],alpha3,beta3)))-
-          (1-pG(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(1-(1-pW(cut[2],alpha3,beta3)))
+        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          ((1-pW(cut[2],alpha3,beta3)))-
+          (1-pG(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-
+                                            pG(cut[1],alpha2,beta2)))*
+          (1-(1-pW(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
-              ((pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2))
+        a<-((pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+               pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
+              ((pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                             pG(cut[1],alpha2,beta2)))*
+                 (((1-pW(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -2836,7 +3019,8 @@ r.tc_index<- function(x,y,z,
         adx<-sort(x,decreasing=TRUE)
         n<-NROW(x)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pG(x,alpha1,beta1))+log(1-pG(adx,alpha1,beta1))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pG(x,alpha1,beta1))+
+                                    log(1-pG(adx,alpha1,beta1))))
         return(AD)
       }
       QADy<-function(par,y){
@@ -2846,7 +3030,8 @@ r.tc_index<- function(x,y,z,
         ady<-sort(y,decreasing=TRUE)
         n<-NROW(y)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pG(y,alpha2,beta2))+log(1-pG(ady,alpha2,beta2))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pG(y,alpha2,beta2))+
+                                    log(1-pG(ady,alpha2,beta2))))
         return(AD)
       }
       QADz<-function(par,z){
@@ -2856,7 +3041,8 @@ r.tc_index<- function(x,y,z,
         adz<-sort(z,decreasing=TRUE)
         n<-NROW(z)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pW(z,alpha3,beta3))+log(1-pW(adz,alpha3,beta3))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pW(z,alpha3,beta3))+
+                                    log(1-pW(adz,alpha3,beta3))))
         return(AD)
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
@@ -2864,7 +3050,7 @@ r.tc_index<- function(x,y,z,
       adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+   stop("Optimization did not converge.Please check your initial parameters.")
       }
       else {
         alpha1 <- adex$par[1]
@@ -2877,49 +3063,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
+        a<-pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+          pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))
+        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          (((1-pW(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*((1-pW(cut[2],alpha3,beta3)))-
-          (1-pG(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(1-(1-pW(cut[2],alpha3,beta3)))
+        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          ((1-pW(cut[2],alpha3,beta3)))-
+          (1-pG(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-
+                                            pG(cut[1],alpha2,beta2)))*
+          (1-(1-pW(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
-              ((pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2))
+        a<-((pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+               pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
+              ((pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                             pG(cut[1],alpha2,beta2)))*
+                 (((1-pW(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -2985,7 +3185,7 @@ r.tc_index<- function(x,y,z,
       cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
 
       if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+  stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- cvx$par[1]
         beta1 <- cvx$par[2]
@@ -2997,49 +3197,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
+        a<-pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+          pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))
+        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          (((1-pW(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*((1-pW(cut[2],alpha3,beta3)))-
-          (1-pG(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(1-(1-pW(cut[2],alpha3,beta3)))
+        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          ((1-pW(cut[2],alpha3,beta3)))-
+          (1-pG(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-
+                                            pG(cut[1],alpha2,beta2)))*
+          (1-(1-pW(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
-              ((pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2))
+        a<-((pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+               pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
+              ((pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                             pG(cut[1],alpha2,beta2)))*
+                 (((1-pW(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -3104,7 +3318,7 @@ r.tc_index<- function(x,y,z,
       lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
 
       if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- lsex$par[1]
         beta1 <- lsex$par[2]
@@ -3116,49 +3330,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
+        a<-pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+          pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+   Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))
+        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          (((1-pW(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*((1-pW(cut[2],alpha3,beta3)))-
-          (1-pG(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(1-(1-pW(cut[2],alpha3,beta3)))
+        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          ((1-pW(cut[2],alpha3,beta3)))-
+          (1-pG(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-
+                                            pG(cut[1],alpha2,beta2)))*
+          (1-(1-pW(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
-              ((pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2))
+        a<-((pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+               pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
+              ((pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                             pG(cut[1],alpha2,beta2)))*
+                 (((1-pW(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+   Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -3223,7 +3451,7 @@ r.tc_index<- function(x,y,z,
       wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
       wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- wlsex$par[1]
         beta1 <- wlsex$par[2]
@@ -3235,49 +3463,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
+        a<-pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+          pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                   pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))
+        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          (((1-pW(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*((1-pW(cut[2],alpha3,beta3)))-
-          (1-pG(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(1-(1-pW(cut[2],alpha3,beta3)))
+        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          ((1-pW(cut[2],alpha3,beta3)))-
+          (1-pG(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-
+                                            pG(cut[1],alpha2,beta2)))*
+          (1-(1-pW(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
-              ((pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2))
+        a<-((pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+               pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
+              ((pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                            pG(cut[1],alpha2,beta2)))*
+                 (((1-pW(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                    pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -3319,58 +3561,72 @@ r.tc_index<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
+ if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+ if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
+        a<-pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+          pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))
+        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          (((1-pW(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*((1-pW(cut[2],alpha3,beta3)))-
-          (1-pG(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(1-(1-pW(cut[2],alpha3,beta3)))
+        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          ((1-pW(cut[2],alpha3,beta3)))-
+          (1-pG(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-
+                                            pG(cut[1],alpha2,beta2)))*
+          (1-(1-pW(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
-              ((pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2))
+        a<-((pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+               pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
+              ((pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                             pG(cut[1],alpha2,beta2)))*
+                 (((1-pW(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+   Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -3411,13 +3667,15 @@ r.tc_index<- function(x,y,z,
         beta2<-par[4]
         alpha3<-par[5]
         beta3<-par[6]
-        t<-(-sum(log(dG(x,alpha1,beta1)))-sum(log(dL(y,alpha2,beta2)))-sum(log(dL(z,alpha3,beta3))))
+        t<-(-sum(log(dG(x,alpha1,beta1)))-sum(log(dL(y,alpha2,beta2)))-
+              sum(log(dL(z,alpha3,beta3))))
         return(t)
       }
-      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),lfxyz,hessian = TRUE)),silent=TRUE)
+      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
+                                lfxyz,hessian = TRUE)),silent=TRUE)
 
       if (is.character(mlexyz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- mlexyz$par[1]
         beta1 <- mlexyz$par[2]
@@ -3430,49 +3688,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
+        a<-pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+          pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+   Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-
+                                                  pL(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))
+        a<-(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                         pL(cut[1],alpha2,beta2)))*
+          (((1-pL(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*((1-pL(cut[2],alpha3,beta3)))-
-          (1-pG(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(1-(1-pL(cut[2],alpha3,beta3)))
+        a=(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                        pL(cut[1],alpha2,beta2)))*
+          ((1-pL(cut[2],alpha3,beta3)))-
+          (1-pG(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-
+                                            pL(cut[1],alpha2,beta2)))*
+          (1-(1-pL(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=((pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
-             ((pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2))
+        a=((pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+              pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
+             ((pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                            pL(cut[1],alpha2,beta2)))*
+                (((1-pL(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-
+                                                  pL(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -3513,7 +3785,8 @@ r.tc_index<- function(x,y,z,
         adx<-sort(x,decreasing=TRUE)
         n<-NROW(x)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pG(x,alpha1,beta1))+log(1-pG(adx,alpha1,beta1))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pG(x,alpha1,beta1))+
+                                    log(1-pG(adx,alpha1,beta1))))
         return(AD)
       }
       QADy<-function(par,y){
@@ -3523,7 +3796,8 @@ r.tc_index<- function(x,y,z,
         ady<-sort(y,decreasing=TRUE)
         n<-NROW(y)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pL(y,alpha2,beta2))+log(1-pL(ady,alpha2,beta2))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pL(y,alpha2,beta2))+
+                                    log(1-pL(ady,alpha2,beta2))))
         return(AD)
       }
       QADz<-function(par,z){
@@ -3533,7 +3807,8 @@ r.tc_index<- function(x,y,z,
         adz<-sort(z,decreasing=TRUE)
         n<-NROW(z)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pL(z,alpha3,beta3))+log(1-pL(adz,alpha3,beta3))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pL(z,alpha3,beta3))+
+                                    log(1-pL(adz,alpha3,beta3))))
         return(AD)
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
@@ -3541,7 +3816,7 @@ r.tc_index<- function(x,y,z,
       adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       }
       else {
         alpha1 <- adex$par[1]
@@ -3554,49 +3829,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
+        a<-pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+          pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-
+                                                  pL(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))
+        a<-(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                         pL(cut[1],alpha2,beta2)))*
+          (((1-pL(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*((1-pL(cut[2],alpha3,beta3)))-
-          (1-pG(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(1-(1-pL(cut[2],alpha3,beta3)))
+        a=(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                        pL(cut[1],alpha2,beta2)))*
+          ((1-pL(cut[2],alpha3,beta3)))-
+          (1-pG(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-
+                                            pL(cut[1],alpha2,beta2)))*
+          (1-(1-pL(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=((pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
-             ((pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2))
+        a=((pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+              pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
+             ((pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                            pL(cut[1],alpha2,beta2)))*
+                (((1-pL(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-
+                                                  pL(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -3662,7 +3951,7 @@ r.tc_index<- function(x,y,z,
       cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
 
       if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- cvx$par[1]
         beta1 <- cvx$par[2]
@@ -3674,49 +3963,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
+        a<-pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+          pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-
+                                                  pL(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))
+        a<-(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                         pL(cut[1],alpha2,beta2)))*
+          (((1-pL(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*((1-pL(cut[2],alpha3,beta3)))-
-          (1-pG(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(1-(1-pL(cut[2],alpha3,beta3)))
+        a=(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                        pL(cut[1],alpha2,beta2)))*
+          ((1-pL(cut[2],alpha3,beta3)))-
+          (1-pG(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-
+                                            pL(cut[1],alpha2,beta2)))*
+          (1-(1-pL(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=((pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
-             ((pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2))
+        a=((pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+              pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
+             ((pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                            pL(cut[1],alpha2,beta2)))*
+                (((1-pL(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-
+                                                  pL(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -3781,7 +4084,7 @@ r.tc_index<- function(x,y,z,
       lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
 
       if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- lsex$par[1]
         beta1 <- lsex$par[2]
@@ -3793,49 +4096,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
+        a<-pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+          pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-
+                                                  pL(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))
+        a<-(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                         pL(cut[1],alpha2,beta2)))*
+          (((1-pL(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*((1-pL(cut[2],alpha3,beta3)))-
-          (1-pG(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(1-(1-pL(cut[2],alpha3,beta3)))
+        a=(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                      pL(cut[1],alpha2,beta2)))*
+          ((1-pL(cut[2],alpha3,beta3)))-
+          (1-pG(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-
+                                            pL(cut[1],alpha2,beta2)))*
+          (1-(1-pL(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=((pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
-             ((pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2))
+        a=((pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+              pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
+             ((pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                            pL(cut[1],alpha2,beta2)))*
+                (((1-pL(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-
+                                                  pL(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+   Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -3900,7 +4217,7 @@ r.tc_index<- function(x,y,z,
       wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
       wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- wlsex$par[1]
         beta1 <- wlsex$par[2]
@@ -3912,49 +4229,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
+        a<-pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+          pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-
+                                                  pL(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))
+        a<-(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                         pL(cut[1],alpha2,beta2)))*
+          (((1-pL(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*((1-pL(cut[2],alpha3,beta3)))-
-          (1-pG(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(1-(1-pL(cut[2],alpha3,beta3)))
+        a=(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                        pL(cut[1],alpha2,beta2)))*
+          ((1-pL(cut[2],alpha3,beta3)))-
+          (1-pG(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-
+                                            pL(cut[1],alpha2,beta2)))*
+          (1-(1-pL(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=((pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
-             ((pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2))
+        a=((pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+              pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
+             ((pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                            pL(cut[1],alpha2,beta2)))*
+                (((1-pL(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-
+                                                  pL(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+   Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -3997,58 +4328,72 @@ r.tc_index<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
+if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
+        a<-pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+          pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-
+                                                  pL(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))
+        a<-(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                         pL(cut[1],alpha2,beta2)))*
+          (((1-pL(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*((1-pL(cut[2],alpha3,beta3)))-
-          (1-pG(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(1-(1-pL(cut[2],alpha3,beta3)))
+        a=(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                        pL(cut[1],alpha2,beta2)))*
+          ((1-pL(cut[2],alpha3,beta3)))-
+          (1-pG(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-
+                                            pL(cut[1],alpha2,beta2)))*
+          (1-(1-pL(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=((pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
-             ((pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2))
+        a=((pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+              pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
+             ((pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                            pL(cut[1],alpha2,beta2)))*
+                (((1-pL(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-
+                                                  pL(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -4089,13 +4434,15 @@ r.tc_index<- function(x,y,z,
         beta2<-par[4]
         alpha3<-par[5]
         beta3<-par[6]
-        t<-(-sum(log(dW(x,alpha1,beta1)))-sum(log(dG(y,alpha2,beta2)))-sum(log(dW(z,alpha3,beta3))))
+        t<-(-sum(log(dW(x,alpha1,beta1)))-sum(log(dG(y,alpha2,beta2)))-
+              sum(log(dW(z,alpha3,beta3))))
         return(t)
       }
-      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),lfxyz,hessian = TRUE)),silent=TRUE)
+      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
+                                lfxyz,hessian = TRUE)),silent=TRUE)
 
       if (is.character(mlexyz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- mlexyz$par[1]
         beta1 <- mlexyz$par[2]
@@ -4108,49 +4455,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
+        a<-pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+          pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+   Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))
+        a<-(pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          (((1-pW(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*((1-pW(cut[2],alpha3,beta3)))-
-          (1-pW(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(1-(1-pW(cut[2],alpha3,beta3)))
+        a<-(pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          ((1-pW(cut[2],alpha3,beta3)))-
+          (1-pW(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-
+                                            pG(cut[1],alpha2,beta2)))*
+          (1-(1-pW(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=((pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
-             ((pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2))
+        a=((pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+              pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
+             ((pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                            pG(cut[1],alpha2,beta2)))*
+                (((1-pW(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+   Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -4191,7 +4552,8 @@ r.tc_index<- function(x,y,z,
         adx<-sort(x,decreasing=TRUE)
         n<-NROW(x)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pW(x,alpha1,beta1))+log(1-pW(adx,alpha1,beta1))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pW(x,alpha1,beta1))+
+                                    log(1-pW(adx,alpha1,beta1))))
         return(AD)
       }
       QADy<-function(par,y){
@@ -4201,7 +4563,8 @@ r.tc_index<- function(x,y,z,
         ady<-sort(y,decreasing=TRUE)
         n<-NROW(y)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pG(y,alpha2,beta2))+log(1-pG(ady,alpha2,beta2))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pG(y,alpha2,beta2))+
+                                    log(1-pG(ady,alpha2,beta2))))
         return(AD)
       }
       QADz<-function(par,z){
@@ -4211,7 +4574,8 @@ r.tc_index<- function(x,y,z,
         adz<-sort(z,decreasing=TRUE)
         n<-NROW(z)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pW(z,alpha3,beta3))+log(1-pW(adz,alpha3,beta3))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pW(z,alpha3,beta3))+
+                                    log(1-pW(adz,alpha3,beta3))))
         return(AD)
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
@@ -4219,7 +4583,7 @@ r.tc_index<- function(x,y,z,
       adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+  stop("Optimization did not converge.Please check your initial parameters.")
       }
       else {
         alpha1 <- adex$par[1]
@@ -4232,49 +4596,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
+        a<-pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+          pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+   Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))
+        a<-(pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          (((1-pW(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*((1-pW(cut[2],alpha3,beta3)))-
-          (1-pW(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(1-(1-pW(cut[2],alpha3,beta3)))
+        a<-(pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          ((1-pW(cut[2],alpha3,beta3)))-
+          (1-pW(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-
+                                            pG(cut[1],alpha2,beta2)))*
+          (1-(1-pW(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=((pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
-             ((pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2))
+        a=((pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+              pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
+             ((pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                            pG(cut[1],alpha2,beta2)))*
+                (((1-pW(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+   Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -4340,7 +4718,7 @@ r.tc_index<- function(x,y,z,
       cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
 
       if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- cvx$par[1]
         beta1 <- cvx$par[2]
@@ -4352,49 +4730,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
+        a<-pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+          pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))
+        a<-(pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          (((1-pW(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*((1-pW(cut[2],alpha3,beta3)))-
-          (1-pW(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(1-(1-pW(cut[2],alpha3,beta3)))
+        a<-(pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          ((1-pW(cut[2],alpha3,beta3)))-
+          (1-pW(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-
+                                            pG(cut[1],alpha2,beta2)))*
+          (1-(1-pW(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=((pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
-             ((pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2))
+        a=((pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+              pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
+             ((pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                            pG(cut[1],alpha2,beta2)))*
+                (((1-pW(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -4459,7 +4851,7 @@ r.tc_index<- function(x,y,z,
       lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
 
       if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- lsex$par[1]
         beta1 <- lsex$par[2]
@@ -4471,49 +4863,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
+        a<-pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+          pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))
+        a<-(pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          (((1-pW(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*((1-pW(cut[2],alpha3,beta3)))-
-          (1-pW(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(1-(1-pW(cut[2],alpha3,beta3)))
+        a<-(pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          ((1-pW(cut[2],alpha3,beta3)))-
+          (1-pW(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-
+                                            pG(cut[1],alpha2,beta2)))*
+          (1-(1-pW(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=((pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
-             ((pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2))
+        a=((pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+              pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
+             ((pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                            pG(cut[1],alpha2,beta2)))*
+                (((1-pW(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -4578,7 +4984,7 @@ r.tc_index<- function(x,y,z,
       wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
       wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+  stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- wlsex$par[1]
         beta1 <- wlsex$par[2]
@@ -4590,49 +4996,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
+        a<-pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+          pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+   Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))
+        a<-(pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          (((1-pW(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*((1-pW(cut[2],alpha3,beta3)))-
-          (1-pW(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(1-(1-pW(cut[2],alpha3,beta3)))
+        a<-(pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          ((1-pW(cut[2],alpha3,beta3)))-
+          (1-pW(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-
+                                            pG(cut[1],alpha2,beta2)))*
+          (1-(1-pW(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=((pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
-             ((pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2))
+        a=((pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+              pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
+             ((pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                            pG(cut[1],alpha2,beta2)))*
+                (((1-pW(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+   Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -4675,58 +5095,72 @@ r.tc_index<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
+if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
+        a<-pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+          pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))
+        a<-(pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          (((1-pW(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*((1-pW(cut[2],alpha3,beta3)))-
-          (1-pW(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(1-(1-pW(cut[2],alpha3,beta3)))
+        a<-(pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          ((1-pW(cut[2],alpha3,beta3)))-
+          (1-pW(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-
+                                            pG(cut[1],alpha2,beta2)))*
+          (1-(1-pW(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=((pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
-             ((pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2))
+        a=((pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+              pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
+             ((pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                            pG(cut[1],alpha2,beta2)))*
+                (((1-pW(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -4767,13 +5201,15 @@ r.tc_index<- function(x,y,z,
         beta2<-par[4]
         alpha3<-par[5]
         beta3<-par[6]
-        t<-(-sum(log(dW(x,alpha1,beta1)))-sum(log(dW(y,alpha2,beta2)))-sum(log(dW(z,alpha3,beta3))))
+        t<-(-sum(log(dW(x,alpha1,beta1)))-sum(log(dW(y,alpha2,beta2)))-
+              sum(log(dW(z,alpha3,beta3))))
         return(t)
       }
-      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),lfxyz,hessian = TRUE)),silent=TRUE)
+      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
+                                lfxyz,hessian = TRUE)),silent=TRUE)
 
       if (is.character(mlexyz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- mlexyz$par[1]
         beta1 <- mlexyz$par[2]
@@ -4786,7 +5222,8 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pW(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
+        a<-pW(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-
+          pW(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
         return(-a)
       }
       Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
@@ -4795,40 +5232,53 @@ r.tc_index<- function(x,y,z,
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-
+                                                  pW(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))
+        a<-(pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                         pW(cut[1],alpha2,beta2)))*
+          (((1-pW(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*((1-pW(cut[2],alpha3,beta3)))-
-          (1-pW(cut[1],alpha1,beta1))*(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(1-(1-pW(cut[2],alpha3,beta3)))
+        a<-(pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                         pW(cut[1],alpha2,beta2)))*
+          ((1-pW(cut[2],alpha3,beta3)))-
+          (1-pW(cut[1],alpha1,beta1))*(1-(pW(cut[2],alpha2,beta2)-
+                                            pW(cut[1],alpha2,beta2)))*
+          (1-(1-pW(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pW(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
-              ((pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2))
+        a<-((pW(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-
+               pW(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
+              ((pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                             pW(cut[1],alpha2,beta2)))*
+                 (((1-pW(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-
+                                                  pW(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+   Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -4869,7 +5319,8 @@ r.tc_index<- function(x,y,z,
         adx<-sort(x,decreasing=TRUE)
         n<-NROW(x)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pW(x,alpha1,beta1))+log(1-pW(adx,alpha1,beta1))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pW(x,alpha1,beta1))+
+                                    log(1-pW(adx,alpha1,beta1))))
         return(AD)
       }
       QADy<-function(par,y){
@@ -4879,7 +5330,8 @@ r.tc_index<- function(x,y,z,
         ady<-sort(y,decreasing=TRUE)
         n<-NROW(y)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pW(y,alpha2,beta2))+log(1-pW(ady,alpha2,beta2))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pW(y,alpha2,beta2))+
+                                    log(1-pW(ady,alpha2,beta2))))
         return(AD)
       }
       QADz<-function(par,z){
@@ -4889,7 +5341,8 @@ r.tc_index<- function(x,y,z,
         adz<-sort(z,decreasing=TRUE)
         n<-NROW(z)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pW(z,alpha3,beta3))+log(1-pW(adz,alpha3,beta3))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pW(z,alpha3,beta3))+
+                                    log(1-pW(adz,alpha3,beta3))))
         return(AD)
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
@@ -4897,7 +5350,7 @@ r.tc_index<- function(x,y,z,
       adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       }
       else {
         alpha1 <- adex$par[1]
@@ -4910,49 +5363,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pW(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
+        a<-pW(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-
+          pW(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-
+                                                    pW(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))
+        a<-(pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                    pW(cut[1],alpha2,beta2)))*
+          (((1-pW(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*((1-pW(cut[2],alpha3,beta3)))-
-          (1-pW(cut[1],alpha1,beta1))*(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(1-(1-pW(cut[2],alpha3,beta3)))
+        a<-(pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                         pW(cut[1],alpha2,beta2)))*
+          ((1-pW(cut[2],alpha3,beta3)))-
+          (1-pW(cut[1],alpha1,beta1))*(1-(pW(cut[2],alpha2,beta2)-
+                                            pW(cut[1],alpha2,beta2)))*
+          (1-(1-pW(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pW(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
-              ((pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2))
+        a<-((pW(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-
+               pW(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
+              ((pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                             pW(cut[1],alpha2,beta2)))*
+                 (((1-pW(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-
+                                                  pW(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -5018,7 +5485,7 @@ r.tc_index<- function(x,y,z,
       cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
 
       if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- cvx$par[1]
         beta1 <- cvx$par[2]
@@ -5030,49 +5497,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pW(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
+        a<-pW(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-
+          pW(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+   Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-
+                                                  pW(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))
+        a<-(pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                         pW(cut[1],alpha2,beta2)))*
+          (((1-pW(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*((1-pW(cut[2],alpha3,beta3)))-
-          (1-pW(cut[1],alpha1,beta1))*(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(1-(1-pW(cut[2],alpha3,beta3)))
+        a<-(pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                         pW(cut[1],alpha2,beta2)))*
+          ((1-pW(cut[2],alpha3,beta3)))-
+          (1-pW(cut[1],alpha1,beta1))*(1-(pW(cut[2],alpha2,beta2)-
+                                            pW(cut[1],alpha2,beta2)))*
+          (1-(1-pW(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pW(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
-              ((pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2))
+        a<-((pW(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-
+               pW(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
+              ((pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                             pW(cut[1],alpha2,beta2)))*
+                 (((1-pW(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-
+                                                  pW(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -5137,7 +5618,7 @@ r.tc_index<- function(x,y,z,
       lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
 
       if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- lsex$par[1]
         beta1 <- lsex$par[2]
@@ -5149,49 +5630,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pW(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
+        a<-pW(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-
+          pW(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-
+                                                    pW(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))
+        a<-(pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                         pW(cut[1],alpha2,beta2)))*
+          (((1-pW(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*((1-pW(cut[2],alpha3,beta3)))-
-          (1-pW(cut[1],alpha1,beta1))*(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(1-(1-pW(cut[2],alpha3,beta3)))
+        a<-(pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                         pW(cut[1],alpha2,beta2)))*
+          ((1-pW(cut[2],alpha3,beta3)))-
+          (1-pW(cut[1],alpha1,beta1))*(1-(pW(cut[2],alpha2,beta2)-
+                                            pW(cut[1],alpha2,beta2)))*
+          (1-(1-pW(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pW(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
-              ((pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2))
+        a<-((pW(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-
+               pW(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
+              ((pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                        pW(cut[1],alpha2,beta2)))*
+                 (((1-pW(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-
+                                                  pW(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -5256,7 +5751,7 @@ r.tc_index<- function(x,y,z,
       wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
       wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- wlsex$par[1]
         beta1 <- wlsex$par[2]
@@ -5268,49 +5763,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pW(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
+        a<-pW(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-
+          pW(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-
+                                                  pW(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))
+        a<-(pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                         pW(cut[1],alpha2,beta2)))*
+          (((1-pW(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*((1-pW(cut[2],alpha3,beta3)))-
-          (1-pW(cut[1],alpha1,beta1))*(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(1-(1-pW(cut[2],alpha3,beta3)))
+        a<-(pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                         pW(cut[1],alpha2,beta2)))*
+          ((1-pW(cut[2],alpha3,beta3)))-
+          (1-pW(cut[1],alpha1,beta1))*(1-(pW(cut[2],alpha2,beta2)-
+                                            pW(cut[1],alpha2,beta2)))*
+          (1-(1-pW(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pW(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
-              ((pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2))
+        a<-((pW(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-
+               pW(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
+              ((pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                             pW(cut[1],alpha2,beta2)))*
+                 (((1-pW(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-
+                                                  pW(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -5353,58 +5862,72 @@ r.tc_index<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
+if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+  if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+  if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+  if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pW(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
+        a<-pW(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-
+          pW(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+   Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-
+                                                  pW(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))
+        a<-(pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                        pW(cut[1],alpha2,beta2)))*
+          (((1-pW(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*((1-pW(cut[2],alpha3,beta3)))-
-          (1-pW(cut[1],alpha1,beta1))*(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(1-(1-pW(cut[2],alpha3,beta3)))
+        a<-(pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                         pW(cut[1],alpha2,beta2)))*
+          ((1-pW(cut[2],alpha3,beta3)))-
+          (1-pW(cut[1],alpha1,beta1))*(1-(pW(cut[2],alpha2,beta2)-
+                                            pW(cut[1],alpha2,beta2)))*
+          (1-(1-pW(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pW(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
-              ((pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))*(((1-pW(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-pW(cut[1],alpha2,beta2)))^2+(1-((1-pW(cut[2],alpha3,beta3))))^2))
+        a<-((pW(cut[1],alpha1,beta1)+pW(cut[2],alpha2,beta2)-
+               pW(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
+              ((pW(cut[1],alpha1,beta1))*((pW(cut[2],alpha2,beta2)-
+                                             pW(cut[1],alpha2,beta2)))*
+                 (((1-pW(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pW(cut[1],alpha1,beta1)))^2+(1-(pW(cut[2],alpha2,beta2)-
+                                                  pW(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pW(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -5445,13 +5968,15 @@ r.tc_index<- function(x,y,z,
         beta2<-par[4]
         alpha3<-par[5]
         beta3<-par[6]
-        t<-(-sum(log(dG(x,alpha1,beta1)))-sum(log(dG(y,alpha2,beta2)))-sum(log(dG(z,alpha3,beta3))))
+        t<-(-sum(log(dG(x,alpha1,beta1)))-sum(log(dG(y,alpha2,beta2)))-
+              sum(log(dG(z,alpha3,beta3))))
         return(t)
       }
-      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),lfxyz,hessian = TRUE)),silent=TRUE)
+      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
+                                lfxyz,hessian = TRUE)),silent=TRUE)
 
       if (is.character(mlexyz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- mlexyz$par[1]
         beta1 <- mlexyz$par[2]
@@ -5464,49 +5989,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pG(cut[2],alpha3,beta3))-1
+        a<-pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+          pG(cut[1],alpha2,beta2)+(1-pG(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pG(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pG(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pG(cut[2],alpha3,beta3))))
+        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          (((1-pG(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*((1-pG(cut[2],alpha3,beta3)))-
-          (1-pG(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(1-(1-pG(cut[2],alpha3,beta3)))
+        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          ((1-pG(cut[2],alpha3,beta3)))-
+          (1-pG(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-
+                                            pG(cut[1],alpha2,beta2)))*
+          (1-(1-pG(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pG(cut[2],alpha3,beta3))-1)+
-              ((pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pG(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pG(cut[2],alpha3,beta3))))^2))
+        a<-((pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+               pG(cut[1],alpha2,beta2)+(1-pG(cut[2],alpha3,beta3))-1)+
+              ((pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                             pG(cut[1],alpha2,beta2)))*
+                 (((1-pG(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pG(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+   Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -5547,7 +6086,8 @@ r.tc_index<- function(x,y,z,
         adx<-sort(x,decreasing=TRUE)
         n<-NROW(x)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pG(x,alpha1,beta1))+log(1-pG(adx,alpha1,beta1))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pG(x,alpha1,beta1))+
+                                    log(1-pG(adx,alpha1,beta1))))
         return(AD)
       }
       QADy<-function(par,y){
@@ -5557,7 +6097,8 @@ r.tc_index<- function(x,y,z,
         ady<-sort(y,decreasing=TRUE)
         n<-NROW(y)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pG(y,alpha2,beta2))+log(1-pG(ady,alpha2,beta2))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pG(y,alpha2,beta2))+
+                                    log(1-pG(ady,alpha2,beta2))))
         return(AD)
       }
       QADz<-function(par,z){
@@ -5567,7 +6108,8 @@ r.tc_index<- function(x,y,z,
         adz<-sort(z,decreasing=TRUE)
         n<-NROW(z)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pG(z,alpha3,beta3))+log(1-pG(adz,alpha3,beta3))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pG(z,alpha3,beta3))+
+                                    log(1-pG(adz,alpha3,beta3))))
         return(AD)
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
@@ -5575,7 +6117,7 @@ r.tc_index<- function(x,y,z,
       adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       }
       else {
         alpha1 <- adex$par[1]
@@ -5588,49 +6130,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pG(cut[2],alpha3,beta3))-1
+        a<-pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+          pG(cut[1],alpha2,beta2)+(1-pG(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pG(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pG(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pG(cut[2],alpha3,beta3))))
+        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          (((1-pG(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*((1-pG(cut[2],alpha3,beta3)))-
-          (1-pG(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(1-(1-pG(cut[2],alpha3,beta3)))
+        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          ((1-pG(cut[2],alpha3,beta3)))-
+          (1-pG(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-
+                                            pG(cut[1],alpha2,beta2)))*
+          (1-(1-pG(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pG(cut[2],alpha3,beta3))-1)+
-              ((pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pG(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pG(cut[2],alpha3,beta3))))^2))
+        a<-((pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+               pG(cut[1],alpha2,beta2)+(1-pG(cut[2],alpha3,beta3))-1)+
+              ((pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                             pG(cut[1],alpha2,beta2)))*
+                 (((1-pG(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pG(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -5696,7 +6252,7 @@ r.tc_index<- function(x,y,z,
       cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
 
       if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+   stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- cvx$par[1]
         beta1 <- cvx$par[2]
@@ -5708,49 +6264,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pG(cut[2],alpha3,beta3))-1
+        a<-pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+          pG(cut[1],alpha2,beta2)+(1-pG(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pG(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+
+                  (1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pG(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pG(cut[2],alpha3,beta3))))
+        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          (((1-pG(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*((1-pG(cut[2],alpha3,beta3)))-
-          (1-pG(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(1-(1-pG(cut[2],alpha3,beta3)))
+        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          ((1-pG(cut[2],alpha3,beta3)))-
+          (1-pG(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-
+                                            pG(cut[1],alpha2,beta2)))*
+          (1-(1-pG(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pG(cut[2],alpha3,beta3))-1)+
-              ((pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pG(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pG(cut[2],alpha3,beta3))))^2))
+        a<-((pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+               pG(cut[1],alpha2,beta2)+(1-pG(cut[2],alpha3,beta3))-1)+
+              ((pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                             pG(cut[1],alpha2,beta2)))*
+                 (((1-pG(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pG(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -5815,7 +6385,7 @@ r.tc_index<- function(x,y,z,
       lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
 
       if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- lsex$par[1]
         beta1 <- lsex$par[2]
@@ -5827,49 +6397,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pG(cut[2],alpha3,beta3))-1
+        a<-pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+          pG(cut[1],alpha2,beta2)+(1-pG(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+   Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pG(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pG(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pG(cut[2],alpha3,beta3))))
+        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          (((1-pG(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*((1-pG(cut[2],alpha3,beta3)))-
-          (1-pG(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(1-(1-pG(cut[2],alpha3,beta3)))
+        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          ((1-pG(cut[2],alpha3,beta3)))-
+          (1-pG(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-
+                                            pG(cut[1],alpha2,beta2)))*
+          (1-(1-pG(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pG(cut[2],alpha3,beta3))-1)+
-              ((pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pG(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pG(cut[2],alpha3,beta3))))^2))
+        a<-((pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+               pG(cut[1],alpha2,beta2)+(1-pG(cut[2],alpha3,beta3))-1)+
+              ((pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                             pG(cut[1],alpha2,beta2)))*
+                 (((1-pG(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pG(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -5934,7 +6518,7 @@ r.tc_index<- function(x,y,z,
       wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
       wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+   stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- wlsex$par[1]
         beta1 <- wlsex$par[2]
@@ -5946,49 +6530,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pG(cut[2],alpha3,beta3))-1
+        a<-pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+          pG(cut[1],alpha2,beta2)+(1-pG(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+   Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pG(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pG(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pG(cut[2],alpha3,beta3))))
+        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          (((1-pG(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*((1-pG(cut[2],alpha3,beta3)))-
-          (1-pG(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(1-(1-pG(cut[2],alpha3,beta3)))
+        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          ((1-pG(cut[2],alpha3,beta3)))-
+          (1-pG(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-
+                                            pG(cut[1],alpha2,beta2)))*
+          (1-(1-pG(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pG(cut[2],alpha3,beta3))-1)+
-              ((pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pG(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pG(cut[2],alpha3,beta3))))^2))
+        a<-((pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+               pG(cut[1],alpha2,beta2)+(1-pG(cut[2],alpha3,beta3))-1)+
+              ((pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                             pG(cut[1],alpha2,beta2)))*
+                 (((1-pG(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pG(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -6031,58 +6629,72 @@ r.tc_index<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
+if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pG(cut[2],alpha3,beta3))-1
+        a<-pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+          pG(cut[1],alpha2,beta2)+(1-pG(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pG(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pG(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pG(cut[2],alpha3,beta3))))
+        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          (((1-pG(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*((1-pG(cut[2],alpha3,beta3)))-
-          (1-pG(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(1-(1-pG(cut[2],alpha3,beta3)))
+        a<-(pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                         pG(cut[1],alpha2,beta2)))*
+          ((1-pG(cut[2],alpha3,beta3)))-
+          (1-pG(cut[1],alpha1,beta1))*(1-(pG(cut[2],alpha2,beta2)-
+                                            pG(cut[1],alpha2,beta2)))*
+          (1-(1-pG(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)+(1-pG(cut[2],alpha3,beta3))-1)+
-              ((pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))*(((1-pG(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-pG(cut[1],alpha2,beta2)))^2+(1-((1-pG(cut[2],alpha3,beta3))))^2))
+        a<-((pG(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+               pG(cut[1],alpha2,beta2)+(1-pG(cut[2],alpha3,beta3))-1)+
+              ((pG(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
+                                             pG(cut[1],alpha2,beta2)))*
+                 (((1-pG(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pG(cut[1],alpha1,beta1)))^2+(1-(pG(cut[2],alpha2,beta2)-
+                                                  pG(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pG(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -6123,13 +6735,15 @@ r.tc_index<- function(x,y,z,
         beta2<-par[4]
         alpha3<-par[5]
         beta3<-par[6]
-        t<-(-sum(log(dL(x,alpha1,beta1)))-sum(log(dL(y,alpha2,beta2)))-sum(log(dL(z,alpha3,beta3))))
+        t<-(-sum(log(dL(x,alpha1,beta1)))-sum(log(dL(y,alpha2,beta2)))-
+              sum(log(dL(z,alpha3,beta3))))
         return(t)
       }
-      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),lfxyz,hessian = TRUE)),silent=TRUE)
+      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
+                                lfxyz,hessian = TRUE)),silent=TRUE)
 
       if (is.character(mlexyz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- mlexyz$par[1]
         beta1 <- mlexyz$par[2]
@@ -6142,49 +6756,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pL(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
+        a<-pL(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+          pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pL(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pL(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-
+                                                  pL(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))
+        a<-(pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                         pL(cut[1],alpha2,beta2)))*
+          (((1-pL(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*((1-pL(cut[2],alpha3,beta3)))-
-          (1-pL(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(1-(1-pL(cut[2],alpha3,beta3)))
+        a<-(pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                         pL(cut[1],alpha2,beta2)))*
+          ((1-pL(cut[2],alpha3,beta3)))-
+          (1-pL(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-
+                                            pL(cut[1],alpha2,beta2)))*
+          (1-(1-pL(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pL(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
-              ((pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pL(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2))
+        a<-((pL(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+               pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
+              ((pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                             pL(cut[1],alpha2,beta2)))*
+                 (((1-pL(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pL(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-
+                                                  pL(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -6225,7 +6853,8 @@ r.tc_index<- function(x,y,z,
         adx<-sort(x,decreasing=TRUE)
         n<-NROW(x)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pL(x,alpha1,beta1))+log(1-pL(adx,alpha1,beta1))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pL(x,alpha1,beta1))+
+                                    log(1-pL(adx,alpha1,beta1))))
         return(AD)
       }
       QADy<-function(par,y){
@@ -6235,7 +6864,8 @@ r.tc_index<- function(x,y,z,
         ady<-sort(y,decreasing=TRUE)
         n<-NROW(y)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pL(y,alpha2,beta2))+log(1-pL(ady,alpha2,beta2))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pL(y,alpha2,beta2))+
+                                    log(1-pL(ady,alpha2,beta2))))
         return(AD)
       }
       QADz<-function(par,z){
@@ -6245,7 +6875,8 @@ r.tc_index<- function(x,y,z,
         adz<-sort(z,decreasing=TRUE)
         n<-NROW(z)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pL(z,alpha3,beta3))+log(1-pL(adz,alpha3,beta3))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pL(z,alpha3,beta3))+
+                                    log(1-pL(adz,alpha3,beta3))))
         return(AD)
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
@@ -6253,7 +6884,7 @@ r.tc_index<- function(x,y,z,
       adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+  stop("Optimization did not converge.Please check your initial parameters.")
       }
       else {
         alpha1 <- adex$par[1]
@@ -6266,49 +6897,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pL(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
+        a<-pL(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+          pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pL(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pL(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-
+                                                  pL(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))
+        a<-(pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                         pL(cut[1],alpha2,beta2)))*
+          (((1-pL(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*((1-pL(cut[2],alpha3,beta3)))-
-          (1-pL(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(1-(1-pL(cut[2],alpha3,beta3)))
+        a<-(pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                         pL(cut[1],alpha2,beta2)))*
+          ((1-pL(cut[2],alpha3,beta3)))-
+          (1-pL(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-
+                                            pL(cut[1],alpha2,beta2)))*
+          (1-(1-pL(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pL(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
-              ((pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pL(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2))
+        a<-((pL(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+               pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
+              ((pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                             pL(cut[1],alpha2,beta2)))*
+                 (((1-pL(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pL(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-
+                                                  pL(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -6374,7 +7019,7 @@ r.tc_index<- function(x,y,z,
       cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
 
       if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- cvx$par[1]
         beta1 <- cvx$par[2]
@@ -6386,49 +7031,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pL(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
+        a<-pL(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+          pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pL(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pL(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-
+                                                  pL(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))
+        a<-(pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                         pL(cut[1],alpha2,beta2)))*
+          (((1-pL(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*((1-pL(cut[2],alpha3,beta3)))-
-          (1-pL(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(1-(1-pL(cut[2],alpha3,beta3)))
+        a<-(pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                         pL(cut[1],alpha2,beta2)))*
+          ((1-pL(cut[2],alpha3,beta3)))-
+          (1-pL(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-
+                                            pL(cut[1],alpha2,beta2)))*
+          (1-(1-pL(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pL(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
-              ((pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pL(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2))
+        a<-((pL(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+               pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
+              ((pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                             pL(cut[1],alpha2,beta2)))*
+                 (((1-pL(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pL(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-
+                                                  pL(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -6493,7 +7152,7 @@ r.tc_index<- function(x,y,z,
       lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
 
       if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- lsex$par[1]
         beta1 <- lsex$par[2]
@@ -6505,49 +7164,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pL(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
+        a<-pL(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+          pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pL(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pL(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-
+                                                  pL(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))
+        a<-(pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                         pL(cut[1],alpha2,beta2)))*
+          (((1-pL(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*((1-pL(cut[2],alpha3,beta3)))-
-          (1-pL(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(1-(1-pL(cut[2],alpha3,beta3)))
+        a<-(pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                         pL(cut[1],alpha2,beta2)))*
+          ((1-pL(cut[2],alpha3,beta3)))-
+          (1-pL(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-
+                                            pL(cut[1],alpha2,beta2)))*
+          (1-(1-pL(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pL(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
-              ((pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pL(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2))
+        a<-((pL(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+               pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
+              ((pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                             pL(cut[1],alpha2,beta2)))*
+                 (((1-pL(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pL(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-
+                                                  pL(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -6612,7 +7285,7 @@ r.tc_index<- function(x,y,z,
       wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
       wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- wlsex$par[1]
         beta1 <- wlsex$par[2]
@@ -6624,49 +7297,63 @@ r.tc_index<- function(x,y,z,
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pL(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
+        a<-pL(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+          pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pL(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pL(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-
+                                                  pL(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))
+        a<-(pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                         pL(cut[1],alpha2,beta2)))*
+          (((1-pL(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*((1-pL(cut[2],alpha3,beta3)))-
-          (1-pL(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(1-(1-pL(cut[2],alpha3,beta3)))
+        a<-(pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                         pL(cut[1],alpha2,beta2)))*
+          ((1-pL(cut[2],alpha3,beta3)))-
+          (1-pL(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-
+                                            pL(cut[1],alpha2,beta2)))*
+          (1-(1-pL(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pL(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
-              ((pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pL(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2))
+        a<-((pL(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+               pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
+              ((pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                             pL(cut[1],alpha2,beta2)))*
+                 (((1-pL(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pL(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-
+                                                  pL(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -6709,58 +7396,72 @@ r.tc_index<- function(x,y,z,
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
+if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+  if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+  if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+  if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       J<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-pL(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
+        a<-pL(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+          pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1
         return(-a)
       }
-      Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
 
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        d<-sqrt((1-(pL(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2)
+        d<-sqrt((1-(pL(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-
+                                                  pL(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2)
         return(d)
       }
-      EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
 
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))
+        a<-(pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                         pL(cut[1],alpha2,beta2)))*
+          (((1-pL(cut[2],alpha3,beta3))))
         return(-a)
       }
-      MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
 
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-(pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*((1-pL(cut[2],alpha3,beta3)))-
-          (1-pL(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(1-(1-pL(cut[2],alpha3,beta3)))
+        a<-(pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                         pL(cut[1],alpha2,beta2)))*
+          ((1-pL(cut[2],alpha3,beta3)))-
+          (1-pL(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-
+                                            pL(cut[1],alpha2,beta2)))*
+          (1-(1-pL(cut[2],alpha3,beta3)))
         return(-a)
       }
-      NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
 
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a<-((pL(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
-              ((pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))*(((1-pL(cut[2],alpha3,beta3))))))/
-          (sqrt((1-(pL(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-pL(cut[1],alpha2,beta2)))^2+(1-((1-pL(cut[2],alpha3,beta3))))^2))
+        a<-((pL(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+               pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
+              ((pL(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+                                             pL(cut[1],alpha2,beta2)))*
+                 (((1-pL(cut[2],alpha3,beta3))))))/
+          (sqrt((1-(pL(cut[1],alpha1,beta1)))^2+(1-(pL(cut[2],alpha2,beta2)-
+                                                  pL(cut[1],alpha2,beta2)))^2+
+                  (1-((1-pL(cut[2],alpha3,beta3))))^2))
         return(-a)
       }
-      Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
+  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
 
 
@@ -6807,9 +7508,10 @@ r.tc_index<- function(x,y,z,
 #'          z=c(6, 7, 8, 9, 10),
 #'           init_param=c(1,1,1,1,1,1),
 #'           empirical=FALSE,model="GGW",method="MLE")
-r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),
-                      true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),
-                      empirical=TRUE,model=c("GWL","GGW","GLL","WGW","WWW","GGG","LLL"),
+r.tc_graph<- function(x,y,z,
+              init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),
+              true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),
+             empirical=TRUE,model=c("GWL","GGW","GLL","WGW","WWW","GGG","LLL"),
                       method=c("MLE","AD","CvM","LSE","WLSE","TRUE"))
 {
 
@@ -6819,12 +7521,12 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
   beta2<-init_param[[4]]
   alpha3<-init_param[[5]]
   beta3<-init_param[[6]]
-  if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
-  if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
-  if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
-  if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
-  if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
-  if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
+if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
   model<- base::match.arg(model)
   method<- base::match.arg(method)
 
@@ -6837,13 +7539,15 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         beta2<-par[4]
         alpha3<-par[5]
         beta3<-par[6]
-        t<-(-sum(log(dG(x,alpha1,beta1)))-sum(log(dW(y,alpha2,beta2)))-sum(log(dL(z,alpha3,beta3))))
+        t<-(-sum(log(dG(x,alpha1,beta1)))-sum(log(dW(y,alpha2,beta2)))-
+              sum(log(dL(z,alpha3,beta3))))
         return(t)
       }
-      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),lfxyz,method = "L-BFGS-B",hessian = TRUE)),silent=TRUE)
+      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
+                        lfxyz,method = "L-BFGS-B",hessian = TRUE)),silent=TRUE)
 
       if (is.character(mlexyz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- mlexyz$par[1]
         beta1 <- mlexyz$par[2]
@@ -6873,7 +7577,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           base::pmax(result, 0)
         }))
 
-        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                              colorscale = colorscalemp)
 
         fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -6891,7 +7596,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig2$x$layout$scene$yaxis$range <- c(0, 1)
         fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig2
 
       }
@@ -6905,7 +7611,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             pW(qG(1-c1, alpha1, beta1), alpha2, beta2)
           base::pmax(result, 0)
         }))
-        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                              colorscale = "Greys")
 
         fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -6923,7 +7630,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig1$x$layout$scene$yaxis$range <- c(0, 1)
         fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig1
       }
 
@@ -6938,7 +7646,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         adx<-sort(x,decreasing=TRUE)
         n<-NROW(x)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pG(x,alpha1,beta1))+log(1-pG(adx,alpha1,beta1))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pG(x,alpha1,beta1))+
+                                    log(1-pG(adx,alpha1,beta1))))
         return(AD)
       }
       QADy<-function(par,y){
@@ -6948,7 +7657,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         ady<-sort(y,decreasing=TRUE)
         n<-NROW(y)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pW(y,alpha2,beta2))+log(1-pW(ady,alpha2,beta2))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pW(y,alpha2,beta2))+
+                                    log(1-pW(ady,alpha2,beta2))))
         return(AD)
       }
       QADz<-function(par,z){
@@ -6958,7 +7668,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         adz<-sort(z,decreasing=TRUE)
         n<-NROW(z)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pL(z,alpha3,beta3))+log(1-pL(adz,alpha3,beta3))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pL(z,alpha3,beta3))+
+                                    log(1-pL(adz,alpha3,beta3))))
         return(AD)
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
@@ -6966,7 +7677,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
       adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+     stop("Optimization did not converge.Please check your initial parameters.")
       }
       else {
         alpha1 <- adex$par[1]
@@ -6997,7 +7708,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           base::pmax(result, 0)
         }))
 
-        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2,
+                              type = 'surface', colorscale = colorscalemp)
 
         fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -7015,7 +7727,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig2$x$layout$scene$yaxis$range <- c(0, 1)
         fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig2
 
       }
@@ -7029,7 +7742,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             pW(qG(1-c1, alpha1, beta1), alpha2, beta2)
           base::pmax(result, 0)
         }))
-        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                              colorscale = "Greys")
 
         fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -7047,7 +7761,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig1$x$layout$scene$yaxis$range <- c(0, 1)
         fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig1
       }
 
@@ -7086,7 +7801,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
       cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
 
       if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- cvx$par[1]
         beta1 <- cvx$par[2]
@@ -7116,7 +7831,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           base::pmax(result, 0)
         }))
 
-        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                              colorscale = colorscalemp)
 
         fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -7134,7 +7850,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig2$x$layout$scene$yaxis$range <- c(0, 1)
         fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig2
 
       }
@@ -7148,7 +7865,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             pW(qG(1-c1, alpha1, beta1), alpha2, beta2)
           base::pmax(result, 0)
         }))
-        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                              colorscale = "Greys")
 
         fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -7166,7 +7884,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig1$x$layout$scene$yaxis$range <- c(0, 1)
         fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig1
       }
     }
@@ -7204,7 +7923,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
       lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
 
       if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- lsex$par[1]
         beta1 <- lsex$par[2]
@@ -7234,7 +7953,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           base::pmax(result, 0)
         }))
 
-        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                              colorscale = colorscalemp)
 
         fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -7252,7 +7972,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig2$x$layout$scene$yaxis$range <- c(0, 1)
         fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig2
 
       }
@@ -7266,7 +7987,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             pW(qG(1-c1, alpha1, beta1), alpha2, beta2)
           base::pmax(result, 0)
         }))
-        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                              colorscale = "Greys")
 
         fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -7284,7 +8006,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig1$x$layout$scene$yaxis$range <- c(0, 1)
         fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig1
       }
     }
@@ -7322,7 +8045,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
       wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
       wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- wlsex$par[1]
         beta1 <- wlsex$par[2]
@@ -7352,7 +8075,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           base::pmax(result, 0)
         }))
 
-        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                              colorscale = colorscalemp)
 
         fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -7370,7 +8094,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig2$x$layout$scene$yaxis$range <- c(0, 1)
         fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig2
 
       }
@@ -7384,7 +8109,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             pW(qG(1-c1, alpha1, beta1), alpha2, beta2)
           base::pmax(result, 0)
         }))
-        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                              colorscale = "Greys")
 
         fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -7402,7 +8128,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig1$x$layout$scene$yaxis$range <- c(0, 1)
         fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig1
       }
     }
@@ -7418,12 +8145,12 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
+if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
 
       c1 <- seq(0.00001, 1, length.out = 100)
       c2 <- seq(0.00001, 1, length.out = 100)
@@ -7432,7 +8159,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           pW(qG(1-c1, alpha1, beta1), alpha2, beta2)
         base::pmax(result, 0)
       }))
-      fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+      fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                            colorscale = "Greys")
 
       fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
       fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -7450,7 +8178,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
       fig1$x$layout$scene$yaxis$range <- c(0, 1)
       fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-      fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+      fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                              tickvals = c(0, 0.5, 1))
       fig1
 
 
@@ -7465,13 +8194,15 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         beta2<-par[4]
         alpha3<-par[5]
         beta3<-par[6]
-        t<-(-sum(log(dG(x,alpha1,beta1)))-sum(log(dG(y,alpha2,beta2)))-sum(log(dW(z,alpha3,beta3))))
+        t<-(-sum(log(dG(x,alpha1,beta1)))-sum(log(dG(y,alpha2,beta2)))-
+              sum(log(dW(z,alpha3,beta3))))
         return(t)
       }
-      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),lfxyz,hessian = TRUE)),silent=TRUE)
+      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
+                                lfxyz,hessian = TRUE)),silent=TRUE)
 
       if (is.character(mlexyz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- mlexyz$par[1]
         beta1 <- mlexyz$par[2]
@@ -7502,7 +8233,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           base::pmax(result, 0)
         }))
 
-        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                              colorscale = colorscalemp)
 
         fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -7520,7 +8252,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig2$x$layout$scene$yaxis$range <- c(0, 1)
         fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig2
 
       }
@@ -7534,7 +8267,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             pG(qG(1-c1, alpha1, beta1), alpha2, beta2)
           base::pmax(result, 0)
         }))
-        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                              colorscale = "Greys")
 
         fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -7552,7 +8286,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig1$x$layout$scene$yaxis$range <- c(0, 1)
         fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig1
       }
     }
@@ -7566,7 +8301,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         adx<-sort(x,decreasing=TRUE)
         n<-NROW(x)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pG(x,alpha1,beta1))+log(1-pG(adx,alpha1,beta1))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pG(x,alpha1,beta1))+
+                                    log(1-pG(adx,alpha1,beta1))))
         return(AD)
       }
       QADy<-function(par,y){
@@ -7576,7 +8312,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         ady<-sort(y,decreasing=TRUE)
         n<-NROW(y)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pG(y,alpha2,beta2))+log(1-pG(ady,alpha2,beta2))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pG(y,alpha2,beta2))+
+                                    log(1-pG(ady,alpha2,beta2))))
         return(AD)
       }
       QADz<-function(par,z){
@@ -7586,7 +8323,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         adz<-sort(z,decreasing=TRUE)
         n<-NROW(z)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pW(z,alpha3,beta3))+log(1-pW(adz,alpha3,beta3))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pW(z,alpha3,beta3))+
+                                    log(1-pW(adz,alpha3,beta3))))
         return(AD)
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
@@ -7594,7 +8332,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
       adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+     stop("Optimization did not converge.Please check your initial parameters.")
       }
       else {
         alpha1 <- adex$par[1]
@@ -7625,7 +8363,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           base::pmax(result, 0)
         }))
 
-        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                              colorscale = colorscalemp)
 
         fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -7643,7 +8382,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig2$x$layout$scene$yaxis$range <- c(0, 1)
         fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig2
 
       }
@@ -7657,7 +8397,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             pG(qG(1-c1, alpha1, beta1), alpha2, beta2)
           base::pmax(result, 0)
         }))
-        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                              colorscale = "Greys")
 
         fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -7675,7 +8416,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig1$x$layout$scene$yaxis$range <- c(0, 1)
         fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig1
       }
 
@@ -7714,7 +8456,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
       cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
 
       if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- cvx$par[1]
         beta1 <- cvx$par[2]
@@ -7744,7 +8486,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           base::pmax(result, 0)
         }))
 
-        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                              colorscale = colorscalemp)
 
         fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -7762,7 +8505,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig2$x$layout$scene$yaxis$range <- c(0, 1)
         fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig2
 
       }
@@ -7776,7 +8520,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             pG(qG(1-c1, alpha1, beta1), alpha2, beta2)
           base::pmax(result, 0)
         }))
-        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                              colorscale = "Greys")
 
         fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -7794,7 +8539,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig1$x$layout$scene$yaxis$range <- c(0, 1)
         fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig1
       }
     }
@@ -7832,7 +8578,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
       lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
 
       if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- lsex$par[1]
         beta1 <- lsex$par[2]
@@ -7862,7 +8608,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           base::pmax(result, 0)
         }))
 
-        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                              colorscale = colorscalemp)
 
         fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -7880,7 +8627,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig2$x$layout$scene$yaxis$range <- c(0, 1)
         fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig2
 
       }
@@ -7894,7 +8642,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             pG(qG(1-c1, alpha1, beta1), alpha2, beta2)
           base::pmax(result, 0)
         }))
-        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                              colorscale = "Greys")
 
         fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -7912,7 +8661,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig1$x$layout$scene$yaxis$range <- c(0, 1)
         fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig1
       }
     }
@@ -7950,7 +8700,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
       wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
       wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- wlsex$par[1]
         beta1 <- wlsex$par[2]
@@ -7980,7 +8730,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           base::pmax(result, 0)
         }))
 
-        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                              colorscale = colorscalemp)
 
         fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -7998,7 +8749,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig2$x$layout$scene$yaxis$range <- c(0, 1)
         fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig2
 
       }
@@ -8012,7 +8764,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             pG(qG(1-c1, alpha1, beta1), alpha2, beta2)
           base::pmax(result, 0)
         }))
-        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                              colorscale = "Greys")
 
         fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -8030,7 +8783,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig1$x$layout$scene$yaxis$range <- c(0, 1)
         fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig1
       }
     }
@@ -8046,12 +8800,12 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
+if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+   if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+ if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+  if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+  if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
 
 
       c1 <- seq(0.00001, 1, length.out = 100)
@@ -8062,7 +8816,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           pG(qG(1-c1, alpha1, beta1), alpha2, beta2)
         base::pmax(result, 0)
       }))
-      fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+      fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                            colorscale = "Greys")
 
       fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
       fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -8080,7 +8835,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
       fig1$x$layout$scene$yaxis$range <- c(0, 1)
       fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-      fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+      fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                              tickvals = c(0, 0.5, 1))
       fig1
 
     }
@@ -8094,13 +8850,15 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         beta2<-par[4]
         alpha3<-par[5]
         beta3<-par[6]
-        t<-(-sum(log(dG(x,alpha1,beta1)))-sum(log(dL(y,alpha2,beta2)))-sum(log(dL(z,alpha3,beta3))))
+        t<-(-sum(log(dG(x,alpha1,beta1)))-sum(log(dL(y,alpha2,beta2)))-
+              sum(log(dL(z,alpha3,beta3))))
         return(t)
       }
-      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),lfxyz,hessian = TRUE)),silent=TRUE)
+      mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
+                                lfxyz,hessian = TRUE)),silent=TRUE)
 
       if (is.character(mlexyz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- mlexyz$par[1]
         beta1 <- mlexyz$par[2]
@@ -8131,7 +8889,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           base::pmax(result, 0)
         }))
 
-        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                              colorscale = colorscalemp)
 
         fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -8149,7 +8908,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig2$x$layout$scene$yaxis$range <- c(0, 1)
         fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig2
 
       }
@@ -8163,7 +8923,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             pL(qG(1-c1, alpha1, beta1), alpha2, beta2)
           base::pmax(result, 0)
         }))
-        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                              colorscale = "Greys")
 
         fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -8181,7 +8942,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig1$x$layout$scene$yaxis$range <- c(0, 1)
         fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig1
       }
     }
@@ -8195,7 +8957,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         adx<-sort(x,decreasing=TRUE)
         n<-NROW(x)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pG(x,alpha1,beta1))+log(1-pG(adx,alpha1,beta1))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pG(x,alpha1,beta1))+
+                                    log(1-pG(adx,alpha1,beta1))))
         return(AD)
       }
       QADy<-function(par,y){
@@ -8205,7 +8968,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         ady<-sort(y,decreasing=TRUE)
         n<-NROW(y)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pL(y,alpha2,beta2))+log(1-pL(ady,alpha2,beta2))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pL(y,alpha2,beta2))+
+                                    log(1-pL(ady,alpha2,beta2))))
         return(AD)
       }
       QADz<-function(par,z){
@@ -8215,7 +8979,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         adz<-sort(z,decreasing=TRUE)
         n<-NROW(z)
         i<-seq(1:n)
-        AD<--n-(1/n)*sum((2*i-1)*(log(pL(z,alpha3,beta3))+log(1-pL(adz,alpha3,beta3))))
+        AD<--n-(1/n)*sum((2*i-1)*(log(pL(z,alpha3,beta3))+
+                                    log(1-pL(adz,alpha3,beta3))))
         return(AD)
       }
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
@@ -8223,7 +8988,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
       adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       }
       else {
         alpha1 <- adex$par[1]
@@ -8254,7 +9019,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           base::pmax(result, 0)
         }))
 
-        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                              colorscale = colorscalemp)
 
         fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -8272,7 +9038,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig2$x$layout$scene$yaxis$range <- c(0, 1)
         fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig2
 
       }
@@ -8286,7 +9053,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             pL(qG(1-c1, alpha1, beta1), alpha2, beta2)
           base::pmax(result, 0)
         }))
-        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                              colorscale = "Greys")
 
         fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -8304,7 +9072,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig1$x$layout$scene$yaxis$range <- c(0, 1)
         fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig1
       }
 
@@ -8343,7 +9112,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
       cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
 
       if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- cvx$par[1]
         beta1 <- cvx$par[2]
@@ -8373,7 +9142,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           base::pmax(result, 0)
         }))
 
-        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                              colorscale = colorscalemp)
 
         fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -8391,7 +9161,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig2$x$layout$scene$yaxis$range <- c(0, 1)
         fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig2
 
       }
@@ -8405,7 +9176,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             pL(qG(1-c1, alpha1, beta1), alpha2, beta2)
           base::pmax(result, 0)
         }))
-        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                              colorscale = "Greys")
 
         fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -8423,7 +9195,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig1$x$layout$scene$yaxis$range <- c(0, 1)
         fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig1
       }
     }
@@ -8461,7 +9234,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
       lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
 
       if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- lsex$par[1]
         beta1 <- lsex$par[2]
@@ -8491,7 +9264,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           base::pmax(result, 0)
         }))
 
-        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                              colorscale = colorscalemp)
 
         fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -8509,7 +9283,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig2$x$layout$scene$yaxis$range <- c(0, 1)
         fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig2
 
       }
@@ -8523,7 +9298,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             pL(qG(1-c1, alpha1, beta1), alpha2, beta2)
           base::pmax(result, 0)
         }))
-        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                              colorscale = "Greys")
 
         fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -8541,7 +9317,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig1$x$layout$scene$yaxis$range <- c(0, 1)
         fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig1
       }
     }
@@ -8579,7 +9356,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
       wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
       wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
       if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
-        stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
         alpha1 <- wlsex$par[1]
         beta1 <- wlsex$par[2]
@@ -8609,7 +9386,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           base::pmax(result, 0)
         }))
 
-        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+        fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                              colorscale = colorscalemp)
 
         fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -8627,7 +9405,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig2$x$layout$scene$yaxis$range <- c(0, 1)
         fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+        fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig2
 
       }
@@ -8641,7 +9420,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             pL(qG(1-c1, alpha1, beta1), alpha2, beta2)
           base::pmax(result, 0)
         }))
-        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                              colorscale = "Greys")
 
         fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -8659,7 +9439,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig1$x$layout$scene$yaxis$range <- c(0, 1)
         fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig1
       }
     }
@@ -8675,12 +9456,12 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
       beta2<-true_param[[4]]
       alpha3<-true_param[[5]]
       beta3<-true_param[[6]]
-      if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
-      if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
-      if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
-      if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
-      if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
-      if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
+if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
 
 
 
@@ -8692,7 +9473,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             pL(qG(1-c1, alpha1, beta1), alpha2, beta2)
           base::pmax(result, 0)
         }))
-        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                              colorscale = "Greys")
 
         fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -8710,7 +9492,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig1$x$layout$scene$yaxis$range <- c(0, 1)
         fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig1
 
 
@@ -8724,13 +9507,15 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           beta2<-par[4]
           alpha3<-par[5]
           beta3<-par[6]
-          t<-(-sum(log(dW(x,alpha1,beta1)))-sum(log(dG(y,alpha2,beta2)))-sum(log(dW(z,alpha3,beta3))))
+          t<-(-sum(log(dW(x,alpha1,beta1)))-sum(log(dG(y,alpha2,beta2)))-
+                sum(log(dW(z,alpha3,beta3))))
           return(t)
         }
-        mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),lfxyz,hessian = TRUE)),silent=TRUE)
+        mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
+                                  lfxyz,hessian = TRUE)),silent=TRUE)
 
         if (is.character(mlexyz)) {
-          stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
         } else {
           alpha1 <- mlexyz$par[1]
           beta1 <- mlexyz$par[2]
@@ -8761,7 +9546,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             base::pmax(result, 0)
           }))
 
-          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                                colorscale = colorscalemp)
 
           fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -8779,7 +9565,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig2$x$layout$scene$yaxis$range <- c(0, 1)
           fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig2
 
         }
@@ -8793,7 +9580,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
               pG(qW(1-c1, alpha1, beta1), alpha2, beta2)
             base::pmax(result, 0)
           }))
-          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                                colorscale = "Greys")
 
           fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -8811,7 +9599,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig1$x$layout$scene$yaxis$range <- c(0, 1)
           fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig1
         }
       }
@@ -8825,7 +9614,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           adx<-sort(x,decreasing=TRUE)
           n<-NROW(x)
           i<-seq(1:n)
-          AD<--n-(1/n)*sum((2*i-1)*(log(pW(x,alpha1,beta1))+log(1-pW(adx,alpha1,beta1))))
+          AD<--n-(1/n)*sum((2*i-1)*(log(pW(x,alpha1,beta1))+
+                                      log(1-pW(adx,alpha1,beta1))))
           return(AD)
         }
         QADy<-function(par,y){
@@ -8835,7 +9625,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           ady<-sort(y,decreasing=TRUE)
           n<-NROW(y)
           i<-seq(1:n)
-          AD<--n-(1/n)*sum((2*i-1)*(log(pG(y,alpha2,beta2))+log(1-pG(ady,alpha2,beta2))))
+          AD<--n-(1/n)*sum((2*i-1)*(log(pG(y,alpha2,beta2))+
+                                      log(1-pG(ady,alpha2,beta2))))
           return(AD)
         }
         QADz<-function(par,z){
@@ -8845,7 +9636,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           adz<-sort(z,decreasing=TRUE)
           n<-NROW(z)
           i<-seq(1:n)
-          AD<--n-(1/n)*sum((2*i-1)*(log(pW(z,alpha3,beta3))+log(1-pW(adz,alpha3,beta3))))
+          AD<--n-(1/n)*sum((2*i-1)*(log(pW(z,alpha3,beta3))+
+                                      log(1-pW(adz,alpha3,beta3))))
           return(AD)
         }
         adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
@@ -8853,7 +9645,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
         if (is.character(adex)|is.character(adey)|is.character(adez)) {
-          stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
         }
         else {
           alpha1 <- adex$par[1]
@@ -8884,7 +9676,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             base::pmax(result, 0)
           }))
 
-          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                                colorscale = colorscalemp)
 
           fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -8902,7 +9695,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig2$x$layout$scene$yaxis$range <- c(0, 1)
           fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig2
 
         }
@@ -8916,7 +9710,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
               pG(qW(1-c1, alpha1, beta1), alpha2, beta2)
             base::pmax(result, 0)
           }))
-          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                                colorscale = "Greys")
 
           fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -8934,7 +9729,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig1$x$layout$scene$yaxis$range <- c(0, 1)
           fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig1
         }
 
@@ -8973,7 +9769,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
 
         if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
-          stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
         } else {
           alpha1 <- cvx$par[1]
           beta1 <- cvx$par[2]
@@ -9003,7 +9799,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             base::pmax(result, 0)
           }))
 
-          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                                colorscale = colorscalemp)
 
           fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -9021,7 +9818,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig2$x$layout$scene$yaxis$range <- c(0, 1)
           fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig2
 
         }
@@ -9035,7 +9833,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
               pG(qW(1-c1, alpha1, beta1), alpha2, beta2)
             base::pmax(result, 0)
           }))
-          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                                colorscale = "Greys")
 
           fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -9053,7 +9852,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig1$x$layout$scene$yaxis$range <- c(0, 1)
           fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig1
         }
       }
@@ -9091,7 +9891,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
 
         if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
-          stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
         } else {
           alpha1 <- lsex$par[1]
           beta1 <- lsex$par[2]
@@ -9121,7 +9921,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             base::pmax(result, 0)
           }))
 
-          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                                colorscale = colorscalemp)
 
           fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -9139,7 +9940,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig2$x$layout$scene$yaxis$range <- c(0, 1)
           fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig2
 
         }
@@ -9153,7 +9955,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
               pG(qW(1-c1, alpha1, beta1), alpha2, beta2)
             base::pmax(result, 0)
           }))
-          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                                colorscale = "Greys")
 
           fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -9171,7 +9974,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig1$x$layout$scene$yaxis$range <- c(0, 1)
           fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig1
         }
       }
@@ -9209,7 +10013,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
         wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
         if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
-          stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
         } else {
           alpha1 <- wlsex$par[1]
           beta1 <- wlsex$par[2]
@@ -9239,7 +10043,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             base::pmax(result, 0)
           }))
 
-          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                                colorscale = colorscalemp)
 
           fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -9257,7 +10062,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig2$x$layout$scene$yaxis$range <- c(0, 1)
           fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig2
 
         }
@@ -9271,7 +10077,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
               pG(qW(1-c1, alpha1, beta1), alpha2, beta2)
             base::pmax(result, 0)
           }))
-          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                                colorscale = "Greys")
 
           fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -9289,7 +10096,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig1$x$layout$scene$yaxis$range <- c(0, 1)
           fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig1
         }
       }
@@ -9305,12 +10113,12 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         beta2<-true_param[[4]]
         alpha3<-true_param[[5]]
         beta3<-true_param[[6]]
-        if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
-        if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
-        if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
-        if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
-        if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
-        if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
+if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+  if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+  if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+  if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
 
 
         c1 <- seq(0.00001, 1, length.out = 100)
@@ -9321,7 +10129,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             pG(qW(1-c1, alpha1, beta1), alpha2, beta2)
           base::pmax(result, 0)
         }))
-        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                              colorscale = "Greys")
 
         fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -9339,7 +10148,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig1$x$layout$scene$yaxis$range <- c(0, 1)
         fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig1
 
       }
@@ -9353,13 +10163,15 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           beta2<-par[4]
           alpha3<-par[5]
           beta3<-par[6]
-          t<-(-sum(log(dW(x,alpha1,beta1)))-sum(log(dW(y,alpha2,beta2)))-sum(log(dW(z,alpha3,beta3))))
+          t<-(-sum(log(dW(x,alpha1,beta1)))-sum(log(dW(y,alpha2,beta2)))-
+                sum(log(dW(z,alpha3,beta3))))
           return(t)
         }
-        mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),lfxyz,hessian = TRUE)),silent=TRUE)
+        mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
+                                  lfxyz,hessian = TRUE)),silent=TRUE)
 
         if (is.character(mlexyz)) {
-          stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
         } else {
           alpha1 <- mlexyz$par[1]
           beta1 <- mlexyz$par[2]
@@ -9390,7 +10202,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             base::pmax(result, 0)
           }))
 
-          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                                colorscale = colorscalemp)
 
           fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -9408,7 +10221,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig2$x$layout$scene$yaxis$range <- c(0, 1)
           fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig2
 
         }
@@ -9422,7 +10236,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
               pW(qW(1-c1, alpha1, beta1), alpha2, beta2)
             base::pmax(result, 0)
           }))
-          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                                colorscale = "Greys")
 
           fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -9440,7 +10255,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig1$x$layout$scene$yaxis$range <- c(0, 1)
           fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig1
         }
       }
@@ -9454,7 +10270,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           adx<-sort(x,decreasing=TRUE)
           n<-NROW(x)
           i<-seq(1:n)
-          AD<--n-(1/n)*sum((2*i-1)*(log(pW(x,alpha1,beta1))+log(1-pW(adx,alpha1,beta1))))
+          AD<--n-(1/n)*sum((2*i-1)*(log(pW(x,alpha1,beta1))+
+                                      log(1-pW(adx,alpha1,beta1))))
           return(AD)
         }
         QADy<-function(par,y){
@@ -9464,7 +10281,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           ady<-sort(y,decreasing=TRUE)
           n<-NROW(y)
           i<-seq(1:n)
-          AD<--n-(1/n)*sum((2*i-1)*(log(pW(y,alpha2,beta2))+log(1-pW(ady,alpha2,beta2))))
+          AD<--n-(1/n)*sum((2*i-1)*(log(pW(y,alpha2,beta2))+
+                                      log(1-pW(ady,alpha2,beta2))))
           return(AD)
         }
         QADz<-function(par,z){
@@ -9474,7 +10292,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           adz<-sort(z,decreasing=TRUE)
           n<-NROW(z)
           i<-seq(1:n)
-          AD<--n-(1/n)*sum((2*i-1)*(log(pW(z,alpha3,beta3))+log(1-pW(adz,alpha3,beta3))))
+          AD<--n-(1/n)*sum((2*i-1)*(log(pW(z,alpha3,beta3))+
+                                      log(1-pW(adz,alpha3,beta3))))
           return(AD)
         }
         adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
@@ -9482,7 +10301,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
         if (is.character(adex)|is.character(adey)|is.character(adez)) {
-          stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
         }
         else {
           alpha1 <- adex$par[1]
@@ -9513,7 +10332,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             base::pmax(result, 0)
           }))
 
-          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                                colorscale = colorscalemp)
 
           fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -9531,7 +10351,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig2$x$layout$scene$yaxis$range <- c(0, 1)
           fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig2
 
         }
@@ -9545,7 +10366,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
               pW(qW(1-c1, alpha1, beta1), alpha2, beta2)
             base::pmax(result, 0)
           }))
-          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                                colorscale = "Greys")
 
           fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -9563,7 +10385,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig1$x$layout$scene$yaxis$range <- c(0, 1)
           fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig1
         }
 
@@ -9602,7 +10425,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
 
         if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
-          stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
         } else {
           alpha1 <- cvx$par[1]
           beta1 <- cvx$par[2]
@@ -9632,7 +10455,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             base::pmax(result, 0)
           }))
 
-          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                                colorscale = colorscalemp)
 
           fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -9650,7 +10474,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig2$x$layout$scene$yaxis$range <- c(0, 1)
           fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig2
 
         }
@@ -9664,7 +10489,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
               pW(qW(1-c1, alpha1, beta1), alpha2, beta2)
             base::pmax(result, 0)
           }))
-          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                                colorscale = "Greys")
 
           fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -9682,7 +10508,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig1$x$layout$scene$yaxis$range <- c(0, 1)
           fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig1
         }
       }
@@ -9720,7 +10547,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
 
         if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
-          stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
         } else {
           alpha1 <- lsex$par[1]
           beta1 <- lsex$par[2]
@@ -9750,7 +10577,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             base::pmax(result, 0)
           }))
 
-          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                                colorscale = colorscalemp)
 
           fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -9768,7 +10596,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig2$x$layout$scene$yaxis$range <- c(0, 1)
           fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig2
 
         }
@@ -9782,7 +10611,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
               pW(qW(1-c1, alpha1, beta1), alpha2, beta2)
             base::pmax(result, 0)
           }))
-          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                                colorscale = "Greys")
 
           fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -9800,7 +10630,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig1$x$layout$scene$yaxis$range <- c(0, 1)
           fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig1
         }
       }
@@ -9838,7 +10669,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
         wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
         if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
-          stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
         } else {
           alpha1 <- wlsex$par[1]
           beta1 <- wlsex$par[2]
@@ -9868,7 +10699,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             base::pmax(result, 0)
           }))
 
-          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                                colorscale = colorscalemp)
 
           fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -9886,7 +10718,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig2$x$layout$scene$yaxis$range <- c(0, 1)
           fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig2
 
         }
@@ -9900,7 +10733,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
               pW(qW(1-c1, alpha1, beta1), alpha2, beta2)
             base::pmax(result, 0)
           }))
-          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                                colorscale = "Greys")
 
           fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -9918,7 +10752,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig1$x$layout$scene$yaxis$range <- c(0, 1)
           fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig1
         }
       }
@@ -9934,12 +10769,12 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         beta2<-true_param[[4]]
         alpha3<-true_param[[5]]
         beta3<-true_param[[6]]
-        if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
-        if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
-        if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
-        if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
-        if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
-        if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
+if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+  if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+  if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
 
 
         c1 <- seq(0.00001, 1, length.out = 100)
@@ -9950,7 +10785,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             pW(qW(1-c1, alpha1, beta1), alpha2, beta2)
           base::pmax(result, 0)
         }))
-        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                              colorscale = "Greys")
 
         fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -9968,7 +10804,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig1$x$layout$scene$yaxis$range <- c(0, 1)
         fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig1
 
       }
@@ -9982,13 +10819,15 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           beta2<-par[4]
           alpha3<-par[5]
           beta3<-par[6]
-          t<-(-sum(log(dG(x,alpha1,beta1)))-sum(log(dG(y,alpha2,beta2)))-sum(log(dG(z,alpha3,beta3))))
+          t<-(-sum(log(dG(x,alpha1,beta1)))-sum(log(dG(y,alpha2,beta2)))-
+                sum(log(dG(z,alpha3,beta3))))
           return(t)
         }
-        mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),lfxyz,hessian = TRUE)),silent=TRUE)
+        mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
+                                  lfxyz,hessian = TRUE)),silent=TRUE)
 
         if (is.character(mlexyz)) {
-          stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
         } else {
           alpha1 <- mlexyz$par[1]
           beta1 <- mlexyz$par[2]
@@ -10019,7 +10858,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             base::pmax(result, 0)
           }))
 
-          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                                colorscale = colorscalemp)
 
           fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -10037,7 +10877,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig2$x$layout$scene$yaxis$range <- c(0, 1)
           fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig2
 
         }
@@ -10051,7 +10892,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
               pG(qG(1-c1, alpha1, beta1), alpha2, beta2)
             base::pmax(result, 0)
           }))
-          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                                colorscale = "Greys")
 
           fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -10069,7 +10911,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig1$x$layout$scene$yaxis$range <- c(0, 1)
           fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig1
         }
       }
@@ -10083,7 +10926,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           adx<-sort(x,decreasing=TRUE)
           n<-NROW(x)
           i<-seq(1:n)
-          AD<--n-(1/n)*sum((2*i-1)*(log(pG(x,alpha1,beta1))+log(1-pG(adx,alpha1,beta1))))
+          AD<--n-(1/n)*sum((2*i-1)*(log(pG(x,alpha1,beta1))+
+                                      log(1-pG(adx,alpha1,beta1))))
           return(AD)
         }
         QADy<-function(par,y){
@@ -10093,7 +10937,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           ady<-sort(y,decreasing=TRUE)
           n<-NROW(y)
           i<-seq(1:n)
-          AD<--n-(1/n)*sum((2*i-1)*(log(pG(y,alpha2,beta2))+log(1-pG(ady,alpha2,beta2))))
+          AD<--n-(1/n)*sum((2*i-1)*(log(pG(y,alpha2,beta2))+
+                                      log(1-pG(ady,alpha2,beta2))))
           return(AD)
         }
         QADz<-function(par,z){
@@ -10103,7 +10948,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           adz<-sort(z,decreasing=TRUE)
           n<-NROW(z)
           i<-seq(1:n)
-          AD<--n-(1/n)*sum((2*i-1)*(log(pG(z,alpha3,beta3))+log(1-pG(adz,alpha3,beta3))))
+          AD<--n-(1/n)*sum((2*i-1)*(log(pG(z,alpha3,beta3))+
+                                      log(1-pG(adz,alpha3,beta3))))
           return(AD)
         }
         adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
@@ -10111,7 +10957,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
         if (is.character(adex)|is.character(adey)|is.character(adez)) {
-          stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
         }
         else {
           alpha1 <- adex$par[1]
@@ -10142,7 +10988,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             base::pmax(result, 0)
           }))
 
-          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                                colorscale = colorscalemp)
 
           fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -10160,7 +11007,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig2$x$layout$scene$yaxis$range <- c(0, 1)
           fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig2
 
         }
@@ -10174,7 +11022,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
               pG(qG(1-c1, alpha1, beta1), alpha2, beta2)
             base::pmax(result, 0)
           }))
-          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                                colorscale = "Greys")
 
           fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -10192,7 +11041,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig1$x$layout$scene$yaxis$range <- c(0, 1)
           fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig1
         }
 
@@ -10231,7 +11081,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
 
         if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
-          stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
         } else {
           alpha1 <- cvx$par[1]
           beta1 <- cvx$par[2]
@@ -10261,7 +11111,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             base::pmax(result, 0)
           }))
 
-          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                                colorscale = colorscalemp)
 
           fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -10279,7 +11130,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig2$x$layout$scene$yaxis$range <- c(0, 1)
           fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig2
 
         }
@@ -10293,7 +11145,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
               pG(qG(1-c1, alpha1, beta1), alpha2, beta2)
             base::pmax(result, 0)
           }))
-          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                                colorscale = "Greys")
 
           fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -10311,7 +11164,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig1$x$layout$scene$yaxis$range <- c(0, 1)
           fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig1
         }
       }
@@ -10349,7 +11203,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
 
         if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
-          stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
         } else {
           alpha1 <- lsex$par[1]
           beta1 <- lsex$par[2]
@@ -10379,7 +11233,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             base::pmax(result, 0)
           }))
 
-          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                                colorscale = colorscalemp)
 
           fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -10397,7 +11252,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig2$x$layout$scene$yaxis$range <- c(0, 1)
           fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig2
 
         }
@@ -10411,7 +11267,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
               pG(qG(1-c1, alpha1, beta1), alpha2, beta2)
             base::pmax(result, 0)
           }))
-          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                                colorscale = "Greys")
 
           fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -10429,7 +11286,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig1$x$layout$scene$yaxis$range <- c(0, 1)
           fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig1
         }
       }
@@ -10467,7 +11325,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
         wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
         if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
-          stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
         } else {
           alpha1 <- wlsex$par[1]
           beta1 <- wlsex$par[2]
@@ -10497,7 +11355,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             base::pmax(result, 0)
           }))
 
-          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                                colorscale = colorscalemp)
 
           fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -10515,7 +11374,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig2$x$layout$scene$yaxis$range <- c(0, 1)
           fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig2
 
         }
@@ -10529,7 +11389,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
               pG(qG(1-c1, alpha1, beta1), alpha2, beta2)
             base::pmax(result, 0)
           }))
-          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                                colorscale = "Greys")
 
           fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -10547,7 +11408,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig1$x$layout$scene$yaxis$range <- c(0, 1)
           fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig1
         }
       }
@@ -10563,12 +11425,12 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         beta2<-true_param[[4]]
         alpha3<-true_param[[5]]
         beta3<-true_param[[6]]
-        if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
-        if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
-        if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
-        if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
-        if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
-        if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
+if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+  if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
 
 
         c1 <- seq(0.00001, 1, length.out = 100)
@@ -10579,7 +11441,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             pG(qG(1-c1, alpha1, beta1), alpha2, beta2)
           base::pmax(result, 0)
         }))
-        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                              colorscale = "Greys")
 
         fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -10597,7 +11460,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig1$x$layout$scene$yaxis$range <- c(0, 1)
         fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig1
 
       }
@@ -10611,13 +11475,15 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           beta2<-par[4]
           alpha3<-par[5]
           beta3<-par[6]
-          t<-(-sum(log(dL(x,alpha1,beta1)))-sum(log(dL(y,alpha2,beta2)))-sum(log(dL(z,alpha3,beta3))))
+          t<-(-sum(log(dL(x,alpha1,beta1)))-sum(log(dL(y,alpha2,beta2)))-
+                sum(log(dL(z,alpha3,beta3))))
           return(t)
         }
-        mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),lfxyz,hessian = TRUE)),silent=TRUE)
+        mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
+                                  lfxyz,hessian = TRUE)),silent=TRUE)
 
         if (is.character(mlexyz)) {
-          stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
         } else {
           alpha1 <- mlexyz$par[1]
           beta1 <- mlexyz$par[2]
@@ -10648,7 +11514,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             base::pmax(result, 0)
           }))
 
-          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                                colorscale = colorscalemp)
 
           fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -10666,7 +11533,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig2$x$layout$scene$yaxis$range <- c(0, 1)
           fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig2
 
         }
@@ -10680,7 +11548,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
               pL(qL(1-c1, alpha1, beta1), alpha2, beta2)
             base::pmax(result, 0)
           }))
-          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                                colorscale = "Greys")
 
           fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -10698,7 +11567,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig1$x$layout$scene$yaxis$range <- c(0, 1)
           fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig1
         }
       }
@@ -10712,7 +11582,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           adx<-sort(x,decreasing=TRUE)
           n<-NROW(x)
           i<-seq(1:n)
-          AD<--n-(1/n)*sum((2*i-1)*(log(pL(x,alpha1,beta1))+log(1-pL(adx,alpha1,beta1))))
+          AD<--n-(1/n)*sum((2*i-1)*(log(pL(x,alpha1,beta1))+
+                                      log(1-pL(adx,alpha1,beta1))))
           return(AD)
         }
         QADy<-function(par,y){
@@ -10722,7 +11593,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           ady<-sort(y,decreasing=TRUE)
           n<-NROW(y)
           i<-seq(1:n)
-          AD<--n-(1/n)*sum((2*i-1)*(log(pL(y,alpha2,beta2))+log(1-pL(ady,alpha2,beta2))))
+          AD<--n-(1/n)*sum((2*i-1)*(log(pL(y,alpha2,beta2))+
+                                      log(1-pL(ady,alpha2,beta2))))
           return(AD)
         }
         QADz<-function(par,z){
@@ -10732,7 +11604,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           adz<-sort(z,decreasing=TRUE)
           n<-NROW(z)
           i<-seq(1:n)
-          AD<--n-(1/n)*sum((2*i-1)*(log(pL(z,alpha3,beta3))+log(1-pL(adz,alpha3,beta3))))
+          AD<--n-(1/n)*sum((2*i-1)*(log(pL(z,alpha3,beta3))+
+                                      log(1-pL(adz,alpha3,beta3))))
           return(AD)
         }
         adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
@@ -10740,7 +11613,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         adez=try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
 
         if (is.character(adex)|is.character(adey)|is.character(adez)) {
-          stop("Optimization did not converge.Please check your initial parameters.")
+     stop("Optimization did not converge.Please check your initial parameters.")
         }
         else {
           alpha1 <- adex$par[1]
@@ -10771,7 +11644,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             base::pmax(result, 0)
           }))
 
-          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                                colorscale = colorscalemp)
 
           fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -10789,7 +11663,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig2$x$layout$scene$yaxis$range <- c(0, 1)
           fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig2
 
         }
@@ -10803,7 +11678,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
               pL(qL(1-c1, alpha1, beta1), alpha2, beta2)
             base::pmax(result, 0)
           }))
-          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                                colorscale = "Greys")
 
           fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -10821,7 +11697,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig1$x$layout$scene$yaxis$range <- c(0, 1)
           fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig1
         }
 
@@ -10860,7 +11737,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
 
         if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
-          stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
         } else {
           alpha1 <- cvx$par[1]
           beta1 <- cvx$par[2]
@@ -10890,7 +11767,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             base::pmax(result, 0)
           }))
 
-          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                                colorscale = colorscalemp)
 
           fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -10908,7 +11786,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig2$x$layout$scene$yaxis$range <- c(0, 1)
           fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig2
 
         }
@@ -10922,7 +11801,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
               pL(qL(1-c1, alpha1, beta1), alpha2, beta2)
             base::pmax(result, 0)
           }))
-          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                                colorscale = "Greys")
 
           fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -10940,7 +11820,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig1$x$layout$scene$yaxis$range <- c(0, 1)
           fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig1
         }
       }
@@ -10978,7 +11859,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
 
         if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
-          stop("Optimization did not converge.Please check your initial parameters.")
+     stop("Optimization did not converge.Please check your initial parameters.")
         } else {
           alpha1 <- lsex$par[1]
           beta1 <- lsex$par[2]
@@ -11008,7 +11889,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             base::pmax(result, 0)
           }))
 
-          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                                colorscale = colorscalemp)
 
           fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -11026,7 +11908,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig2$x$layout$scene$yaxis$range <- c(0, 1)
           fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig2
 
         }
@@ -11040,7 +11923,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
               pL(qL(1-c1, alpha1, beta1), alpha2, beta2)
             base::pmax(result, 0)
           }))
-          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                                colorscale = "Greys")
 
           fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -11058,7 +11942,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig1$x$layout$scene$yaxis$range <- c(0, 1)
           fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig1
         }
       }
@@ -11096,7 +11981,7 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         wlsey=try(stats::optim(c(alpha2,beta2),QWLSEy,y=y),silent=TRUE)
         wlsez=try(stats::optim(c(alpha3,beta3),QWLSEz,z=z),silent=TRUE)
         if (is.character(wlsex)|is.character(wlsey)|is.character(wlsez)) {
-          stop("Optimization did not converge.Please check your initial parameters.")
+    stop("Optimization did not converge.Please check your initial parameters.")
         } else {
           alpha1 <- wlsex$par[1]
           beta1 <- wlsex$par[2]
@@ -11126,7 +12011,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             base::pmax(result, 0)
           }))
 
-          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface', colorscale = colorscalemp)
+          fig2<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus2, type = 'surface',
+                                colorscale = colorscalemp)
 
           fig2$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig2$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -11144,7 +12030,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig2$x$layout$scene$yaxis$range <- c(0, 1)
           fig2$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface", tickvals = c(0, 0.5, 1))
+          fig2<- plotly::colorbar(fig2,title = "Empirical ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig2
 
         }
@@ -11158,7 +12045,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
               pL(qL(1-c1, alpha1, beta1), alpha2, beta2)
             base::pmax(result, 0)
           }))
-          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+          fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                                colorscale = "Greys")
 
           fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
           fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -11176,7 +12064,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
           fig1$x$layout$scene$yaxis$range <- c(0, 1)
           fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+          fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                  tickvals = c(0, 0.5, 1))
           fig1
         }
       }
@@ -11192,12 +12081,12 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         beta2<-true_param[[4]]
         alpha3<-true_param[[5]]
         beta3<-true_param[[6]]
-        if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
-        if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
-        if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
-        if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
-        if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
-        if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
+if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
+  if(any(beta1<=0)) {stop(paste("beta1 value must be greater than 0","\n",""))}
+if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
+if(any(beta2<=0)) {stop(paste("beta2 value must be greater than 0","\n",""))}
+if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
+  if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
 
 
         c1 <- seq(0.00001, 1, length.out = 100)
@@ -11208,7 +12097,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
             pL(qL(1-c1, alpha1, beta1), alpha2, beta2)
           base::pmax(result, 0)
         }))
-        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface', colorscale = "Greys")
+        fig1<-plotly::plot_ly(x = ~c1, y = ~c2, z = ~vus, type = 'surface',
+                              colorscale = "Greys")
 
         fig1$x$layout$scene$xaxis$title <- "TPF\u2081"
         fig1$x$layout$scene$yaxis$title <- "TPF\u2083"
@@ -11226,7 +12116,8 @@ r.tc_graph<- function(x,y,z,init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha
         fig1$x$layout$scene$yaxis$range <- c(0, 1)
         fig1$x$layout$scene$zaxis$range <- c(0, 1)
 
-        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface", tickvals = c(0, 0.5, 1))
+        fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
+                                tickvals = c(0, 0.5, 1))
         fig1
       }
     }
