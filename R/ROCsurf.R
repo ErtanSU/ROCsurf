@@ -100,7 +100,7 @@ pW<- function(y,alpha,beta) {
 pL<- function(y,alpha,beta) {
   if(any(alpha<=0)) {stop(paste("alpha value must be greater than 0","\n",""))}
   if(any(beta<=0)) {stop(paste("beta value must be greater than 0","\n",""))}
-  cdf<-stats::pweibull(y,shape=alpha,scale=beta)
+  cdf<-stats::plogis(y,shape=alpha,scale=beta)
   return(cdf)
 }
 #' ROC Surface Analysis Under the Three-class Problems
