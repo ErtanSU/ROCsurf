@@ -2168,126 +2168,126 @@ test_that("functions returns error", {
         "Optimization did not converge.Please check your initial parameters.")
 
 
-  expect_error(r.tc_graph( init_param = c(-1, 1, 1, 1, 1, 1),model="GWL",
+  expect_error(r.tc_graph( true_param = c(-1, 1, 1, 1, 1, 1),model="GWL",
                            method="TRUE"),
        "alpha1 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, -1, 1, 1, 1, 1),model="GWL",
+  expect_error(r.tc_graph( true_param = c(1, -1, 1, 1, 1, 1),model="GWL",
                            method="TRUE"),
                "beta1 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, 1, -1, 1, 1, 1),model="GWL",
+  expect_error(r.tc_graph( true_param = c(1, 1, -1, 1, 1, 1),model="GWL",
                            method="TRUE"),
                "alpha2 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, 1, 1, -1, 1, 1),model="GWL",
+  expect_error(r.tc_graph( true_param = c(1, 1, 1, -1, 1, 1),model="GWL",
                            method="TRUE"),
                "beta2 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, -1, 1),model="GWL",
+  expect_error(r.tc_graph( true_param = c(1, 1, 1, 1, -1, 1),model="GWL",
                            method="TRUE"),
                "alpha3 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, -1),model="GWL",
+  expect_error(r.tc_graph( true_param = c(1, 1, 1, 1, 1, -1),model="GWL",
                            method="TRUE"),
                "beta3 value must be greater than 0")
 
 
 
-  expect_error(r.tc_graph( init_param = c(-1, 1, 1, 1, 1, 1),model="GGW",
+  expect_error(r.tc_graph( true_param = c(-1, 1, 1, 1, 1, 1),model="GGW",
                            method="TRUE"),
                "alpha1 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, -1, 1, 1, 1, 1),model="GGW",
+  expect_error(r.tc_graph( true_param = c(1, -1, 1, 1, 1, 1),model="GGW",
                            method="TRUE"),
                "beta1 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, 1, -1, 1, 1, 1),model="GGW",
+  expect_error(r.tc_graph( true_param = c(1, 1, -1, 1, 1, 1),model="GGW",
                            method="TRUE"),
                "alpha2 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, 1, 1, -1, 1, 1),model="GGW",
+  expect_error(r.tc_graph( true_param = c(1, 1, 1, -1, 1, 1),model="GGW",
                            method="TRUE"),
                "beta2 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, -1, 1),model="GGW",
+  expect_error(r.tc_graph( true_param = c(1, 1, 1, 1, -1, 1),model="GGW",
                            method="TRUE"),
                "alpha3 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, -1),model="GGW",
+  expect_error(r.tc_graph( true_param = c(1, 1, 1, 1, 1, -1),model="GGW",
                            method="TRUE"),
                "beta3 value must be greater than 0")
 
 
-  expect_error(r.tc_graph( init_param = c(-1, 1, 1, 1, 1, 1),model="WGW",
+  expect_error(r.tc_graph( true_param = c(-1, 1, 1, 1, 1, 1),model="WGW",
                            method="TRUE"),
                "alpha1 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, -1, 1, 1, 1, 1),model="WGW",
+  expect_error(r.tc_graph( true_param = c(1, -1, 1, 1, 1, 1),model="WGW",
                            method="TRUE"),
                "beta1 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, 1, -1, 1, 1, 1),model="WGW",
+  expect_error(r.tc_graph( true_param = c(1, 1, -1, 1, 1, 1),model="WGW",
                            method="TRUE"),
                "alpha2 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, 1, 1, -1, 1, 1),model="WGW",
+  expect_error(r.tc_graph( true_param = c(1, 1, 1, -1, 1, 1),model="WGW",
                            method="TRUE"),
                "beta2 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, -1, 1),model="WGW",
+  expect_error(r.tc_graph( true_param = c(1, 1, 1, 1, -1, 1),model="WGW",
                            method="TRUE"),
                "alpha3 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, -1),model="WGW",
-                           method="TRUE"),
-               "beta3 value must be greater than 0")
-
-
-
-
-  expect_error(r.tc_graph( init_param = c(-1, 1, 1, 1, 1, 1),model="WWW",
-                           method="TRUE"),
-               "alpha1 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, -1, 1, 1, 1, 1),model="WWW",
-                           method="TRUE"),
-               "beta1 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, 1, -1, 1, 1, 1),model="WWW",
-                           method="TRUE"),
-               "alpha2 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, 1, 1, -1, 1, 1),model="WWW",
-                           method="TRUE"),
-               "beta2 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, -1, 1),model="WWW",
-                           method="TRUE"),
-               "alpha3 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, -1),model="WWW",
+  expect_error(r.tc_graph( true_param = c(1, 1, 1, 1, 1, -1),model="WGW",
                            method="TRUE"),
                "beta3 value must be greater than 0")
 
 
 
-  expect_error(r.tc_graph( init_param = c(-1, 1, 1, 1, 1, 1),model="GGG",
+
+  expect_error(r.tc_graph( true_param = c(-1, 1, 1, 1, 1, 1),model="WWW",
                            method="TRUE"),
                "alpha1 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, -1, 1, 1, 1, 1),model="GGG",
+  expect_error(r.tc_graph( true_param = c(1, -1, 1, 1, 1, 1),model="WWW",
                            method="TRUE"),
                "beta1 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, 1, -1, 1, 1, 1),model="GGG",
+  expect_error(r.tc_graph( true_param = c(1, 1, -1, 1, 1, 1),model="WWW",
                            method="TRUE"),
                "alpha2 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, 1, 1, -1, 1, 1),model="GGG",
+  expect_error(r.tc_graph( true_param = c(1, 1, 1, -1, 1, 1),model="WWW",
                            method="TRUE"),
                "beta2 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, -1, 1),model="GGG",
+  expect_error(r.tc_graph( true_param = c(1, 1, 1, 1, -1, 1),model="WWW",
                            method="TRUE"),
                "alpha3 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, -1),model="GGG",
+  expect_error(r.tc_graph( true_param = c(1, 1, 1, 1, 1, -1),model="WWW",
                            method="TRUE"),
                "beta3 value must be greater than 0")
 
 
-  expect_error(r.tc_graph( init_param = c(-1, 1, 1, 1, 1, 1),model="LLL",
+
+  expect_error(r.tc_graph( true_param = c(-1, 1, 1, 1, 1, 1),model="GGG",
                            method="TRUE"),
                "alpha1 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, -1, 1, 1, 1, 1),model="LLL",
+  expect_error(r.tc_graph( true_param = c(1, -1, 1, 1, 1, 1),model="GGG",
                            method="TRUE"),
                "beta1 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, 1, -1, 1, 1, 1),model="LLL",
+  expect_error(r.tc_graph( true_param = c(1, 1, -1, 1, 1, 1),model="GGG",
                            method="TRUE"),
                "alpha2 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, 1, 1, -1, 1, 1),model="LLL",
+  expect_error(r.tc_graph( true_param = c(1, 1, 1, -1, 1, 1),model="GGG",
                            method="TRUE"),
                "beta2 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, -1, 1),model="LLL",
+  expect_error(r.tc_graph( true_param = c(1, 1, 1, 1, -1, 1),model="GGG",
                            method="TRUE"),
                "alpha3 value must be greater than 0")
-  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, -1),model="LLL",
+  expect_error(r.tc_graph( true_param = c(1, 1, 1, 1, 1, -1),model="GGG",
+                           method="TRUE"),
+               "beta3 value must be greater than 0")
+
+
+  expect_error(r.tc_graph( true_param = c(-1, 1, 1, 1, 1, 1),model="LLL",
+                           method="TRUE"),
+               "alpha1 value must be greater than 0")
+  expect_error(r.tc_graph( true_param = c(1, -1, 1, 1, 1, 1),model="LLL",
+                           method="TRUE"),
+               "beta1 value must be greater than 0")
+  expect_error(r.tc_graph( true_param = c(1, 1, -1, 1, 1, 1),model="LLL",
+                           method="TRUE"),
+               "alpha2 value must be greater than 0")
+  expect_error(r.tc_graph( true_param = c(1, 1, 1, -1, 1, 1),model="LLL",
+                           method="TRUE"),
+               "beta2 value must be greater than 0")
+  expect_error(r.tc_graph( true_param = c(1, 1, 1, 1, -1, 1),model="LLL",
+                           method="TRUE"),
+               "alpha3 value must be greater than 0")
+  expect_error(r.tc_graph( true_param = c(1, 1, 1, 1, 1, -1),model="LLL",
                            method="TRUE"),
                "beta3 value must be greater than 0")
 
