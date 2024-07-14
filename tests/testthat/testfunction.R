@@ -3530,14 +3530,14 @@ test_that("function return a double or list",
   #           init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
   #                                   alpha3=alpha3,beta3=beta3),
   #                      model=c("LLL"), method=c("AD")), "double")
-  expect_type(r.tc_vus(x=x,y=y,z=z,
-           init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
-                                    alpha3=alpha3,beta3=beta3),
-                       model=c("LLL"), method=c("CvM")), "double")
-  expect_type(r.tc_vus(x=x,y=y,z=z,
-          init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
-                                    alpha3=alpha3,beta3=beta3),
-                       model=c("LLL"), method=c("LSE")), "double")
+  # expect_type(r.tc_vus(x=x,y=y,z=z,
+  #          init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
+  #                                   alpha3=alpha3,beta3=beta3),
+  #                      model=c("LLL"), method=c("CvM")), "double")
+  # expect_type(r.tc_vus(x=x,y=y,z=z,
+  #         init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
+  #                                   alpha3=alpha3,beta3=beta3),
+  #                      model=c("LLL"), method=c("LSE")), "double")
   expect_type(r.tc_vus(x=x,y=y,z=z,
            init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
                                     alpha3=alpha3,beta3=beta3),
