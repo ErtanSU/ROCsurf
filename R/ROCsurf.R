@@ -3720,7 +3720,7 @@ EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+        a<-(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
                                         pL(cut[1],alpha2,beta2)))*
           ((1-pL(cut[2],alpha3,beta3)))-
           (1-pG(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-
@@ -3734,7 +3734,7 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=((pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+        a<-((pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
               pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
              ((pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
                                             pL(cut[1],alpha2,beta2)))*
@@ -3861,7 +3861,7 @@ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+        a<-(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
                                         pL(cut[1],alpha2,beta2)))*
           ((1-pL(cut[2],alpha3,beta3)))-
           (1-pG(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-
@@ -3875,7 +3875,7 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=((pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+        a<-((pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
               pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
              ((pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
                                             pL(cut[1],alpha2,beta2)))*
@@ -3995,7 +3995,7 @@ EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+        a<-(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
                                         pL(cut[1],alpha2,beta2)))*
           ((1-pL(cut[2],alpha3,beta3)))-
           (1-pG(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-
@@ -4009,7 +4009,7 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=((pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+        a<-((pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
               pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
              ((pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
                                             pL(cut[1],alpha2,beta2)))*
@@ -4128,7 +4128,7 @@ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+        a<-(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
                                       pL(cut[1],alpha2,beta2)))*
           ((1-pL(cut[2],alpha3,beta3)))-
           (1-pG(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-
@@ -4142,7 +4142,7 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=((pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+        a<-((pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
               pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
              ((pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
                                             pL(cut[1],alpha2,beta2)))*
@@ -4261,7 +4261,7 @@ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+        a<-(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
                                         pL(cut[1],alpha2,beta2)))*
           ((1-pL(cut[2],alpha3,beta3)))-
           (1-pG(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-
@@ -4275,7 +4275,7 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=((pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+        a<-((pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
               pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
              ((pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
                                             pL(cut[1],alpha2,beta2)))*
@@ -4369,7 +4369,7 @@ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
+        a<-(pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
                                         pL(cut[1],alpha2,beta2)))*
           ((1-pL(cut[2],alpha3,beta3)))-
           (1-pG(cut[1],alpha1,beta1))*(1-(pL(cut[2],alpha2,beta2)-
@@ -4383,7 +4383,7 @@ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=((pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
+        a<-((pG(cut[1],alpha1,beta1)+pL(cut[2],alpha2,beta2)-
               pL(cut[1],alpha2,beta2)+(1-pL(cut[2],alpha3,beta3))-1)+
              ((pG(cut[1],alpha1,beta1))*((pL(cut[2],alpha2,beta2)-
                                             pL(cut[1],alpha2,beta2)))*
@@ -4501,7 +4501,7 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=((pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+        a<-((pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
               pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
              ((pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
                                             pG(cut[1],alpha2,beta2)))*
@@ -4642,7 +4642,7 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=((pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+        a<-((pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
               pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
              ((pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
                                             pG(cut[1],alpha2,beta2)))*
@@ -4776,7 +4776,7 @@ EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=((pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+        a<-((pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
               pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
              ((pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
                                             pG(cut[1],alpha2,beta2)))*
@@ -4909,7 +4909,7 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=((pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+        a<-((pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
               pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
              ((pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
                                             pG(cut[1],alpha2,beta2)))*
@@ -5042,7 +5042,7 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=((pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+        a<-((pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
               pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
              ((pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
                                             pG(cut[1],alpha2,beta2)))*
@@ -5150,7 +5150,7 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
-        a=((pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
+        a<-((pW(cut[1],alpha1,beta1)+pG(cut[2],alpha2,beta2)-
               pG(cut[1],alpha2,beta2)+(1-pW(cut[2],alpha3,beta3))-1)+
              ((pW(cut[1],alpha1,beta1))*((pG(cut[2],alpha2,beta2)-
                                             pG(cut[1],alpha2,beta2)))*
