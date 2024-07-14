@@ -2097,6 +2097,204 @@ test_that("functions returns error", {
           "Optimization did not converge.Please check your initial parameters.")
 
 
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="WGW",
+                           method="MLE"),
+   "Optimization did not converge.Please check your initial parameters.")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="WGW",
+                           method="AD"),
+    "Optimization did not converge.Please check your initial parameters.")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="WGW",
+                           method="CvM"),
+      "Optimization did not converge.Please check your initial parameters.")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="WGW",
+                           method="LSE"),
+     "Optimization did not converge.Please check your initial parameters.")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="WGW",
+                           method="WLSE"),
+      "Optimization did not converge.Please check your initial parameters.")
+
+
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="WWW",
+                           method="MLE"),
+          "Optimization did not converge.Please check your initial parameters.")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="WWW",
+                           method="AD"),
+         "Optimization did not converge.Please check your initial parameters.")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="WWW",
+                           method="CvM"),
+        "Optimization did not converge.Please check your initial parameters.")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="WWW",
+                           method="LSE"),
+        "Optimization did not converge.Please check your initial parameters.")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="WWW",
+                           method="WLSE"),
+         "Optimization did not converge.Please check your initial parameters.")
+
+
+
+
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="GGG",
+                           method="MLE"),
+        "Optimization did not converge.Please check your initial parameters.")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="GGG",
+                           method="AD"),
+         "Optimization did not converge.Please check your initial parameters.")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="GGG",
+                           method="CvM"),
+         "Optimization did not converge.Please check your initial parameters.")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="GGG",
+                           method="LSE"),
+         "Optimization did not converge.Please check your initial parameters.")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="GGG",
+                           method="WLSE"),
+         "Optimization did not converge.Please check your initial parameters.")
+
+
+
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="LLL",
+                           method="MLE"),
+        "Optimization did not converge.Please check your initial parameters.")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="LLL",
+                           method="AD"),
+        "Optimization did not converge.Please check your initial parameters.")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="LLL",
+                           method="CvM"),
+       "Optimization did not converge.Please check your initial parameters.")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="LLL",
+                           method="LSE"),
+       "Optimization did not converge.Please check your initial parameters.")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, 1),model="LLL",
+                           method="WLSE"),
+        "Optimization did not converge.Please check your initial parameters.")
+
+
+  expect_error(r.tc_graph( init_param = c(-1, 1, 1, 1, 1, 1),model="GWL",
+                           method="TRUE"),
+       "alpha1 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, -1, 1, 1, 1, 1),model="GWL",
+                           method="TRUE"),
+               "beta1 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, 1, -1, 1, 1, 1),model="GWL",
+                           method="TRUE"),
+               "alpha2 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, -1, 1, 1),model="GWL",
+                           method="TRUE"),
+               "beta2 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, -1, 1),model="GWL",
+                           method="TRUE"),
+               "alpha3 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, -1),model="GWL",
+                           method="TRUE"),
+               "beta3 value must be greater than 0")
+
+
+
+  expect_error(r.tc_graph( init_param = c(-1, 1, 1, 1, 1, 1),model="GGW",
+                           method="TRUE"),
+               "alpha1 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, -1, 1, 1, 1, 1),model="GGW",
+                           method="TRUE"),
+               "beta1 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, 1, -1, 1, 1, 1),model="GGW",
+                           method="TRUE"),
+               "alpha2 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, -1, 1, 1),model="GGW",
+                           method="TRUE"),
+               "beta2 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, -1, 1),model="GGW",
+                           method="TRUE"),
+               "alpha3 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, -1),model="GGW",
+                           method="TRUE"),
+               "beta3 value must be greater than 0")
+
+
+  expect_error(r.tc_graph( init_param = c(-1, 1, 1, 1, 1, 1),model="WGW",
+                           method="TRUE"),
+               "alpha1 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, -1, 1, 1, 1, 1),model="WGW",
+                           method="TRUE"),
+               "beta1 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, 1, -1, 1, 1, 1),model="WGW",
+                           method="TRUE"),
+               "alpha2 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, -1, 1, 1),model="WGW",
+                           method="TRUE"),
+               "beta2 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, -1, 1),model="WGW",
+                           method="TRUE"),
+               "alpha3 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, -1),model="WGW",
+                           method="TRUE"),
+               "beta3 value must be greater than 0")
+
+
+
+
+  expect_error(r.tc_graph( init_param = c(-1, 1, 1, 1, 1, 1),model="WWW",
+                           method="TRUE"),
+               "alpha1 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, -1, 1, 1, 1, 1),model="WWW",
+                           method="TRUE"),
+               "beta1 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, 1, -1, 1, 1, 1),model="WWW",
+                           method="TRUE"),
+               "alpha2 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, -1, 1, 1),model="WWW",
+                           method="TRUE"),
+               "beta2 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, -1, 1),model="WWW",
+                           method="TRUE"),
+               "alpha3 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, -1),model="WWW",
+                           method="TRUE"),
+               "beta3 value must be greater than 0")
+
+
+
+  expect_error(r.tc_graph( init_param = c(-1, 1, 1, 1, 1, 1),model="GGG",
+                           method="TRUE"),
+               "alpha1 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, -1, 1, 1, 1, 1),model="GGG",
+                           method="TRUE"),
+               "beta1 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, 1, -1, 1, 1, 1),model="GGG",
+                           method="TRUE"),
+               "alpha2 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, -1, 1, 1),model="GGG",
+                           method="TRUE"),
+               "beta2 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, -1, 1),model="GGG",
+                           method="TRUE"),
+               "alpha3 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, -1),model="GGG",
+                           method="TRUE"),
+               "beta3 value must be greater than 0")
+
+
+  expect_error(r.tc_graph( init_param = c(-1, 1, 1, 1, 1, 1),model="LLL",
+                           method="TRUE"),
+               "alpha1 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, -1, 1, 1, 1, 1),model="LLL",
+                           method="TRUE"),
+               "beta1 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, 1, -1, 1, 1, 1),model="LLL",
+                           method="TRUE"),
+               "alpha2 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, -1, 1, 1),model="LLL",
+                           method="TRUE"),
+               "beta2 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, -1, 1),model="LLL",
+                           method="TRUE"),
+               "alpha3 value must be greater than 0")
+  expect_error(r.tc_graph( init_param = c(1, 1, 1, 1, 1, -1),model="LLL",
+                           method="TRUE"),
+               "beta3 value must be greater than 0")
+
+
+
+
+
 
   expect_error(r.tc_vus(x=c(0.7736414, 1.0131692, 0.8667612, 1.0066519,
                             1.0372385),
