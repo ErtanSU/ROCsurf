@@ -2877,10 +2877,7 @@ test_that("function return a double or list",
               init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
                                               alpha3=alpha3,beta3=beta3),
                                  model=c("GWL"), method=c("MLE")), "double")
-  # expect_type(r.tc_vus(x=x,y=y,z=z,
-  #            init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
-  #                                   alpha3=alpha3,beta3=beta3),
-  #                      model=c("GWL"), method=c("AD")), "double")
+
 
   expect_type(r.tc_vus(x=x,y=y,z=z,
               init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
@@ -2904,12 +2901,7 @@ test_that("function return a double or list",
                          init_index=c(median(x),median(y)),
                          model=c("GWL"),
                          method=c("MLE")), "double")
-  # expect_type(r.tc_index(x,y,z,
-  #                        init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
-  # beta2=beta2,alpha3=alpha3,beta3=beta3),
-  #                        init_index=c(median(x),median(y)),
-  #                        model=c("GWL"),
-  #                        method=c("AD")), "double")
+
   expect_type(r.tc_index(x,y,z,
                          init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
                                       beta2=beta2,alpha3=alpha3,beta3=beta3),
@@ -2938,13 +2930,7 @@ test_that("function return a double or list",
                          empirical=FALSE,model=c("GWL"),
                          method=c("MLE")), "list")
 
-  # expect_type(r.tc_graph(x,y,z,
-  #                        init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
-  #                                     beta2=beta2,alpha3=alpha3,beta3=beta3),
-  #                        true_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
-  #                                     beta2=beta2,alpha3=alpha3,beta3=beta3),
-  #                        empirical=FALSE,model=c("GWL"),
-  #                        method=c("AD")), "list")
+
 
   expect_type(r.tc_graph(x,y,z,
                          init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
@@ -3393,28 +3379,6 @@ test_that("function return a double or list",
   x<- rL(100,  alpha1,  beta1)
   y <- rL(100,  alpha2, beta2)
   z <- rL(100,  alpha3,  beta3)
-  #
-  #
-  # expect_type(r.tc_vus(x=x,y=y,z=z,
-  #           init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
-  #                                   alpha3=alpha3,beta3=beta3),
-  #                      model=c("LLL"), method=c("MLE")), "double")
-  # expect_type(r.tc_vus(x=x,y=y,z=z,
-  #           init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
-  #                                   alpha3=alpha3,beta3=beta3),
-  #                      model=c("LLL"), method=c("AD")), "double")
-  # expect_type(r.tc_vus(x=x,y=y,z=z,
-  #          init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
-  #                                   alpha3=alpha3,beta3=beta3),
-  #                      model=c("LLL"), method=c("CvM")), "double")
-  # expect_type(r.tc_vus(x=x,y=y,z=z,
-  #         init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
-  #                                   alpha3=alpha3,beta3=beta3),
-  #                      model=c("LLL"), method=c("LSE")), "double")
-  # expect_type(r.tc_vus(x=x,y=y,z=z,
-  #          init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
-  #                                   alpha3=alpha3,beta3=beta3),
-  #                      model=c("LLL"), method=c("WLSE")), "double")
 
 
 
@@ -3424,30 +3388,7 @@ test_that("function return a double or list",
                          init_index=c(median(x),median(y)),
                          model=c("LLL"),
                          method=c("MLE")), "double")
-  # expect_type(r.tc_index(x,y,z,
-  #                        init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
-  # beta2=beta2,alpha3=alpha3,beta3=beta3),
-  #                        init_index=c(median(x),median(y)),
-  #                        model=c("LLL"),
-  #                        method=c("AD")), "double")
-  # expect_type(r.tc_index(x,y,z,
-  #                        init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
-  #                                     beta2=beta2,alpha3=alpha3,beta3=beta3),
-  #                        init_index=c(median(x),median(y)),
-  #                        model=c("LLL"),
-  #                        method=c("CvM")), "double")
-  # expect_type(r.tc_index(x,y,z,
-  #                        init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
-  #                                     beta2=beta2,alpha3=alpha3,beta3=beta3),
-  #                        init_index=c(median(x),median(y)),
-  #                        model=c("LLL"),
-  #                        method=c("LSE")), "double")
-  # expect_type(r.tc_index(x,y,z,
-  #                        init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
-  #                                     beta2=beta2,alpha3=alpha3,beta3=beta3),
-  #                        init_index=c(median(x),median(y)),
-  #                        model=c("LLL"),
-  #                        method=c("WLSE")), "double")
+
 
   expect_type(r.tc_graph(x,y,z,
                          init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
@@ -3457,30 +3398,19 @@ test_that("function return a double or list",
                          empirical=FALSE,model=c("LLL"),
                          method=c("MLE")), "list")
 
-  # expect_type(r.tc_graph(x,y,z,
-  #                        init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
-  #                                     beta2=beta2,alpha3=alpha3,beta3=beta3),
-  #                        true_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
-  #                                     beta2=beta2,alpha3=alpha3,beta3=beta3),
-  #                        empirical=FALSE,model=c("LLL"),
-  #                        method=c("AD")), "list")
 
-  # expect_type(r.tc_graph(x,y,z,
-  #                        init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
-  #                                     beta2=beta2,alpha3=alpha3,beta3=beta3),
-  #                        true_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
-  #                                     beta2=beta2,alpha3=alpha3,beta3=beta3),
-  #                        empirical=FALSE,model=c("LLL"),
-  #                        method=c("CvM")), "list")
 
-  # expect_type(r.tc_graph(x,y,z,
-  #                        init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
-  #                                     beta2=beta2,alpha3=alpha3,beta3=beta3),
-  #                        true_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
-  #                                     beta2=beta2,alpha3=alpha3,beta3=beta3),
-  #                        empirical=FALSE,model=c("LLL"),
-  #                        method=c("LSE")), "list")
+  x=c(-0.6155969 , 0.9064283 , 1.7039646 ,-1.4412522
+      ,2.7440984 , 1.5661629  ,1.8858454, -1.6091876, -0.2005690
+      ,  1.3679556)
 
+  y=c(1.57629009  ,1.00407155,  0.58018227 ,-0.72724581
+      ,0.56295849  ,3.17322975,  2.66954259  ,2.36832763
+      ,  0.14273148 -0.05861623)
+
+  z=c(7.97855865, 2.11467493, 2.28372587, 0.07101358 ,3.01460801
+      ,1.01398177, 0.68835397, 3.70865814, 1.10446529
+      , 4.67889817)
   expect_type(r.tc_graph(x,y,z,
                          init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
                                       beta2=beta2,alpha3=alpha3,beta3=beta3),
@@ -3490,14 +3420,146 @@ test_that("function return a double or list",
                          method=c("WLSE")), "list")
 
 
+  x=c(-0.6155969 , 0.9064283 , 1.7039646 ,-1.4412522
+      ,2.7440984 , 1.5661629  ,1.8858454, -1.6091876, -0.2005690
+      ,  1.3679556)
+
+  y=c(1.57629009  ,1.00407155,  0.58018227 ,-0.72724581
+      ,0.56295849  ,3.17322975,  2.66954259  ,2.36832763
+      ,  0.14273148 -0.05861623)
+
+  z=c(7.97855865, 2.11467493, 2.28372587, 0.07101358 ,3.01460801
+      ,1.01398177, 0.68835397, 3.70865814, 1.10446529
+      , 4.67889817)
+
+  expect_type(r.tc_vus(x=x,y=y,z=z,
+            init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
+                                    alpha3=alpha3,beta3=beta3),
+                       model=c("LLL"), method=c("MLE")), "double")
+  expect_type(r.tc_vus(x=x,y=y,z=z,
+            init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
+                                    alpha3=alpha3,beta3=beta3),
+                       model=c("LLL"), method=c("AD")), "double")
+  expect_type(r.tc_vus(x=x,y=y,z=z,
+           init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
+                                    alpha3=alpha3,beta3=beta3),
+                       model=c("LLL"), method=c("CvM")), "double")
+  expect_type(r.tc_vus(x=x,y=y,z=z,
+          init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
+                                    alpha3=alpha3,beta3=beta3),
+                       model=c("LLL"), method=c("LSE")), "double")
+  expect_type(r.tc_vus(x=x,y=y,z=z,
+           init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
+                                    alpha3=alpha3,beta3=beta3),
+                       model=c("LLL"), method=c("WLSE")), "double")
+
+
+
+  x=c(-0.6155969 , 0.9064283 , 1.7039646 ,-1.4412522
+      ,2.7440984 , 1.5661629  ,1.8858454, -1.6091876, -0.2005690
+      ,  1.3679556)
+
+  y=c(1.57629009  ,1.00407155,  0.58018227 ,-0.72724581
+      ,0.56295849  ,3.17322975,  2.66954259  ,2.36832763
+      ,  0.14273148 -0.05861623)
+
+  z=c(7.97855865, 2.11467493, 2.28372587, 0.07101358 ,3.01460801
+      ,1.01398177, 0.68835397, 3.70865814, 1.10446529
+      , 4.67889817)
+
+  expect_type(r.tc_index(x,y,z,
+                         init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
+  beta2=beta2,alpha3=alpha3,beta3=beta3),
+                         init_index=c(median(x),median(y)),
+                         model=c("LLL"),
+                         method=c("AD")), "double")
+  expect_type(r.tc_index(x,y,z,
+                         init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
+                                      beta2=beta2,alpha3=alpha3,beta3=beta3),
+                         init_index=c(median(x),median(y)),
+                         model=c("LLL"),
+                         method=c("CvM")), "double")
+  expect_type(r.tc_index(x,y,z,
+                         init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
+                                      beta2=beta2,alpha3=alpha3,beta3=beta3),
+                         init_index=c(median(x),median(y)),
+                         model=c("LLL"),
+                         method=c("LSE")), "double")
+  expect_type(r.tc_index(x,y,z,
+                         init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
+                                      beta2=beta2,alpha3=alpha3,beta3=beta3),
+                         init_index=c(median(x),median(y)),
+                         model=c("LLL"),
+                         method=c("WLSE")), "double")
+
+
+  x=c(-0.6155969 , 0.9064283 , 1.7039646 ,-1.4412522
+      ,2.7440984 , 1.5661629  ,1.8858454, -1.6091876, -0.2005690
+      ,  1.3679556)
+
+  y=c(1.57629009  ,1.00407155,  0.58018227 ,-0.72724581
+      ,0.56295849  ,3.17322975,  2.66954259  ,2.36832763
+      ,  0.14273148 -0.05861623)
+
+  z=c(7.97855865, 2.11467493, 2.28372587, 0.07101358 ,3.01460801
+      ,1.01398177, 0.68835397, 3.70865814, 1.10446529
+      , 4.67889817)
+
+  expect_type(r.tc_graph(x,y,z,
+                         init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
+                                      beta2=beta2,alpha3=alpha3,beta3=beta3),
+                         true_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
+                                      beta2=beta2,alpha3=alpha3,beta3=beta3),
+                         empirical=FALSE,model=c("LLL"),
+                         method=c("AD")), "list")
+  expect_type(r.tc_graph(x,y,z,
+                         init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
+                                      beta2=beta2,alpha3=alpha3,beta3=beta3),
+                         true_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
+                                      beta2=beta2,alpha3=alpha3,beta3=beta3),
+                         empirical=FALSE,model=c("LLL"),
+                         method=c("CvM")), "list")
+  expect_type(r.tc_graph(x,y,z,
+                         init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
+                                      beta2=beta2,alpha3=alpha3,beta3=beta3),
+                         true_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
+                                      beta2=beta2,alpha3=alpha3,beta3=beta3),
+                         empirical=FALSE,model=c("LLL"),
+                         method=c("LSE")), "list")
+
+  x=c(2.2302339,  8.2796185 , 0.3609374 , 4.1563083
+      ,10.8396976  ,5.2940392 , 0.8767943 , 0.3260003,  8.4344549
+      , 4.9326166)
+  y=c(1.5001992, 1.4021222, 1.6949652, 1.6089466, 2.1491223
+      ,2.4842962, 0.6704828 ,0.9369306 ,1.4358653, 1.2232956)
+
+  z=c(7.97855865, 2.11467493, 2.28372587, 0.07101358 ,3.01460801
+      ,1.01398177, 0.68835397, 3.70865814, 1.10446529
+      , 4.67889817)
+  expect_type(r.tc_vus(x=x,y=y,z=z,
+                       init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
+                                    beta2=beta2,
+                                    alpha3=alpha3,beta3=beta3),
+                       model=c("GWL"), method=c("AD")), "double")
+
+  expect_type(r.tc_index(x,y,z,
+                         init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
+                                      beta2=beta2,alpha3=alpha3,beta3=beta3),
+                         init_index=c(median(x),median(y)),
+                         model=c("GWL"),
+                         method=c("AD")), "double")
+
+  expect_type(r.tc_graph(x,y,z,
+                         init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
+                                      beta2=beta2,alpha3=alpha3,beta3=beta3),
+                         true_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
+                                      beta2=beta2,alpha3=alpha3,beta3=beta3),
+                         empirical=FALSE,model=c("GWL"),
+                         method=c("AD")), "list")
+
+
+
 
  }
 )
 
-###GWL
-###GGW
-
-###WGW
-###WWW
-###GGG
-###LLL
