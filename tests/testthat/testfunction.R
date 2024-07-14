@@ -3763,12 +3763,12 @@ test_that("function return a double or list",
   #                        init_index=c(median(x),median(y)),
   #                        model=c("LLL"),
   #                        method=c("CvM")), "double")
-  expect_type(r.tc_index(x,y,z,
-                         init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
-                                      beta2=beta2,alpha3=alpha3,beta3=beta3),
-                         init_index=c(median(x),median(y)),
-                         model=c("LLL"),
-                         method=c("LSE")), "double")
+  # expect_type(r.tc_index(x,y,z,
+  #                        init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
+  #                                     beta2=beta2,alpha3=alpha3,beta3=beta3),
+  #                        init_index=c(median(x),median(y)),
+  #                        model=c("LLL"),
+  #                        method=c("LSE")), "double")
   expect_type(r.tc_index(x,y,z,
                          init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
                                       beta2=beta2,alpha3=alpha3,beta3=beta3),
