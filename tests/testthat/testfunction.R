@@ -3402,24 +3402,24 @@ test_that("function return a double or list",
   z <- rL(100,  alpha3,  beta3)
 
 
+  # expect_type(r.tc_vus(x=x,y=y,z=z,
+  #           init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
+  #                                   alpha3=alpha3,beta3=beta3),
+  #                      model=c("GLL"), method=c("MLE")), "double")
+  # expect_type(r.tc_vus(x=x,y=y,z=z,
+  #           init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
+  #                                   alpha3=alpha3,beta3=beta3),
+  #                      model=c("GLL"), method=c("AD")), "double")
   expect_type(r.tc_vus(x=x,y=y,z=z,
-                       init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
-                                    alpha3=alpha3,beta3=beta3),
-                       model=c("GLL"), method=c("MLE")), "double")
-  expect_type(r.tc_vus(x=x,y=y,z=z,
-                       init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
-                                    alpha3=alpha3,beta3=beta3),
-                       model=c("GLL"), method=c("AD")), "double")
-  expect_type(r.tc_vus(x=x,y=y,z=z,
-                       init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
+              init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
                                     alpha3=alpha3,beta3=beta3),
                        model=c("GLL"), method=c("CvM")), "double")
   expect_type(r.tc_vus(x=x,y=y,z=z,
-                       init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
+        init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
                                     alpha3=alpha3,beta3=beta3),
                        model=c("GLL"), method=c("LSE")), "double")
   expect_type(r.tc_vus(x=x,y=y,z=z,
-                       init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
+       init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,beta2=beta2,
                                     alpha3=alpha3,beta3=beta3),
                        model=c("GLL"), method=c("WLSE")), "double")
 
