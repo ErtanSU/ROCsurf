@@ -3714,12 +3714,12 @@ test_that("function return a double or list",
 
 
 ###LLL
-  # alpha1 <- 0.5; beta1 <- 1.2   # Logistic
-  # alpha2 <- 1.5; beta2 <- 0.8   # Logistic
-  # alpha3 <- 2.5; beta3 <- 1.5   # Logistic
-  # x<- rL(100,  alpha1,  beta1)
-  # y <- rL(100,  alpha2, beta2)
-  # z <- rL(100,  alpha3,  beta3)
+  alpha1 <- 0.5; beta1 <- 1.2   # Logistic
+  alpha2 <- 1.5; beta2 <- 0.8   # Logistic
+  alpha3 <- 2.5; beta3 <- 1.5   # Logistic
+  x<- rL(100,  alpha1,  beta1)
+  y <- rL(100,  alpha2, beta2)
+  z <- rL(100,  alpha3,  beta3)
   #
   #
   # expect_type(r.tc_vus(x=x,y=y,z=z,
