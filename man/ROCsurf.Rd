@@ -49,7 +49,7 @@ r.tc_vus(
   z,
   init_param = c(alpha1 = 1, beta1 = 1, alpha2 = 1, beta2 = 1, alpha3 = 1, beta3 = 1),
   true_param = c(alpha1 = 1, beta1 = 1, alpha2 = 1, beta2 = 1, alpha3 = 1, beta3 = 1),
-  model = c("GWL", "GGW", "GLL", "WGW", "WWW", "GGG", "LLL"),
+  model = c("GWL", "GGW", "WGW", "WWW", "GGG", "LLL"),
   method = c("MLE", "AD", "CvM", "LSE", "WLSE", "TRUE")
 )
 
@@ -60,7 +60,7 @@ r.tc_index(
   init_param = c(alpha1 = 1, beta1 = 1, alpha2 = 1, beta2 = 1, alpha3 = 1, beta3 = 1),
   true_param = c(alpha1 = 1, beta1 = 1, alpha2 = 1, beta2 = 1, alpha3 = 1, beta3 = 1),
   init_index = c(x, y),
-  model = c("GWL", "GGW", "GLL", "WGW", "WWW", "GGG", "LLL"),
+  model = c("GWL", "GGW", "WGW", "WWW", "GGG", "LLL"),
   method = c("MLE", "AD", "CvM", "LSE", "WLSE", "TRUE")
 )
 
@@ -71,7 +71,7 @@ r.tc_graph(
   init_param = c(alpha1 = 1, beta1 = 1, alpha2 = 1, beta2 = 1, alpha3 = 1, beta3 = 1),
   true_param = c(alpha1 = 1, beta1 = 1, alpha2 = 1, beta2 = 1, alpha3 = 1, beta3 = 1),
   empirical = TRUE,
-  model = c("GWL", "GGW", "GLL", "WGW", "WWW", "GGG", "LLL"),
+  model = c("GWL", "GGW", "WGW", "WWW", "GGG", "LLL"),
   method = c("MLE", "AD", "CvM", "LSE", "WLSE", "TRUE")
 )
 }
