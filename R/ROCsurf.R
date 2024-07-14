@@ -9496,7 +9496,7 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
                                 tickvals = c(0, 0.5, 1))
         fig1
 
-
+}
     }
     else if (model=="WGW") {
       if (method=="MLE") {
@@ -12119,10 +12119,10 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
         fig1<- plotly::colorbar(fig1,title = "Fitted ROC Surface",
                                 tickvals = c(0, 0.5, 1))
         fig1
-      }
-    }
+
+
   }
 }
-
+}
 
 
