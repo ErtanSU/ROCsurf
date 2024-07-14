@@ -1,5 +1,3 @@
-
-##### 2. paket
 #' ROC Surface Analysis Under the Three-class Problems
 #' @export
 #' @name ROCsurf
@@ -187,7 +185,6 @@ rL<-function(n,alpha,beta){
   rnd<-stats::rlogis(n,location = alpha, scale = beta)
   return(rnd)
 }
-######## VUS########
 #' ROC Surface Analysis Under the Three-class Problems
 #' @export
 #' @rdname ROCsurf
@@ -223,8 +220,6 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
   model<- base::match.arg(model)
   method<- base::match.arg(method)
   if (model=="GWL") {
-
-
     if (method=="MLE") {
       lfxyz<-function(par) {
         alpha1<-par[1]
@@ -240,7 +235,6 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
                                 lfxyz,method = "L-BFGS-B",hessian = TRUE)),
                   silent=TRUE)
-
       if (is.character(mlexyz)) {
     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -251,16 +245,13 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
         alpha3<- mlexyz$par[5]
         beta3<- mlexyz$par[6]
       }
-
       pracma::integral2(function(c1,c2) {
         vus<-(pW(qL(1-c2,alpha3,beta3),alpha2,beta2)-pW(qG(c1,alpha1,beta1),
                                                         alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
-
     else if (method=="AD") {
-
       QADx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -297,7 +288,6 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
       adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
       adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
-
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
       }
@@ -314,10 +304,8 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
                                                         alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
-
     }
     else if (method=="CvM") {
-
       QCVx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -348,7 +336,6 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       cvx<-try(stats::optim(c(alpha1,beta1),QCVx,x=x),silent=TRUE)
       cvy<-try(stats::optim(c(alpha2,beta2),QCVy,y=y),silent=TRUE)
       cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
-
       if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -366,7 +353,6 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       },0,1,0,1)$Q
     }
     else if (method=="LSE") {
-
       QLSEx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -397,7 +383,6 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       lsex<-try(stats::optim(c(alpha1,beta1),QLSEx,x=x),silent=TRUE)
       lsey<-try(stats::optim(c(alpha2,beta2),QLSEy,y=y),silent=TRUE)
       lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
-
       if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -415,8 +400,6 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       },0,1,0,1)$Q
     }
     else if (method=="WLSE") {
-
-
       QWLSEx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -487,10 +470,7 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       },0,1,0,1)$Q
     }
   }
-
   else if (model=="GGW") {
-
-
     if (method=="MLE") {
       lfxyz<-function(par) {
         alpha1<-par[1]
@@ -505,7 +485,6 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       }
       mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
                                 lfxyz,hessian = TRUE)),silent=TRUE)
-
       if (is.character(mlexyz)) {
     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -516,16 +495,13 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
         alpha3<- mlexyz$par[5]
         beta3<- mlexyz$par[6]
       }
-
       pracma::integral2(function(c1,c2) {
         vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qG(c1,alpha1,beta1),
                                                         alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
-
     else if (method=="AD") {
-
       QADx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -562,7 +538,6 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
       adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
       adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
-
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
       }
@@ -579,10 +554,8 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
                                                         alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
-
     }
     else if (method=="CvM") {
-
       QCVx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -613,7 +586,6 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       cvx<-try(stats::optim(c(alpha1,beta1),QCVx,x=x),silent=TRUE)
       cvy<-try(stats::optim(c(alpha2,beta2),QCVy,y=y),silent=TRUE)
       cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
-
       if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
      stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -631,7 +603,6 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       },0,1,0,1)$Q
     }
     else if (method=="LSE") {
-
       QLSEx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -662,7 +633,6 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       lsex<-try(stats::optim(c(alpha1,beta1),QLSEx,x=x),silent=TRUE)
       lsey<-try(stats::optim(c(alpha2,beta2),QLSEy,y=y),silent=TRUE)
       lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
-
       if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
      stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -680,8 +650,6 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       },0,1,0,1)$Q
     }
     else if (method=="WLSE") {
-
-
       QWLSEx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -751,12 +719,8 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
         return(vus)
       },0,1,0,1)$Q
     }
-
-
   }
-
   else if (model=="WGW") {
-
     if (method=="MLE") {
       lfxyz<-function(par) {
         alpha1<-par[1]
@@ -771,7 +735,6 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
       }
       mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
                                 lfxyz,hessian = TRUE)),silent=TRUE)
-
       if (is.character(mlexyz)) {
    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -782,16 +745,13 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
         alpha3<- mlexyz$par[5]
         beta3<- mlexyz$par[6]
       }
-
       pracma::integral2(function(c1,c2) {
         vus<-(pG(qW(1-c2,alpha3,beta3),alpha2,beta2)-pG(qW(c1,alpha1,beta1),
                                                         alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
-
     else if (method=="AD") {
-
       QADx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -828,7 +788,6 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
       adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
       adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
-
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
      stop("Optimization did not converge.Please check your initial parameters.")
       }
@@ -848,7 +807,6 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
 
     }
     else if (method=="CvM") {
-
       QCVx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -879,7 +837,6 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
       cvx<-try(stats::optim(c(alpha1,beta1),QCVx,x=x),silent=TRUE)
       cvy<-try(stats::optim(c(alpha2,beta2),QCVy,y=y),silent=TRUE)
       cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
-
       if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
      stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -897,7 +854,6 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
       },0,1,0,1)$Q
     }
     else if (method=="LSE") {
-
       QLSEx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -928,7 +884,6 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
       lsex<-try(stats::optim(c(alpha1,beta1),QLSEx,x=x),silent=TRUE)
       lsey<-try(stats::optim(c(alpha2,beta2),QLSEy,y=y),silent=TRUE)
       lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
-
       if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
      stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -946,8 +901,6 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
       },0,1,0,1)$Q
     }
     else if (method=="WLSE") {
-
-
       QWLSEx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -1017,11 +970,8 @@ if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
         return(vus)
       },0,1,0,1)$Q
     }
-
   }
-
   else if (model=="WWW") {
-
     if (method=="MLE") {
       lfxyz<-function(par) {
         alpha1<-par[1]
@@ -1036,7 +986,6 @@ if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
       }
       mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
                                 lfxyz,hessian = TRUE)),silent=TRUE)
-
       if (is.character(mlexyz)) {
     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -1047,16 +996,13 @@ if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
         alpha3<- mlexyz$par[5]
         beta3<- mlexyz$par[6]
       }
-
       pracma::integral2(function(c1,c2) {
         vus<-(pW(qW(1-c2,alpha3,beta3),alpha2,beta2)-pW(qW(c1,alpha1,beta1),
                                                         alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
-
     else if (method=="AD") {
-
       QADx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -1093,7 +1039,6 @@ if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
       adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
       adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
-
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
    stop("Optimization did not converge.Please check your initial parameters.")
       }
@@ -1110,10 +1055,8 @@ if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
                 pW(qW(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
-
     }
     else if (method=="CvM") {
-
       QCVx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -1144,7 +1087,6 @@ if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
       cvx<-try(stats::optim(c(alpha1,beta1),QCVx,x=x),silent=TRUE)
       cvy<-try(stats::optim(c(alpha2,beta2),QCVy,y=y),silent=TRUE)
       cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
-
       if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -1162,7 +1104,6 @@ if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
       },0,1,0,1)$Q
     }
     else if (method=="LSE") {
-
       QLSEx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -1193,7 +1134,6 @@ if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
       lsex<-try(stats::optim(c(alpha1,beta1),QLSEx,x=x),silent=TRUE)
       lsey<-try(stats::optim(c(alpha2,beta2),QLSEy,y=y),silent=TRUE)
       lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
-
       if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
      stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -1211,8 +1151,6 @@ if(any(alpha1<=0)) {stop(paste("alpha1 value must be greater than 0","\n",""))}
       },0,1,0,1)$Q
     }
     else if (method=="WLSE") {
-
-
       QWLSEx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -1282,11 +1220,8 @@ if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
         return(vus)
       },0,1,0,1)$Q
     }
-
   }
-
   else if (model=="GGG") {
-
     if (method=="MLE") {
       lfxyz<-function(par) {
         alpha1<-par[1]
@@ -1301,7 +1236,6 @@ if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
       }
       mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
                                 lfxyz,hessian = TRUE)),silent=TRUE)
-
       if (is.character(mlexyz)) {
     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -1312,16 +1246,13 @@ if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
         alpha3<- mlexyz$par[5]
         beta3<- mlexyz$par[6]
       }
-
       pracma::integral2(function(c1,c2) {
         vus<-(pG(qG(1-c2,alpha3,beta3),alpha2,beta2)-pG(qG(c1,alpha1,beta1),
                                                         alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
-
     else if (method=="AD") {
-
       QADx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -1358,7 +1289,6 @@ if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
       adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
       adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
-
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
    stop("Optimization did not converge.Please check your initial parameters.")
       }
@@ -1375,10 +1305,8 @@ if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
                 pG(qG(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
-
     }
     else if (method=="CvM") {
-
       QCVx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -1409,7 +1337,6 @@ if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
       cvx<-try(stats::optim(c(alpha1,beta1),QCVx,x=x),silent=TRUE)
       cvy<-try(stats::optim(c(alpha2,beta2),QCVy,y=y),silent=TRUE)
       cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
-
       if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -1427,7 +1354,6 @@ if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
       },0,1,0,1)$Q
     }
     else if (method=="LSE") {
-
       QLSEx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -1458,7 +1384,6 @@ if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
       lsex<-try(stats::optim(c(alpha1,beta1),QLSEx,x=x),silent=TRUE)
       lsey<-try(stats::optim(c(alpha2,beta2),QLSEy,y=y),silent=TRUE)
       lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
-
       if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
   stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -1476,8 +1401,6 @@ if(any(alpha2<=0)) {stop(paste("alpha2 value must be greater than 0","\n",""))}
       },0,1,0,1)$Q
     }
     else if (method=="WLSE") {
-
-
       QWLSEx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -1547,11 +1470,8 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
         return(vus)
       },0,1,0,1)$Q
     }
-
   }
-
   else if (model=="LLL") {
-
     if (method=="MLE") {
       lfxyz<-function(par) {
         alpha1<-par[1]
@@ -1566,7 +1486,6 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
       }
       mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
                                 lfxyz,hessian = TRUE)),silent=TRUE)
-
       if (is.character(mlexyz)) {
     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -1577,16 +1496,13 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
         alpha3<- mlexyz$par[5]
         beta3<- mlexyz$par[6]
       }
-
       pracma::integral2(function(c1,c2) {
         vus<-(pL(qL(1-c2,alpha3,beta3),alpha2,beta2)-
                 pL(qL(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
     }
-
     else if (method=="AD") {
-
       QADx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -1623,7 +1539,6 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
       adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
       adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
-
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
     stop("Optimization did not converge.Please check your initial parameters.")
       }
@@ -1640,10 +1555,8 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
                 pL(qL(c1,alpha1,beta1),alpha2,beta2))
         return(vus)
       },0,1,0,1)$Q
-
     }
     else if (method=="CvM") {
-
       QCVx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -1674,7 +1587,6 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
       cvx<-try(stats::optim(c(alpha1,beta1),QCVx,x=x),silent=TRUE)
       cvy<-try(stats::optim(c(alpha2,beta2),QCVy,y=y),silent=TRUE)
       cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
-
       if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -1692,7 +1604,6 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
       },0,1,0,1)$Q
     }
     else if (method=="LSE") {
-
       QLSEx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -1723,7 +1634,6 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
       lsex<-try(stats::optim(c(alpha1,beta1),QLSEx,x=x),silent=TRUE)
       lsey<-try(stats::optim(c(alpha2,beta2),QLSEy,y=y),silent=TRUE)
       lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
-
       if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
    stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -1741,8 +1651,6 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
       },0,1,0,1)$Q
     }
     else if (method=="WLSE") {
-
-
       QWLSEx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -1812,12 +1720,8 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
         return(vus)
       },0,1,0,1)$Q
     }
-
   }
 }
-
-
-######## Index########
 #' ROC Surface Analysis Under the Three-class Problems
 #' @export
 #' @rdname ROCsurf
@@ -1858,7 +1762,6 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
 if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
   model<- base::match.arg(model)
   method<- base::match.arg(method)
-
   if (model=="GWL") {
     if (method=="MLE") {
       lfxyz<-function(par) {
@@ -1874,7 +1777,6 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       }
       mlexyz<-try((stats::optim(c(alpha1,beta1,alpha2,beta2,alpha3,beta3),
                         lfxyz,method = "L-BFGS-B",hessian = TRUE)),silent=TRUE)
-
       if (is.character(mlexyz)) {
     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -1894,7 +1796,6 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       }
   Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
-
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -1905,7 +1806,6 @@ if(any(beta3<=0)) {stop(paste("beta3 value must be greater than 0","\n",""))}
       }
 EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
-
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -1916,7 +1816,6 @@ EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
 MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
-
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -1930,7 +1829,6 @@ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
  NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
-
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -1944,8 +1842,6 @@ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
   Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
-
-
       J_tpf1<-pG(Jr[1],alpha1,beta1)
       J_tpf2<-(pW(Jr[2],alpha2,beta2)-pW(Jr[1],alpha2,beta2))
       J_tpf3<-(1-pL(Jr[2],alpha3,beta3))
@@ -1961,7 +1857,6 @@ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       M_tpf1<-pG(Mr[1],alpha1,beta1)
       M_tpf2<-(pW(Mr[2],alpha2,beta2)-pW(Mr[1],alpha2,beta2))
       M_tpf3<-(1-pL(Mr[2],alpha3,beta3))
-
       row1<-base::cbind(Jrpar[1],Jrpar[2],J_tpf1,J_tpf2,J_tpf3)
       row2<-base::cbind(EDrpar[1],EDrpar[2],ED_tpf1,ED_tpf2,ED_tpf3)
       row3<-base::cbind(MVrpar[1],MVrpar[2],MV_tpf1,MV_tpf2,MV_tpf3)
@@ -1972,12 +1867,8 @@ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
                              "TPF\u2081","TPF\u2082","TPF\u2083")
       base::rownames(col)<-c("J","ED","MV","NI","M")
       return(col)
-
-
     }
-
     else if (method=="AD") {
-
       QADx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -2014,7 +1905,6 @@ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       adex<-try(stats::optim(c(alpha1,beta1),QADx,x=x),silent=TRUE)
       adey<-try(stats::optim(c(alpha2,beta2),QADy,y=y),silent=TRUE)
       adez<-try(stats::optim(c(alpha3,beta3),QADz,z=z),silent=TRUE)
-
       if (is.character(adex)|is.character(adey)|is.character(adez)) {
  stop("Optimization did not converge.Please check your initial parameters.")
       }
@@ -2035,7 +1925,6 @@ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
   Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
-
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -2046,7 +1935,6 @@ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
 EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
-
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -2056,7 +1944,6 @@ EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
 MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
-
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -2070,7 +1957,6 @@ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
 NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
-
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -2086,8 +1972,6 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
   Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
-
-
       J_tpf1<-pG(Jr[1],alpha1,beta1)
       J_tpf2<-(pW(Jr[2],alpha2,beta2)-pW(Jr[1],alpha2,beta2))
       J_tpf3<-(1-pL(Jr[2],alpha3,beta3))
@@ -2103,7 +1987,6 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       M_tpf1<-pG(Mr[1],alpha1,beta1)
       M_tpf2<-(pW(Mr[2],alpha2,beta2)-pW(Mr[1],alpha2,beta2))
       M_tpf3<-(1-pL(Mr[2],alpha3,beta3))
-
       row1<-base::cbind(Jrpar[1],Jrpar[2],J_tpf1,J_tpf2,J_tpf3)
       row2<-base::cbind(EDrpar[1],EDrpar[2],ED_tpf1,ED_tpf2,ED_tpf3)
       row3<-base::cbind(MVrpar[1],MVrpar[2],MV_tpf1,MV_tpf2,MV_tpf3)
@@ -2114,10 +1997,8 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
                              "TPF\u2081","TPF\u2082","TPF\u2083")
       base::rownames(col)<-c("J","ED","MV","NI","M")
       return(col)
-
     }
     else if (method=="CvM") {
-
       QCVx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -2148,7 +2029,6 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       cvx<-try(stats::optim(c(alpha1,beta1),QCVx,x=x),silent=TRUE)
       cvy<-try(stats::optim(c(alpha2,beta2),QCVy,y=y),silent=TRUE)
       cvz<-try(stats::optim(c(alpha3,beta3),QCVz,z=z),silent=TRUE)
-
       if (is.character(cvx)|is.character(cvy)|is.character(cvz)) {
     stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -2168,7 +2048,6 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
   Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
-
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -2179,7 +2058,6 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
 EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
-
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -2190,7 +2068,6 @@ EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
 MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
-
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -2204,7 +2081,6 @@ MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
 NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
-
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -2220,8 +2096,6 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
   Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
-
-
       J_tpf1<-pG(Jr[1],alpha1,beta1)
       J_tpf2<-(pW(Jr[2],alpha2,beta2)-pW(Jr[1],alpha2,beta2))
       J_tpf3<-(1-pL(Jr[2],alpha3,beta3))
@@ -2237,7 +2111,6 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       M_tpf1<-pG(Mr[1],alpha1,beta1)
       M_tpf2<-(pW(Mr[2],alpha2,beta2)-pW(Mr[1],alpha2,beta2))
       M_tpf3<-(1-pL(Mr[2],alpha3,beta3))
-
       row1<-base::cbind(Jrpar[1],Jrpar[2],J_tpf1,J_tpf2,J_tpf3)
       row2<-base::cbind(EDrpar[1],EDrpar[2],ED_tpf1,ED_tpf2,ED_tpf3)
       row3<-base::cbind(MVrpar[1],MVrpar[2],MV_tpf1,MV_tpf2,MV_tpf3)
@@ -2250,7 +2123,6 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       return(col)
     }
     else if (method=="LSE") {
-
       QLSEx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -2281,7 +2153,6 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       lsex<-try(stats::optim(c(alpha1,beta1),QLSEx,x=x),silent=TRUE)
       lsey<-try(stats::optim(c(alpha2,beta2),QLSEy,y=y),silent=TRUE)
       lsez<-try(stats::optim(c(alpha3,beta3),QLSEz,z=z),silent=TRUE)
-
       if (is.character(lsex)|is.character(lsey)|is.character(lsez)) {
      stop("Optimization did not converge.Please check your initial parameters.")
       } else {
@@ -2301,7 +2172,6 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
   Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
-
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -2312,7 +2182,6 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
  EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
-
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -2323,7 +2192,6 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
  MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
-
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -2337,7 +2205,6 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
  NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
-
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -2353,8 +2220,6 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
  Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
-
-
       J_tpf1<-pG(Jr[1],alpha1,beta1)
       J_tpf2<-(pW(Jr[2],alpha2,beta2)-pW(Jr[1],alpha2,beta2))
       J_tpf3<-(1-pL(Jr[2],alpha3,beta3))
@@ -2370,7 +2235,6 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       M_tpf1<-pG(Mr[1],alpha1,beta1)
       M_tpf2<-(pW(Mr[2],alpha2,beta2)-pW(Mr[1],alpha2,beta2))
       M_tpf3<-(1-pL(Mr[2],alpha3,beta3))
-
       row1<-base::cbind(Jrpar[1],Jrpar[2],J_tpf1,J_tpf2,J_tpf3)
       row2<-base::cbind(EDrpar[1],EDrpar[2],ED_tpf1,ED_tpf2,ED_tpf3)
       row3<-base::cbind(MVrpar[1],MVrpar[2],MV_tpf1,MV_tpf2,MV_tpf3)
@@ -2383,8 +2247,6 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       return(col)
     }
     else if (method=="WLSE") {
-
-
       QWLSEx<-function(par,x){
         alpha1<-par[1]
         beta1<-par[2]
@@ -2434,7 +2296,6 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
   Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
-
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -2445,7 +2306,6 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
  EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
-
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -2456,7 +2316,6 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
  MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
-
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -2470,7 +2329,6 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
  NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
-
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -2486,8 +2344,6 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
    Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
-
-
       J_tpf1<-pG(Jr[1],alpha1,beta1)
       J_tpf2<-(pW(Jr[2],alpha2,beta2)-pW(Jr[1],alpha2,beta2))
       J_tpf3<-(1-pL(Jr[2],alpha3,beta3))
@@ -2503,7 +2359,6 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       M_tpf1<-pG(Mr[1],alpha1,beta1)
       M_tpf2<-(pW(Mr[2],alpha2,beta2)-pW(Mr[1],alpha2,beta2))
       M_tpf3<-(1-pL(Mr[2],alpha3,beta3))
-
       row1<-base::cbind(Jrpar[1],Jrpar[2],J_tpf1,J_tpf2,J_tpf3)
       row2<-base::cbind(EDrpar[1],EDrpar[2],ED_tpf1,ED_tpf2,ED_tpf3)
       row3<-base::cbind(MVrpar[1],MVrpar[2],MV_tpf1,MV_tpf2,MV_tpf3)
@@ -2541,7 +2396,6 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
       }
   Jr<-stats::optim(init_index,J,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Jrpar<-c(Jr[1],Jr[2])
-
       ED<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -2552,7 +2406,6 @@ if(any(alpha3<=0)) {stop(paste("alpha3 value must be greater than 0","\n",""))}
       }
 EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       EDrpar<-c(EDr[1],EDr[2])
-
       MV<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -2563,7 +2416,6 @@ EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
  MVr<-stats::optim(init_index,MV,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       MVrpar<-c(MVr[1],MVr[2])
-
       NI<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -2577,7 +2429,6 @@ EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
  NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       NIrpar<-c(NIr[1],NIr[2])
-
       M<-function(cut){
         c1<-cut[1]
         c2<-cut[2]
@@ -2593,8 +2444,6 @@ EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       }
   Mr<-stats::optim(init_index,M,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       Mrpar<-c(Mr[1],Mr[2])
-
-
       J_tpf1<-pG(Jr[1],alpha1,beta1)
       J_tpf2<-(pW(Jr[2],alpha2,beta2)-pW(Jr[1],alpha2,beta2))
       J_tpf3<-(1-pL(Jr[2],alpha3,beta3))
@@ -2610,7 +2459,6 @@ EDr<-stats::optim(init_index,ED,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
       M_tpf1<-pG(Mr[1],alpha1,beta1)
       M_tpf2<-(pW(Mr[2],alpha2,beta2)-pW(Mr[1],alpha2,beta2))
       M_tpf3<-(1-pL(Mr[2],alpha3,beta3))
-
       row1<-base::cbind(Jrpar[1],Jrpar[2],J_tpf1,J_tpf2,J_tpf3)
       row2<-base::cbind(EDrpar[1],EDrpar[2],ED_tpf1,ED_tpf2,ED_tpf3)
       row3<-base::cbind(MVrpar[1],MVrpar[2],MV_tpf1,MV_tpf2,MV_tpf3)
@@ -6460,9 +6308,6 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
     }
   }
 }
-
-
-######## Graph########
 #' ROC Surface Analysis Under the Three-class Problems
 #' @export
 #' @rdname ROCsurf
