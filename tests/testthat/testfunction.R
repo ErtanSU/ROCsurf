@@ -2932,29 +2932,7 @@ test_that("function return a double or list",
 
 
 
-  expect_type(r.tc_graph(x,y,z,
-                         init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
-                                      beta2=beta2,alpha3=alpha3,beta3=beta3),
-                         true_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
-                                      beta2=beta2,alpha3=alpha3,beta3=beta3),
-                         empirical=FALSE,model=c("GWL"),
-                         method=c("CvM")), "list")
 
-  expect_type(r.tc_graph(x,y,z,
-                         init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
-                                      beta2=beta2,alpha3=alpha3,beta3=beta3),
-                         true_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
-                                      beta2=beta2,alpha3=alpha3,beta3=beta3),
-                         empirical=FALSE,model=c("GWL"),
-                         method=c("LSE")), "list")
-
-  expect_type(r.tc_graph(x,y,z,
-                         init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
-                                      beta2=beta2,alpha3=alpha3,beta3=beta3),
-                         true_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
-                                      beta2=beta2,alpha3=alpha3,beta3=beta3),
-                         empirical=FALSE,model=c("GWL"),
-                         method=c("WLSE")), "list")
 
 
 
@@ -3557,7 +3535,29 @@ test_that("function return a double or list",
                          empirical=FALSE,model=c("GWL"),
                          method=c("AD")), "list")
 
+  expect_type(r.tc_graph(x,y,z,
+                         init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
+                                      beta2=beta2,alpha3=alpha3,beta3=beta3),
+                         true_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
+                                      beta2=beta2,alpha3=alpha3,beta3=beta3),
+                         empirical=FALSE,model=c("GWL"),
+                         method=c("CvM")), "list")
 
+  expect_type(r.tc_graph(x,y,z,
+                         init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
+                                      beta2=beta2,alpha3=alpha3,beta3=beta3),
+                         true_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
+                                      beta2=beta2,alpha3=alpha3,beta3=beta3),
+                         empirical=FALSE,model=c("GWL"),
+                         method=c("LSE")), "list")
+
+  expect_type(r.tc_graph(x,y,z,
+                         init_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
+                                      beta2=beta2,alpha3=alpha3,beta3=beta3),
+                         true_param=c(alpha1=alpha1,beta1=beta1,alpha2=alpha2,
+                                      beta2=beta2,alpha3=alpha3,beta3=beta3),
+                         empirical=FALSE,model=c("GWL"),
+                         method=c("WLSE")), "list")
 
 
  }
