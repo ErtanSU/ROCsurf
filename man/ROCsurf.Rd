@@ -160,7 +160,83 @@ classification problems. The volume under the ROC surface and true positive
 fractions values are evaulated by ROC surface analysis.
 }
 \details{
-dsadasd
+The Gamma, Weibull, and Logistic distributions are widely used in statistical
+modeling and analysis. Below are the descriptions of their probability
+density functions (PDF), cumulative distribution functions (CDF), and
+quantile functions, including their parameter constraints.
+
+\strong{Gamma Distribution}
+
+The Gamma distribution is a continuous probability distribution characterized
+by its shape (\eqn{\alpha}) and scale (\eqn{\beta}) parameters. It is
+commonly used to model waiting times or lifetimes of objects.
+\itemize{
+\item \strong{Probability Density Function (PDF)}:
+\deqn{f(x; \alpha, \beta) = \frac{1}{\Gamma(\alpha) \beta^\alpha}
+  x^{\alpha - 1} \exp\left(-\frac{x}{\beta}\right),{x > 0}}
+,where \eqn{\alpha > 0} and \eqn{\beta > 0}.
+\item \strong{Cumulative Distribution Function (CDF)}:
+\deqn{F(x; \alpha, \beta) = \frac{1}{\Gamma(\alpha)}
+  \gamma\left(\alpha, \frac{x}{\beta}\right)}
+,where \eqn{\gamma(\alpha, x/\beta)} is the lower incomplete Gamma function.
+\item \strong{Quantile Function}:
+
+The quantile function is the inverse of the CDF, denoted as
+\eqn{Q(p; \alpha, \beta) = F^{-1}(p; \alpha, \beta)}
+,where \eqn{0 < p < 1}.
+}
+
+\strong{Weibull Distribution}
+
+The Weibull distribution is used in reliability analysis and failure time
+analysis, characterized by its shape (\eqn{\alpha}) and scale (\eqn{\beta})
+parameters.
+\itemize{
+\item \strong{Probability Density Function (PDF)}:
+\deqn{f(x; \alpha, \beta) = \frac{\alpha}{\beta}
+  \left( \frac{x}{\beta} \right)^{\alpha - 1}
+  \exp\left( - \left( \frac{x}{\beta} \right)^\alpha \right), {x \geq 0}}
+,where \eqn{\alpha > 0}, and \eqn{\beta > 0}.
+\item \strong{Cumulative Distribution Function (CDF)}:
+\deqn{F(x; \alpha, \beta) = 1 - \exp\left( - \left( \frac{x}{\beta}
+  \right)^\alpha \right)}
+,where \eqn{\alpha > 0}, and \eqn{\beta > 0}.
+\item \strong{Quantile Function}:
+\deqn{Q(p; \alpha, \beta) = \beta \left( -\log(1 - p) \right)^{1/\alpha}}
+,where \eqn{0 < p < 1}, \eqn{\alpha > 0}, and \eqn{\beta > 0}.
+}
+
+\strong{Logistic Distribution}
+
+The Logistic distribution is used for growth models and logistic regression,
+characterized by its location (\eqn{\alpha}) and scale (\eqn{\beta})
+parameters.
+\itemize{
+\item \strong{Probability Density Function (PDF)}:
+\deqn{f(x; \alpha, \beta) = \frac{\exp \left( - \frac{x - \alpha}{\beta}
+  \right)}{\beta \left( 1 + \exp \left( - \frac{x - \alpha}{\beta} \right)
+  \right)^2},{-\infty < x < \infty}}
+,where \eqn{\alpha \in \mathbb{R}}, and \eqn{\beta > 0}.
+\item \strong{Cumulative Distribution Function (CDF)}:
+\deqn{F(x; \alpha, \beta) = \frac{1}{1 +
+  \exp \left( - \frac{x - \alpha}{\beta} \right)}}
+,where \eqn{\alpha \in \mathbb{R}}, and \eqn{\beta > 0}.
+\item \strong{Quantile Function}:
+\deqn{Q(p; \alpha, \beta) = \alpha + \beta \log
+  \left( \frac{p}{1 - p} \right)}
+,where \eqn{0 < p < 1}, \eqn{\alpha \in \mathbb{R}}, and \eqn{\beta > 0}.
+}
+
+Additionally, the estimation methods Anderson-Darling "AD", Cramér-von Mises
+"CvM", least squares "LS" and weighted least squares "WLS" as well as the
+"TRUE" option for the true value, are available. Please note that the default
+value for the method parameter is maximum likelihood "ML" estimation. Also,
+models such as "GWL," "WWW," and "WGW" are defined for evaluating ROC surface
+analysis under three-class classification problems.
+
+The cut-off point values corresponding to the generalized Youden's J index
+(J), The Perfection method (PM), The Maximum Volume (MV), and the newly
+proposed indices (NI, M) are provided.
 }
 \examples{
 dG(c(1,2,3,4,5,200,1000),alpha=6,beta=.8)
@@ -201,5 +277,40 @@ r.tc_graph(x=x,y=y,z=z,
           method=c("MLE"))
 }
 \references{
-asdasda
+Akgenç, E., and Kuş, C., 2023,
+\emph{Statistical Inference for ROC Surface Analysis Under the Three-Class}
+\emph{Problems},
+7th International Congress of Researchers, Statisticians and
+Young Statisticians (IRSYSC-2023).
+
+B. R. Mosier and L. E. Bantis., 2021,
+\emph{Estimation and construction of confidence intervals for biomarker}
+\emph{cutoff-points under the shortest euclidean distance from the roc surface to}
+\emph{the perfection corner},
+Statistics in medicine, 40(20):4522–4539.
+
+G. Jameson., 2016,
+\emph{The incomplete gamma functions.},
+The Mathematical Gazette, 100(548):298–306.
+
+T. Dong., 2014,
+\emph{Selected Topics on Statistical Methods for Three and Multiple Class}
+\emph{Diagnostic Studies},
+State University of New York at Buffalo.
+
+J. Luo and C. Xiong., 2013,
+\emph{Youden index and associated cut-points for three ordinal diagnostic groups},
+Communications in Statistics-Simulation and Computation, 42(6):1213–1234.
+
+F. Edition, A. Papoulis, and S. U. Pillai., 2002,
+\emph{Pobability, random variables, and stochastic processes},
+McGraw-Hill Europe: New York, NY, USA.
+
+A. J. Hallinan Jr., 1993,
+\emph{A review of the weibull distribution},
+Journal of Quality Technology, 25(2):85–93.
+
+N. Balakrishnan., 1991,
+\emph{Handbook of the logistic distribution},
+CRC Press.
 }
