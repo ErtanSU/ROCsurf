@@ -8,7 +8,6 @@
 [![codecov](https://codecov.io/gh/ErtanSU/ROCsurf/graph/badge.svg?token=H5HIYVDUZU)](https://codecov.io/gh/ErtanSU/ROCsurf)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ROCsurf)](https://cran.r-project.org/package=ROCsurf)
 [![license](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
-[![R-CMD-check](https://github.com/ErtanSU/ROCsurf/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ErtanSU/ROCsurf/actions/workflows/R-CMD-check.yaml)
 
 <!-- badges: end -->
 
@@ -68,14 +67,14 @@ qL(c(.9971,0.5,0.3),alpha=1,beta=.1)
 ``` r
 library(ROCsurf)
 rG(10,alpha=6,beta=.8)
-#>  [1] 1.791818 6.337285 6.154371 1.421470 6.874508 1.743220 3.377132 5.606117
-#>  [9] 3.229836 5.836063
+#>  [1] 2.215942 2.625282 2.814375 3.759555 6.524415 3.009523 3.827702 4.997331
+#>  [9] 3.498046 6.151919
 rW(10,alpha=1,beta=2)
-#>  [1] 0.5084683 1.1131298 0.5159816 2.8981276 7.6077089 0.0482587 0.7151764
-#>  [8] 0.8076606 0.8501073 2.4907784
+#>  [1] 0.5646110 2.9460408 2.6506488 0.0704365 1.4130386 4.5403536 3.7305623
+#>  [8] 0.6118380 5.3963534 4.2258306
 rL(10,alpha=1,beta=.1)
-#>  [1] 1.1748578 0.8978161 0.8795462 0.8125501 0.8982312 0.8145896 1.1170454
-#>  [8] 1.1718585 1.1167357 1.0035532
+#>  [1] 0.9882164 1.1888883 1.1969419 0.9034381 0.9066474 1.0475909 1.2108529
+#>  [8] 1.1383188 0.9934923 0.6338403
 ```
 
 ``` r
@@ -87,7 +86,7 @@ r.tc_vus(x=x,y=y,z=z,
          init_param=c(alpha1=2,beta1=1,alpha2=2,beta2=2,
                       alpha3=6,beta3=9),
          model=c("WGW"), method=c("MLE"))
-#> [1] 0.8584704
+#> [1] 0.8562788
 ```
 
 ``` r
@@ -102,11 +101,11 @@ r.tc_index(x=x,y=y,z=z,
            model=c("WGW"),
            method=c("MLE"))
 #>          c₁       c₂      TPF₁      TPF₂      TPF₃
-#> J  1.668432 5.891920 0.9568922 0.5656381 0.9096549
-#> ED 1.352208 6.638779 0.8704804 0.6713118 0.8325932
-#> MV 1.538547 6.267343 0.9302566 0.6158425 0.8752469
-#> NI 1.558883 6.242611 0.9351424 0.6107098 0.8777731
-#> M  1.419640 6.505558 0.8954683 0.6517717 0.8489283
+#> J  1.859336 6.162297 0.9696083 0.5654497 0.8924094
+#> ED 1.529484 6.858402 0.8920440 0.6656301 0.8126283
+#> MV 1.742580 6.544092 0.9506067 0.6142401 0.8525895
+#> NI 1.765875 6.528821 0.9550207 0.6099822 0.8543615
+#> M  1.614679 6.745411 0.9197559 0.6466063 0.8277688
 ```
 
 In that case, don’t forget to commit and push the resulting figure
