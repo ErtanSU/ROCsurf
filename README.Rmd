@@ -29,11 +29,11 @@ three-class problems.
 
 ## Installation
 
-You can install the development version of PLindleyROC via the following code:
+You can install the development version of ROCsurf via the following code:
   
   ``` r
 # install.packages("devtools")
-devtools::install_github("ErtanSU/PLindleyROC")
+devtools::install_github("ErtanSU/ROCsurf")
 ```
 
 ## Example
