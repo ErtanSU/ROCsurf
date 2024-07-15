@@ -95,14 +95,14 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ErtanSU/ROCsurf" class="external-link">ROCsurf</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/ROCsurf.html">rG</a></span><span class="op">(</span><span class="fl">10</span>,alpha<span class="op">=</span><span class="fl">6</span>,beta<span class="op">=</span><span class="fl">.8</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] 8.597474 1.678268 4.419629 6.115375 3.639455 6.145547 2.417961 5.162764</span></span>
-<span><span class="co">#&gt;  [9] 3.917949 2.039929</span></span>
+<span><span class="co">#&gt;  [1] 2.229604 5.533200 4.516500 3.290842 4.738819 3.551156 6.321753 3.569248</span></span>
+<span><span class="co">#&gt;  [9] 3.058775 4.498599</span></span>
 <span><span class="fu"><a href="reference/ROCsurf.html">rW</a></span><span class="op">(</span><span class="fl">10</span>,alpha<span class="op">=</span><span class="fl">1</span>,beta<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] 1.458332 1.549206 1.805301 2.919549 3.180939 2.008597 1.954462 1.176882</span></span>
-<span><span class="co">#&gt;  [9] 2.410376 2.659238</span></span>
+<span><span class="co">#&gt;  [1] 1.7962977 1.4979900 0.5206925 4.1340848 2.4696339 2.1132608 0.6727031</span></span>
+<span><span class="co">#&gt;  [8] 0.9471544 1.5955921 2.2898080</span></span>
 <span><span class="fu"><a href="reference/ROCsurf.html">rL</a></span><span class="op">(</span><span class="fl">10</span>,alpha<span class="op">=</span><span class="fl">1</span>,beta<span class="op">=</span><span class="fl">.1</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] 1.1568234 0.9723663 0.9305580 0.9932883 1.0127382 1.0554698 0.9293851</span></span>
-<span><span class="co">#&gt;  [8] 1.5640994 1.2884745 1.0128523</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] 1.1181227 0.8146394 0.9767240 0.9238086 1.2244984 1.0066900 0.8971379</span></span>
+<span><span class="co">#&gt;  [8] 1.1427350 1.1334434 0.9727337</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ErtanSU/ROCsurf" class="external-link">ROCsurf</a></span><span class="op">)</span></span>
 <span><span class="va">x</span><span class="op">&lt;-</span><span class="fu"><a href="reference/ROCsurf.html">rW</a></span><span class="op">(</span><span class="fl">100</span>,  <span class="fl">2</span>,  <span class="fl">1</span><span class="op">)</span></span>
@@ -112,7 +112,7 @@
 <span>         init_param<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>alpha1<span class="op">=</span><span class="fl">2</span>,beta1<span class="op">=</span><span class="fl">1</span>,alpha2<span class="op">=</span><span class="fl">2</span>,beta2<span class="op">=</span><span class="fl">2</span>,</span>
 <span>                      alpha3<span class="op">=</span><span class="fl">6</span>,beta3<span class="op">=</span><span class="fl">9</span><span class="op">)</span>,</span>
 <span>         model<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"WGW"</span><span class="op">)</span>, method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"MLE"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.8107152</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0.7693968</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ErtanSU/ROCsurf" class="external-link">ROCsurf</a></span><span class="op">)</span></span>
 <span><span class="va">x</span><span class="op">&lt;-</span> <span class="fu"><a href="reference/ROCsurf.html">rW</a></span><span class="op">(</span><span class="fl">100</span>,  <span class="fl">2</span>,  <span class="fl">1</span><span class="op">)</span></span>
@@ -125,11 +125,11 @@
 <span>           model<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"WGW"</span><span class="op">)</span>,</span>
 <span>           method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"MLE"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;          c₁       c₂      TPF₁      TPF₂      TPF₃</span></span>
-<span><span class="co">#&gt; J  1.789605 5.906679 0.9467974 0.5346826 0.9299966</span></span>
-<span><span class="co">#&gt; ED 1.437977 6.687991 0.8484037 0.6485501 0.8484289</span></span>
-<span><span class="co">#&gt; MV 1.621761 6.279085 0.9097207 0.5906839 0.8971593</span></span>
-<span><span class="co">#&gt; NI 1.641979 6.242775 0.9150538 0.5846827 0.9008124</span></span>
-<span><span class="co">#&gt; M  1.508386 6.521586 0.8747711 0.6262105 0.8700057</span></span></code></pre></div>
+<span><span class="co">#&gt; J  1.761957 6.112025 0.9564425 0.6139793 0.9121331</span></span>
+<span><span class="co">#&gt; ED 1.465605 6.753514 0.8804533 0.7082242 0.8458171</span></span>
+<span><span class="co">#&gt; MV 1.651417 6.405865 0.9349737 0.6549168 0.8852170</span></span>
+<span><span class="co">#&gt; NI 1.666884 6.387594 0.9384126 0.6510780 0.8870540</span></span>
+<span><span class="co">#&gt; M  1.522146 6.651374 0.8998216 0.6927439 0.8582925</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
