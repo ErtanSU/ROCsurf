@@ -2,7 +2,7 @@ pandoc: 3.1.11
 pkgdown: 2.1.0
 pkgdown_sha: ~
 articles: {}
-last_built: 2024-07-15T13:23Z
+last_built: 2024-07-15T13:25Z
 urls:
-  reference: file:///C:/Users/stati/Documents/ROCsurf/reference
-  article: file:///C:/Users/stati/Documents/ROCsurf/articles
+  reference: C:/Users/stati/Documents/ROCsurf/docs/index.html/reference
+  article: C:/Users/stati/Documents/ROCsurf/docs/index.html/articles
