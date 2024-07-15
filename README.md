@@ -8,7 +8,7 @@
 [![codecov](https://codecov.io/gh/ErtanSU/ROCsurf/graph/badge.svg?token=H5HIYVDUZU)](https://codecov.io/gh/ErtanSU/ROCsurf)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ROCsurf)](https://cran.r-project.org/package=ROCsurf)
 [![license](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
-[![R-CMD-check](https://github.com/ErtanSU/PLindleyROC/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ErtanSU/ROCsurf/blob/master/.github/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/ErtanSU/ROCsurf/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ErtanSU/ROCsurf/blob/master/.github/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The objective of this project is to assess the Receiver Operating
@@ -67,14 +67,14 @@ qL(c(.9971,0.5,0.3),alpha=1,beta=.1)
 ``` r
 library(ROCsurf)
 rG(10,alpha=6,beta=.8)
-#>  [1]  6.480076  1.563707  4.122328  6.232049  2.960167  3.279742  1.827498
-#>  [8] 11.275435  3.997641  4.665298
+#>  [1] 4.428023 3.534753 5.082216 2.404225 7.124443 6.242109 5.983309 3.761754
+#>  [9] 6.617598 2.615825
 rW(10,alpha=1,beta=2)
-#>  [1]  1.1641289  0.5467737  0.3635060  1.8343356  8.3803635  1.0839358
-#>  [7]  3.5669095  3.7346150  0.4715642 12.2295040
+#>  [1] 4.1926972 4.0476367 1.6208758 2.2825966 1.1755934 1.2845108 0.5863001
+#>  [8] 1.6351062 0.3040499 1.9580643
 rL(10,alpha=1,beta=.1)
-#>  [1] 1.1177103 1.1735510 0.9393092 1.0632081 1.0255950 0.8362835 1.2891692
-#>  [8] 1.0644864 1.0140761 1.0884691
+#>  [1] 0.9313767 1.0327369 0.8644215 0.4577340 1.2076606 1.0019318 1.1077087
+#>  [8] 1.0295012 1.0143263 0.9720992
 ```
 
 ``` r
@@ -86,7 +86,7 @@ r.tc_vus(x=x,y=y,z=z,
          init_param=c(alpha1=2,beta1=1,alpha2=2,beta2=2,
                       alpha3=6,beta3=9),
          model=c("WGW"), method=c("MLE"))
-#> [1] 0.8542693
+#> [1] 0.798082
 ```
 
 ``` r
@@ -101,9 +101,9 @@ r.tc_index(x=x,y=y,z=z,
            model=c("WGW"),
            method=c("MLE"))
 #>          c₁       c₂      TPF₁      TPF₂      TPF₃
-#> J  1.748418 6.075302 0.9402413 0.5723015 0.9271455
-#> ED 1.419647 6.843862 0.8502104 0.6798343 0.8544217
-#> MV 1.595530 6.419630 0.9064149 0.6232143 0.8992800
-#> NI 1.612879 6.384815 0.9108946 0.6178527 0.9024242
-#> M  1.477729 6.692232 0.8710607 0.6609341 0.8718946
+#> J  1.678794 5.732331 0.9373639 0.5763028 0.9281516
+#> ED 1.371090 6.446922 0.8477852 0.6834083 0.8568971
+#> MV 1.534029 6.047085 0.9029358 0.6270178 0.9013619
+#> NI 1.549859 6.013700 0.9073136 0.6216776 0.9045250
+#> M  1.423787 6.305220 0.8677357 0.6648923 0.8740979
 ```
