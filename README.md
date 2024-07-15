@@ -8,6 +8,7 @@
 [![codecov](https://codecov.io/gh/ErtanSU/ROCsurf/graph/badge.svg?token=H5HIYVDUZU)](https://codecov.io/gh/ErtanSU/ROCsurf)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ROCsurf)](https://cran.r-project.org/package=ROCsurf)
 [![license](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
+[![R-CMD-check](https://github.com/ErtanSU/PLindleyROC/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ErtanSU/ROCsurf/blob/master/.github/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The objective of this project is to assess the Receiver Operating
@@ -66,14 +67,14 @@ qL(c(.9971,0.5,0.3),alpha=1,beta=.1)
 ``` r
 library(ROCsurf)
 rG(10,alpha=6,beta=.8)
-#>  [1] 2.947321 4.284111 3.752156 4.628105 7.049766 3.796103 5.916016 6.313722
-#>  [9] 3.218832 6.413371
+#>  [1]  6.480076  1.563707  4.122328  6.232049  2.960167  3.279742  1.827498
+#>  [8] 11.275435  3.997641  4.665298
 rW(10,alpha=1,beta=2)
-#>  [1] 4.2941793 1.3024275 1.6256344 2.2767447 0.5876361 0.1946768 0.6303406
-#>  [8] 0.9892298 2.1723072 3.1362066
+#>  [1]  1.1641289  0.5467737  0.3635060  1.8343356  8.3803635  1.0839358
+#>  [7]  3.5669095  3.7346150  0.4715642 12.2295040
 rL(10,alpha=1,beta=.1)
-#>  [1] 1.0127002 1.0507191 0.9089083 0.8247501 1.0133058 1.0440199 1.0392611
-#>  [8] 1.3791002 0.9626443 1.2942707
+#>  [1] 1.1177103 1.1735510 0.9393092 1.0632081 1.0255950 0.8362835 1.2891692
+#>  [8] 1.0644864 1.0140761 1.0884691
 ```
 
 ``` r
@@ -85,7 +86,7 @@ r.tc_vus(x=x,y=y,z=z,
          init_param=c(alpha1=2,beta1=1,alpha2=2,beta2=2,
                       alpha3=6,beta3=9),
          model=c("WGW"), method=c("MLE"))
-#> [1] 0.8564168
+#> [1] 0.8542693
 ```
 
 ``` r
@@ -100,9 +101,9 @@ r.tc_index(x=x,y=y,z=z,
            model=c("WGW"),
            method=c("MLE"))
 #>          c₁       c₂      TPF₁      TPF₂      TPF₃
-#> J  1.725011 5.919248 0.9413197 0.5947946 0.9323767
-#> ED 1.439433 6.656768 0.8534921 0.6963518 0.8667948
-#> MV 1.597019 6.222464 0.9094661 0.6404481 0.9094991
-#> NI 1.609912 6.192341 0.9131844 0.6359869 0.9120103
-#> M  1.486130 6.511414 0.8722036 0.6794038 0.8824963
+#> J  1.748418 6.075302 0.9402413 0.5723015 0.9271455
+#> ED 1.419647 6.843862 0.8502104 0.6798343 0.8544217
+#> MV 1.595530 6.419630 0.9064149 0.6232143 0.8992800
+#> NI 1.612879 6.384815 0.9108946 0.6178527 0.9024242
+#> M  1.477729 6.692232 0.8710607 0.6609341 0.8718946
 ```
