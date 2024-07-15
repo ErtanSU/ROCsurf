@@ -16,40 +16,83 @@ knitr::opts_chunk$set(
 # ROCsurf
 
 <!-- badges: start -->
+[![codecov](https://codecov.io/gh/ErtanSU/ROCsurf/graph/badge.svg?token=H5HIYVDUZU)](https://codecov.io/gh/ErtanSU/ROCsurf)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ROCsurf)](https://cran.r-project.org/package=ROCsurf)
+[![license](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
+[![R-CMD-check](https://github.com/ErtanSU/ROCsurf/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ErtanSU/ROCsurf/actions/workflows/R-CMD-check.yaml)
+
 <!-- badges: end -->
 
-The goal of ROCsurf is to ...
+The objective of this project is to assess the Receiver Operating Characteristic
+(ROC) surfaces for Gamma, Weibull, and Logistic distributions. Additionally, it 
+supports performance evaluations linked to these ROC surfaces in the context of 
+three-class problems.
 
 ## Installation
 
-You can install the development version of ROCsurf from [GitHub](https://github.com/) with:
-
-``` r
+You can install the development version of PLindleyROC via the following code:
+  
+  ``` r
 # install.packages("devtools")
-devtools::install_github("ErtanSU/ROCsurf")
+devtools::install_github("ErtanSU/PLindleyROC")
 ```
 
 ## Example
 
 This is a basic example which shows you how to solve a common problem:
-
-```{r example}
+  
+```{r}
 library(ROCsurf)
-## basic example code
+dG(c(1,2,3,4,5,200,1000),alpha=6,beta=.8)
+dW(c(1,2,3,4,5,200,10000),alpha=1,beta=2)
+dL(c(1,2,3,4,5,200),alpha=1,beta=.1)
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
-
-```{r cars}
-summary(cars)
+```{r}
+library(ROCsurf)
+pG(c(.5,1,2,3,4,25),alpha=6,beta=.8)
+pW(c(.5,1,2,3,4,100),alpha=1,beta=2)
+pL(c(.5,1,2,100),alpha=1,beta=.1)
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
+```{r}
+library(ROCsurf)
+qG(c(.9971,0.5,0.3),alpha=6,beta=.8)
+qW(c(.9971,0.5,0.3),alpha=1,beta=2)
+qL(c(.9971,0.5,0.3),alpha=1,beta=.1)
 ```
+
+```{r}
+library(ROCsurf)
+rG(10,alpha=6,beta=.8)
+rW(10,alpha=1,beta=2)
+rL(10,alpha=1,beta=.1)
+```
+
+```{r}
+library(ROCsurf)
+x<-rW(100,  2,  1)
+y <- rG(100,  2, 2)
+z <- rW(100,  6,  9)
+r.tc_vus(x=x,y=y,z=z,
+         init_param=c(alpha1=2,beta1=1,alpha2=2,beta2=2,
+                      alpha3=6,beta3=9),
+         model=c("WGW"), method=c("MLE"))
+```
+
+```{r}
+library(ROCsurf)
+x<- rW(100,  2,  1)
+y <- rG(100,  2, 2)
+z <- rW(100,  6,  9)
+r.tc_index(x=x,y=y,z=z,
+           init_param=c(alpha1=2,beta1=1,alpha2=2,
+                        beta2=2,alpha3=6,beta3=9),
+           init_index=c(median(x),median(y)),
+           model=c("WGW"),
+           method=c("MLE"))
+```
+
+
 
 In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
