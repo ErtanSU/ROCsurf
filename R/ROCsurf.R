@@ -6435,7 +6435,7 @@ NIr<-stats::optim(init_index,NI,method="L-BFGS-B",lower = -Inf,upper = Inf)$par
 #'r.tc_graph(x=x,y=y,z=z,
 #'           init_param=c(alpha1=2,beta1=1,alpha2=2,
 #'                        beta2=2,alpha3=6,beta3=9),
-#'           empirical=TRUE,model=c("WGW"),
+#'           empirical=FALSE,model=c("WGW"),
 #'           method=c("MLE"))
 r.tc_graph<- function(x,y,z,
               init_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,beta3=1),

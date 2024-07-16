@@ -67,14 +67,14 @@ qL(c(.9971,0.5,0.3),alpha=1,beta=.1)
 ``` r
 library(ROCsurf)
 rG(10,alpha=6,beta=.8)
-#>  [1] 2.229604 5.533200 4.516500 3.290842 4.738819 3.551156 6.321753 3.569248
-#>  [9] 3.058775 4.498599
+#>  [1] 5.272528 5.509763 3.795309 4.492258 3.757816 7.484268 6.182744 3.850884
+#>  [9] 5.527822 4.379059
 rW(10,alpha=1,beta=2)
-#>  [1] 1.7962977 1.4979900 0.5206925 4.1340848 2.4696339 2.1132608 0.6727031
-#>  [8] 0.9471544 1.5955921 2.2898080
+#>  [1] 0.5791635 1.8855899 0.8235065 0.8080498 1.7307457 6.8332707 1.5619964
+#>  [8] 2.6288693 0.5596734 3.5669212
 rL(10,alpha=1,beta=.1)
-#>  [1] 1.1181227 0.8146394 0.9767240 0.9238086 1.2244984 1.0066900 0.8971379
-#>  [8] 1.1427350 1.1334434 0.9727337
+#>  [1] 0.9117787 0.9675003 0.9352115 0.8625379 0.9050495 0.7709356 1.1164685
+#>  [8] 1.1698736 1.0013167 0.9536922
 ```
 
 ``` r
@@ -86,7 +86,7 @@ r.tc_vus(x=x,y=y,z=z,
          init_param=c(alpha1=2,beta1=1,alpha2=2,beta2=2,
                       alpha3=6,beta3=9),
          model=c("WGW"), method=c("MLE"))
-#> [1] 0.7693968
+#> [1] 0.8262775
 ```
 
 ``` r
@@ -101,9 +101,65 @@ r.tc_index(x=x,y=y,z=z,
            model=c("WGW"),
            method=c("MLE"))
 #>          c₁       c₂      TPF₁      TPF₂      TPF₃
-#> J  1.761957 6.112025 0.9564425 0.6139793 0.9121331
-#> ED 1.465605 6.753514 0.8804533 0.7082242 0.8458171
-#> MV 1.651417 6.405865 0.9349737 0.6549168 0.8852170
-#> NI 1.666884 6.387594 0.9384126 0.6510780 0.8870540
-#> M  1.522146 6.651374 0.8998216 0.6927439 0.8582925
+#> J  1.754953 6.077678 0.9537033 0.5672347 0.9307160
+#> PM 1.442552 6.849509 0.8624713 0.6718146 0.8559123
+#> MV 1.620859 6.423702 0.9237116 0.6147205 0.9023748
+#> NI 1.636500 6.395858 0.9278479 0.6101273 0.9049467
+#> M  1.503269 6.696371 0.8864057 0.6523600 0.8742248
 ```
+
+``` r
+library(ROCsurf)
+x<- rW(100,  2,  1)
+y <- rG(100,  2, 2)
+z <- rW(100,  6,  9)
+r.tc_graph(x=x,y=y,z=z,
+           init_param=c(alpha1=2,beta1=1,alpha2=2,
+                        beta2=2,alpha3=6,beta3=9),
+           empirical=FALSE,model=c("WGW"),
+           method=c("MLE"))
+```
+
+<figure>
+<img src="C:/Users/stati/Desktop/plot.png" alt="Plot Example" />
+<figcaption aria-hidden="true">Plot Example</figcaption>
+</figure>
+
+## Corresponding Author
+
+Department of Statistics, Faculty of Science, Selcuk University, 42250,
+Konya, Turkey <br />
+
+Email:<https://www.researchgate.net/profile/Ertan-Akgenc>
+
+## References
+
+Akgenç, E., and Kuş, C., 2023, Statistical Inference for ROC Surface
+Analysis Under the Three-Class Problems, 7th International Congress of
+Researchers, Statisticians and Young Statisticians (IRSYSC-2023).
+
+B. R. Mosier and L. E. Bantis., 2021, Estimation and construction of
+confidence intervals for biomarker cutoff-points under the shortest
+euclidean distance from the roc surface to the perfection corner,
+Statistics in medicine, 40(20):4522–4539.
+
+G. Jameson., 2016, The incomplete gamma functions., The Mathematical
+Gazette, 100(548):298–306.
+
+T. Dong., 2014, Selected Topics on Statistical Methods for Three and
+Multiple Class Diagnostic Studies, State University of New York at
+Buffalo.
+
+J. Luo and C. Xiong., 2013, Youden index and associated cut-points for
+three ordinal diagnostic groups, Communications in Statistics-Simulation
+and Computation, 42(6):1213–1234.
+
+F. Edition, A. Papoulis, and S. U. Pillai., 2002, Pobability, random
+variables, and stochastic processes, McGraw-Hill Europe: New York, NY,
+USA.
+
+A. J. Hallinan Jr., 1993, A review of the weibull distribution, Journal
+of Quality Technology, 25(2):85–93.
+
+N. Balakrishnan., 1991, Handbook of the logistic distribution, CRC
+Press.

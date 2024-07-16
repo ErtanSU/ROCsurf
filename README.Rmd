@@ -92,4 +92,49 @@ r.tc_index(x=x,y=y,z=z,
            method=c("MLE"))
 ```
 
+```{r eval=FALSE}
+library(ROCsurf)
+x<- rW(100,  2,  1)
+y <- rG(100,  2, 2)
+z <- rW(100,  6,  9)
+r.tc_graph(x=x,y=y,z=z,
+           init_param=c(alpha1=2,beta1=1,alpha2=2,
+                        beta2=2,alpha3=6,beta3=9),
+           empirical=FALSE,model=c("WGW"),
+           method=c("MLE"))
+```
 
+![Plot Example](C:/Users/stati/Desktop/plot.png)
+
+## Corresponding Author
+
+Department of Statistics, Faculty of Science, Selcuk University, 42250, Konya, Turkey  <br />
+
+Email:https://www.researchgate.net/profile/Ertan-Akgenc
+
+## References
+Akgenç, E., and Kuş, C., 2023, Statistical Inference for ROC Surface Analysis 
+Under the Three-Class Problems, 7th International Congress of Researchers, 
+Statisticians and Young Statisticians (IRSYSC-2023).
+
+B. R. Mosier and L. E. Bantis., 2021, Estimation and construction of confidence 
+intervals for biomarker cutoff-points under the shortest euclidean distance 
+from the roc surface to the perfection corner, Statistics in medicine, 
+40(20):4522–4539.
+
+G. Jameson., 2016, The incomplete gamma functions., The Mathematical Gazette, 100(548):298–306.
+
+T. Dong., 2014, Selected Topics on Statistical Methods for Three and Multiple 
+Class Diagnostic Studies, State University of New York at Buffalo.
+
+J. Luo and C. Xiong., 2013, Youden index and associated cut-points for three 
+ordinal diagnostic groups, Communications in Statistics-Simulation and 
+Computation, 42(6):1213–1234.
+
+F. Edition, A. Papoulis, and S. U. Pillai., 2002, Pobability, random variables, 
+and stochastic processes, McGraw-Hill Europe: New York, NY, USA.
+
+A. J. Hallinan Jr., 1993, A review of the weibull distribution, Journal of
+Quality Technology, 25(2):85–93.
+
+N. Balakrishnan., 1991, Handbook of the logistic distribution, CRC Press.
