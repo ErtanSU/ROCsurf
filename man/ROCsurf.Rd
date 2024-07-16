@@ -273,7 +273,7 @@ z <- rW(100,  6,  9)
 r.tc_graph(x=x,y=y,z=z,
           init_param=c(alpha1=2,beta1=1,alpha2=2,
                        beta2=2,alpha3=6,beta3=9),
-          empirical=TRUE,model=c("WGW"),
+          empirical=FALSE,model=c("WGW"),
           method=c("MLE"))
 }
 \references{
