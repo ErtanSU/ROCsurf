@@ -18,3 +18,4 @@ New submission
 I would like to submit my newly developed R package named [ROCsurf] to CRAN. 
 This is my second package, and I have previously submitted a package named 
 [PLindleyROC] to CRAN.
+https://travis-ci.com/ErtanSU/ROCsurf
