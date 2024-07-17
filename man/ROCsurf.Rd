@@ -288,10 +288,12 @@ B. R. Mosier and L. E. Bantis., 2021,
 \emph{cutoff-points under the shortest euclidean distance from the roc surface to}
 \emph{the perfection corner},
 Statistics in medicine, 40(20):4522–4539.
+\url{doi:10.1002/sim.9077}
 
 G. Jameson., 2016,
 \emph{The incomplete gamma functions.},
 The Mathematical Gazette, 100(548):298–306.
+\url{doi:10.1017/mag.2016.67}
 
 T. Dong., 2014,
 \emph{Selected Topics on Statistical Methods for Three and Multiple Class}
@@ -301,6 +303,7 @@ State University of New York at Buffalo.
 J. Luo and C. Xiong., 2013,
 \emph{Youden index and associated cut-points for three ordinal diagnostic groups},
 Communications in Statistics-Simulation and Computation, 42(6):1213–1234.
+\url{doi:10.1080/03610918.2012.661906}
 
 F. Edition, A. Papoulis, and S. U. Pillai., 2002,
 \emph{Pobability, random variables, and stochastic processes},
@@ -309,6 +312,7 @@ McGraw-Hill Europe: New York, NY, USA.
 A. J. Hallinan Jr., 1993,
 \emph{A review of the weibull distribution},
 Journal of Quality Technology, 25(2):85–93.
+\url{doi:10.1080/00224065.1993.11979431}
 
 N. Balakrishnan., 1991,
 \emph{Handbook of the logistic distribution},
