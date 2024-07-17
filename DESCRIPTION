@@ -7,7 +7,7 @@ Authors@R: c(person("Ertan", "Akgenç",,"statistician.ertan@gmail.com",role=c("c
         person("Coşkun", "Kuş",,"coskunkus@gmail.com",role=c("aut","ctb"),
         comment = "https://www.selcuk.edu.tr/Person/Detail/coskun"))   
 Maintainer: Ertan Akgenç <statistician.ertan@gmail.com>
-Description: Receiver Operating Characteristic (ROC) analysis is performed assuming samples are from the proposed distributions. In addition, the volume under the ROC surface and true positive fractions values are evaulated by ROC surface analysis.  
+Description: Receiver Operating Characteristic (ROC) analysis is performed assuming samples are from the proposed distributions. In addition, the volume under the ROC surface and true positive fractions values are evaluated by ROC surface analysis.  
 License: GPL-3
 URL: https://github.com/ErtanSU/ROCsurf, https://ertansu.github.io/ROCsurf/
 BugReports: https://github.com/ErtanSU/ROCsurf/issues
