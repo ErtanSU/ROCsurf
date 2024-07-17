@@ -11,8 +11,8 @@
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="ROC Surface Analysis Under the Three-class Problems">
-<meta name="description" content="Receiver Operating Characteristic (ROC) analysis is performed assuming samples are from the proposed distributions. In addition, the volume under the ROC surface and true positive fractions values are evaulated by ROC surface analysis.">
-<meta property="og:description" content="Receiver Operating Characteristic (ROC) analysis is performed assuming samples are from the proposed distributions. In addition, the volume under the ROC surface and true positive fractions values are evaulated by ROC surface analysis.">
+<meta name="description" content="Receiver Operating Characteristic (ROC) analysis is performed assuming samples are from the proposed distributions. In addition, the volume under the ROC surface and true positive fractions values are evaluated by ROC surface analysis.">
+<meta property="og:description" content="Receiver Operating Characteristic (ROC) analysis is performed assuming samples are from the proposed distributions. In addition, the volume under the ROC surface and true positive fractions values are evaluated by ROC surface analysis.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -95,14 +95,14 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ErtanSU/ROCsurf" class="external-link">ROCsurf</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/ROCsurf.html">rG</a></span><span class="op">(</span><span class="fl">10</span>,alpha<span class="op">=</span><span class="fl">6</span>,beta<span class="op">=</span><span class="fl">.8</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] 5.272528 5.509763 3.795309 4.492258 3.757816 7.484268 6.182744 3.850884</span></span>
-<span><span class="co">#&gt;  [9] 5.527822 4.379059</span></span>
+<span><span class="co">#&gt;  [1] 3.264786 5.449975 4.826864 7.815375 6.376089 6.036311 6.063099 7.697496</span></span>
+<span><span class="co">#&gt;  [9] 3.925905 1.427390</span></span>
 <span><span class="fu"><a href="reference/ROCsurf.html">rW</a></span><span class="op">(</span><span class="fl">10</span>,alpha<span class="op">=</span><span class="fl">1</span>,beta<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] 0.5791635 1.8855899 0.8235065 0.8080498 1.7307457 6.8332707 1.5619964</span></span>
-<span><span class="co">#&gt;  [8] 2.6288693 0.5596734 3.5669212</span></span>
+<span><span class="co">#&gt;  [1] 1.51586471 0.02192177 1.36716763 5.61708221 2.83125606 0.82262442</span></span>
+<span><span class="co">#&gt;  [7] 3.28098909 3.39275979 2.83060327 1.66227585</span></span>
 <span><span class="fu"><a href="reference/ROCsurf.html">rL</a></span><span class="op">(</span><span class="fl">10</span>,alpha<span class="op">=</span><span class="fl">1</span>,beta<span class="op">=</span><span class="fl">.1</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] 0.9117787 0.9675003 0.9352115 0.8625379 0.9050495 0.7709356 1.1164685</span></span>
-<span><span class="co">#&gt;  [8] 1.1698736 1.0013167 0.9536922</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] 1.0477728 1.3124881 1.2300043 1.1123575 1.0605268 0.7724970 0.6699447</span></span>
+<span><span class="co">#&gt;  [8] 1.0815524 0.7525798 0.8223979</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ErtanSU/ROCsurf" class="external-link">ROCsurf</a></span><span class="op">)</span></span>
 <span><span class="va">x</span><span class="op">&lt;-</span><span class="fu"><a href="reference/ROCsurf.html">rW</a></span><span class="op">(</span><span class="fl">100</span>,  <span class="fl">2</span>,  <span class="fl">1</span><span class="op">)</span></span>
@@ -112,7 +112,7 @@
 <span>         init_param<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>alpha1<span class="op">=</span><span class="fl">2</span>,beta1<span class="op">=</span><span class="fl">1</span>,alpha2<span class="op">=</span><span class="fl">2</span>,beta2<span class="op">=</span><span class="fl">2</span>,</span>
 <span>                      alpha3<span class="op">=</span><span class="fl">6</span>,beta3<span class="op">=</span><span class="fl">9</span><span class="op">)</span>,</span>
 <span>         model<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"WGW"</span><span class="op">)</span>, method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"MLE"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.8262775</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0.7823631</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ErtanSU/ROCsurf" class="external-link">ROCsurf</a></span><span class="op">)</span></span>
 <span><span class="va">x</span><span class="op">&lt;-</span> <span class="fu"><a href="reference/ROCsurf.html">rW</a></span><span class="op">(</span><span class="fl">100</span>,  <span class="fl">2</span>,  <span class="fl">1</span><span class="op">)</span></span>
@@ -125,11 +125,11 @@
 <span>           model<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"WGW"</span><span class="op">)</span>,</span>
 <span>           method<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"MLE"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;          c₁       c₂      TPF₁      TPF₂      TPF₃</span></span>
-<span><span class="co">#&gt; J  1.754953 6.077678 0.9537033 0.5672347 0.9307160</span></span>
-<span><span class="co">#&gt; PM 1.442552 6.849509 0.8624713 0.6718146 0.8559123</span></span>
-<span><span class="co">#&gt; MV 1.620859 6.423702 0.9237116 0.6147205 0.9023748</span></span>
-<span><span class="co">#&gt; NI 1.636500 6.395858 0.9278479 0.6101273 0.9049467</span></span>
-<span><span class="co">#&gt; M  1.503269 6.696371 0.8864057 0.6523600 0.8742248</span></span></code></pre></div>
+<span><span class="co">#&gt; J  1.708565 6.234354 0.9639357 0.6062210 0.9107708</span></span>
+<span><span class="co">#&gt; PM 1.396137 6.883726 0.8912954 0.6988419 0.8397436</span></span>
+<span><span class="co">#&gt; MV 1.599323 6.542111 0.9456035 0.6466830 0.8810185</span></span>
+<span><span class="co">#&gt; NI 1.615683 6.526667 0.9487623 0.6432394 0.8826722</span></span>
+<span><span class="co">#&gt; M  1.462864 6.781747 0.9125023 0.6829896 0.8530308</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ErtanSU/ROCsurf" class="external-link">ROCsurf</a></span><span class="op">)</span></span>
 <span><span class="va">x</span><span class="op">&lt;-</span> <span class="fu"><a href="reference/ROCsurf.html">rW</a></span><span class="op">(</span><span class="fl">100</span>,  <span class="fl">2</span>,  <span class="fl">1</span><span class="op">)</span></span>
@@ -198,7 +198,7 @@ Plot Example
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://codecov.io/gh/ErtanSU/ROCsurf" class="external-link"><img src="https://codecov.io/gh/ErtanSU/ROCsurf/graph/badge.svg?token=H5HIYVDUZU" alt="codecov"></a></li>
+<li><a href="https://app.codecov.io/gh/ErtanSU/ROCsurf" class="external-link"><img src="https://codecov.io/gh/ErtanSU/ROCsurf/graph/badge.svg?token=H5HIYVDUZU" alt="codecov"></a></li>
 <li><a href="https://cran.r-project.org/package=ROCsurf" class="external-link"><img src="https://www.r-pkg.org/badges/version/ROCsurf" alt="CRAN_Status_Badge"></a></li>
 <li><a href="https://www.gnu.org/licenses/gpl-3.0.en.html" class="external-link"><img src="https://img.shields.io/badge/license-GPL--3-blue.svg" alt="license"></a></li>
 <li><a href="https://github.com/ErtanSU/ROCsurf/blob/master/.github/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/ErtanSU/ROCsurf/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
