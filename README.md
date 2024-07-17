@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-[![codecov](https://codecov.io/gh/ErtanSU/ROCsurf/graph/badge.svg?token=H5HIYVDUZU)](https://app.codecov.io/gh/ErtanSU/ROCsurf)
+[![codecov](https://codecov.io/gh/ErtanSU/ROCsurf/graph/badge.svg?token=H5HIYVDUZU)](https://app.codecov.io/gh/ErtanSU/ROCsurf/)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ROCsurf)](https://cran.r-project.org/package=ROCsurf)
 [![license](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 [![R-CMD-check](https://github.com/ErtanSU/ROCsurf/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ErtanSU/ROCsurf/blob/master/.github/workflows/R-CMD-check.yaml)
@@ -67,14 +67,14 @@ qL(c(.9971,0.5,0.3),alpha=1,beta=.1)
 ``` r
 library(ROCsurf)
 rG(10,alpha=6,beta=.8)
-#>  [1] 6.680378 5.062741 1.921822 3.388149 5.251536 5.140522 3.946016 4.266371
-#>  [9] 3.782851 2.437197
+#>  [1] 6.342921 5.613297 4.344726 3.548187 4.781843 2.190594 1.504722 8.491058
+#>  [9] 1.787702 2.788674
 rW(10,alpha=1,beta=2)
-#>  [1] 0.6112000 5.7289940 2.5122657 0.6651120 2.2410710 0.1728581 0.6047393
-#>  [8] 2.0885009 1.1552538 0.5646883
+#>  [1] 0.3372294 3.5360746 0.9712284 2.0038895 1.2751727 1.6049933 0.2083131
+#>  [8] 0.0378331 1.0150278 3.3648067
 rL(10,alpha=1,beta=.1)
-#>  [1] 0.9637112 1.0550372 0.9493080 0.8942443 1.0878967 0.6745999 0.9226283
-#>  [8] 0.9349920 1.2511505 1.0038137
+#>  [1] 0.6838594 1.4337235 0.9796567 1.0586671 1.0282047 1.1179200 1.0458565
+#>  [8] 1.1385654 0.9166187 0.8226117
 ```
 
 ``` r
@@ -86,7 +86,7 @@ r.tc_vus(x=x,y=y,z=z,
          init_param=c(alpha1=2,beta1=1,alpha2=2,beta2=2,
                       alpha3=6,beta3=9),
          model=c("WGW"), method=c("MLE"))
-#> [1] 0.7849877
+#> [1] 0.810257
 ```
 
 ``` r
@@ -101,11 +101,11 @@ r.tc_index(x=x,y=y,z=z,
            model=c("WGW"),
            method=c("MLE"))
 #>          c₁       c₂      TPF₁      TPF₂      TPF₃
-#> J  1.675995 6.007941 0.9423232 0.5712459 0.9271948
-#> PM 1.344262 6.755452 0.8541867 0.6780521 0.8524443
-#> MV 1.524441 6.347115 0.9101305 0.6215842 0.8982717
-#> NI 1.541979 6.314435 0.9144824 0.6163484 0.9013969
-#> M  1.404662 6.610439 0.8753634 0.6590783 0.8702099
+#> J  1.765644 6.034736 0.9533556 0.6212299 0.9249205
+#> PM 1.486714 6.668990 0.8760312 0.7143641 0.8606857
+#> MV 1.658977 6.301341 0.9305363 0.6601923 0.9016357
+#> NI 1.671323 6.282483 0.9335618 0.6566622 0.9034494
+#> M  1.535361 6.562809 0.8939014 0.6994002 0.8736471
 ```
 
 ``` r
