@@ -4,7 +4,7 @@
 
 * The workflow has been successfully completed on the following platforms. 
 All updates related to R have been successfully implemented. 
-The test coverage is at 100%. There are no errors, warnings, or notes. 
+The test coverage is at 100%. 
 Platforms:
 1 [VM] linux          R-* (any version)               ubuntu-latest on GitHub
 4 [VM] windows        R-* (any version)              windows-latest on GitHub
