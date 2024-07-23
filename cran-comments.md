@@ -19,5 +19,5 @@ I would like to submit my newly developed R package named [ROCsurf] to CRAN.
 This is my second package, and I have previously submitted a package named 
 [PLindleyROC] to CRAN.
 
-* The functions in tests/testthat/testfunction.R that were causing errors 
+* The functions in tests/testthat/testfunction.R that were causing fails 
 have been reviewed and corrected.
