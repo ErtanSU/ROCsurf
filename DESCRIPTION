@@ -1,7 +1,7 @@
 Package: ROCsurf
 Type: Package
 Title: ROC Surface Analysis Under the Three-Class Problems
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(person("Ertan", "Akgenç",,"statistician.ertan@gmail.com",role=c("cre","aut","cph"),
         comment = "https://www.researchgate.net/profile/Ertan-Akgenc"),
         person("Coşkun", "Kuş",,"coskunkus@gmail.com",role=c("aut","ctb"),
