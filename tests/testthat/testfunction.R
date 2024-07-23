@@ -126,24 +126,24 @@ test_that("Type, length and error checking of rG, rW and rL functions", {
 
 test_that("function return a double or list",
           {
-            expect_type(r.tc_vus(true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,
-                                              alpha3=1,beta3=1),
+        expect_type(r.tc_vus(true_param=c(alpha1=2,beta1=.22,alpha2=8,beta2=.8,
+                                              alpha3=1,beta3=.1),
                                  model=c("GWL"), method=c("TRUE")), "double")
-            expect_type(r.tc_vus(true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,
-                                              alpha3=1,beta3=1),
+          expect_type(r.tc_vus(true_param=c(alpha1=2,beta1=.2,alpha2=5,beta2=.2,
+                                              alpha3=4,beta3=1.9),
                                  model=c("GGW"), method=c("TRUE")), "double")
 
-            expect_type(r.tc_vus(true_param=c(alpha1=1,beta1=1,alpha2=3,beta2=4,
-                                              alpha3=1,beta3=1),
+          expect_type(r.tc_vus(true_param=c(alpha1=1,beta1=2,alpha2=6,beta2=.8,
+                                              alpha3=8,beta3=8),
                                  model=c("WGW"), method=c("TRUE")), "double")
             expect_type(r.tc_vus(true_param=c(alpha1=7,beta1=2,alpha2=7,beta2=3,
                                               alpha3=7,beta3=4),
                                  model=c("WWW"), method=c("TRUE")), "double")
-            expect_type(r.tc_vus(true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,
-                                              alpha3=1,beta3=1),
+            expect_type(r.tc_vus(true_param=c(alpha1=4,beta1=1,alpha2=4,beta2=2,
+                                              alpha3=4,beta3=3),
                                  model=c("GGG"), method=c("TRUE")), "double")
-            expect_type(r.tc_vus(true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,
-                                              alpha3=1,beta3=1),
+         expect_type(r.tc_vus(true_param=c(alpha1=1,beta1=.1,alpha2=2,beta2=.4,
+                                              alpha3=3,beta3=.1),
                                  model=c("LLL"), method=c("TRUE")), "double")
 
             expect_type(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612,
@@ -249,24 +249,24 @@ test_that("function return a double or list",
 
 # Test whether the output contains the right number
 test_that("functions returns a list with the specified length", {
-  expect_length(r.tc_vus(true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,
-                                      alpha3=1,beta3=1),
+  expect_length(r.tc_vus(true_param=c(alpha1=2,beta1=.22,alpha2=8,beta2=.8,
+                                      alpha3=1,beta3=.1),
                          model=c("GWL"), method=c("TRUE")), 1)
-  expect_length(r.tc_vus(true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,
-                                      alpha3=1,beta3=1),
+  expect_length(r.tc_vus(true_param=c(alpha1=2,beta1=.2,alpha2=5,beta2=.2,
+                                      alpha3=4,beta3=1.9),
                          model=c("GGW"), method=c("TRUE")), 1)
 
-  expect_length(r.tc_vus(true_param=c(alpha1=1,beta1=1,alpha2=3,beta2=4,
-                                      alpha3=1,beta3=1),
+  expect_length(r.tc_vus(true_param=c(alpha1=1,beta1=2,alpha2=6,beta2=.8,
+                                      alpha3=8,beta3=8),
                          model=c("WGW"), method=c("TRUE")), 1)
   expect_length(r.tc_vus(true_param=c(alpha1=7,beta1=2,alpha2=7,beta2=3,
                                       alpha3=7,beta3=4),
                          model=c("WWW"), method=c("TRUE")), 1)
-  expect_length(r.tc_vus(true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,
-                                      alpha3=1,beta3=1),
+  expect_length(r.tc_vus(true_param=c(alpha1=4,beta1=1,alpha2=4,beta2=2,
+                                      alpha3=4,beta3=3),
                          model=c("GGG"), method=c("TRUE")), 1)
-  expect_length(r.tc_vus(true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,
-                                      alpha3=1,beta3=1),
+  expect_length(r.tc_vus(true_param=c(alpha1=1,beta1=.1,alpha2=2,beta2=.4,
+                                      alpha3=3,beta3=.1),
                          model=c("LLL"), method=c("TRUE")), 1)
 
   expect_length(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612,
@@ -369,27 +369,27 @@ test_that("functions returns a list with the specified length", {
 # Test whether the output is a vector with the expected size
 test_that("functions returns a  vector with the expected size", {
 
-  expect_vector(r.tc_vus(true_param=c(alpha1=1,beta1=1,alpha2=1,
-                                      beta2=1,alpha3=1,beta3=1),
+  expect_vector(r.tc_vus(true_param=c(alpha1=2,beta1=.22,alpha2=8,beta2=.8,
+                                      alpha3=1,beta3=.1),
                       model=c("GWL"), method=c("TRUE")), ptype=double(),size=1)
-  expect_vector(r.tc_vus(true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,
-                                      alpha3=1,beta3=1),
+  expect_vector(r.tc_vus(true_param=c(alpha1=2,beta1=.2,alpha2=5,beta2=.2,
+                                      alpha3=4,beta3=1.9),
                       model=c("GGW"), method=c("TRUE")), ptype=double(),size=1)
 
-expect_vector(r.tc_vus(true_param=c(alpha1=1,beta1=1,alpha2=3,beta2=4,alpha3=1,
-                                      beta3=1),
+expect_vector(r.tc_vus(true_param=c(alpha1=1,beta1=2,alpha2=6,beta2=.8,
+                                    alpha3=8,beta3=8),
                          model=c("WGW"), method=c("TRUE")), ptype=double(),
               size=1)
 expect_vector(r.tc_vus(true_param=c(alpha1=7,beta1=2,alpha2=7,beta2=3,alpha3=7,
                                     beta3=4),
                          model=c("WWW"), method=c("TRUE")), ptype=double(),
               size=1)
-expect_vector(r.tc_vus(true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,
-                                      beta3=1),
+expect_vector(r.tc_vus(true_param=c(alpha1=4,beta1=1,alpha2=4,beta2=2,alpha3=4,
+                                      beta3=3),
                          model=c("GGG"), method=c("TRUE")), ptype=double(),
               size=1)
-expect_vector(r.tc_vus(true_param=c(alpha1=1,beta1=1,alpha2=1,beta2=1,alpha3=1,
-                                      beta3=1),
+expect_vector(r.tc_vus(true_param=c(alpha1=1,beta1=.1,alpha2=2,beta2=.4,
+                                    alpha3=3,beta3=.1),
                        model=c("LLL"), method=c("TRUE")), ptype=double(),size=1)
 
   expect_vector(r.tc_index(x=c(0.7736414, 1.0131692, 0.8667612,
